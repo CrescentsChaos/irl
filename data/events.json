@@ -1,0 +1,22 @@
+[
+ {"id":"dog","w":1,"at":["street"],"text":"A scruffy stray dog trots up and sits at your feet. It watches you with absolute faith.","choices":[
+  {"label":"Feed it a bit ($3)","req":{"money":3},"x":{"money":-3,"mood":8,"rep":1},"text":"It wolfs the food and leans against your leg."},
+  {"label":"Shoo it away","x":{"mood":-2},"text":"It trots off, looking back once."}]},
+ {"id":"friend","w":1,"at":["street","diner","mart"],"text":"Your phone buzzes. Mara, an old friend from the city: \"Can you spot me $20? Rent's killing me.\"","choices":[
+  {"label":"Send $20","req":{"money":20},"x":{"money":-20,"mood":4,"rep":2},"text":"She sends back a string of hearts."},
+  {"label":"Leave it on read","x":{"mood":-3},"text":"You put the phone away. It stays heavy in your pocket."}]},
+ {"id":"wallet","w":1,"at":["street","mart"],"text":"A brown leather wallet lies on the pavement, a driver's license peeking out.","choices":[
+  {"label":"Return it","x":{"rep":4,"mood":3,"money":10},"text":"The owner is stunned, then grateful. He hands you a ten."},
+  {"label":"Keep the cash","x":{"money":60,"heat":5,"mood":-2},"text":"You pocket the bills and drop the wallet in a bin."}]},
+ {"id":"lunch","w":1,"at":["diner"],"hours":[11,15],"text":"Dolores slides a plate across the counter. \"On the house. You look like you need it.\"","choices":[
+  {"label":"Accept graciously","x":{"hunger":30,"mood":5},"text":"You eat every bite."}]},
+ {"id":"fight","w":1,"at":["alley"],"hours":[18,5],"text":"Two guys block the alley mouth. One cracks his knuckles. \"Wrong place, wrong time.\"","choices":[
+  {"label":"Fight","chance":{"base":0.35,"sk":"fitness","per":0.1},"win":{"text":"You land a few good ones and they back off.","x":{"rep":4,"mood":3,"sk":{"street":0.3}}},"lose":{"text":"They beat you down and take your cash.","x":{"health":-20,"money":-15,"mood":-6}}},
+  {"label":"Walk away","x":{"mood":-2},"text":"You back off and cut across the street, heart hammering."}]},
+ {"id":"blackout","w":1,"at":["room"],"hours":[18,5],"text":"The power cuts out with a pop. Total darkness.","choices":[
+  {"label":"Wait it out","x":{"time":1,"mood":-1},"text":"You sit by the window and listen to the town breathe."}]},
+ {"id":"police","w":3,"at":["street","alley","mart"],"heatMin":30,"text":"A patrol car slows beside you. The officer gets out. \"Got a minute? We've had some reports.\"","choices":[
+  {"label":"Talk your way out","chance":{"base":0.4,"sk":"charisma","per":0.1},"win":{"text":"Smiles, shrugs, a plausible story. He lets you go.","x":{"heat":-25}},"lose":{"text":"He isn't buying it. Cuffs click on your wrists.","x":{"time":10,"money":-40,"heat":-100,"mood":-10,"rep":-5}}},
+  {"label":"Run for it","chance":{"base":0.3,"sk":"fitness","per":0.12},"win":{"text":"You vault a fence and lose them in the alleys.","x":{"heat":-10,"energy":-15}},"lose":{"text":"A tackle ends the chase. A cold cell, a long night.","x":{"time":10,"money":-40,"heat":-100,"mood":-10,"rep":-5,"health":-8}}},
+  {"label":"Offer a bribe ($50)","req":{"money":50},"x":{"money":-50,"heat":-30},"text":"The envelope vanishes. \"Have a good evening.\""}]}
+]

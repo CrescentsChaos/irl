@@ -1,5 +1,11 @@
 {
-  "Remote Office": [{"name":"Data entry","pay":45,"hours":4,"energy":15,"hunger":10}],
-  "Roadside Cafe": [{"name":"Barista shift","pay":30,"hours":3,"energy":12,"hunger":6}],
-  "Build Site": [{"name":"Day labourer","pay":80,"hours":5,"energy":28,"hunger":16}]
+  "diner":{"name":"Maple & Rye Diner","loc":"diner","shift":[6,17],"levels":[
+    {"title":"Dishwasher","pay":40,"hours":5,"energy":22,"hunger":10,"promote":5},
+    {"title":"Line cook","pay":62,"hours":5,"energy":24,"hunger":6,"promote":10,"req":{"intellect":2}},
+    {"title":"Shift lead","pay":85,"hours":6,"energy":22,"hunger":6,"req":{"charisma":3}}
+  ]},
+  "warehouse":{"name":"Harbor Warehouse","loc":"docks","shift":[5,15],"levels":[
+    {"title":"Loader","pay":55,"hours":6,"energy":32,"hunger":14,"promote":6,"req":{"fitness":1}},
+    {"title":"Forklift driver","pay":80,"hours":6,"energy":28,"hunger":10,"req":{"fitness":2,"intellect":2}}
+  ]}
 }

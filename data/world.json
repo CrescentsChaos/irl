@@ -1,17 +1,96 @@
 {
-  "width": 2400, "height": 1800,
-  "roads": [
-    {"x":0,"y":400,"w":2400,"h":120}, {"x":0,"y":1100,"w":2400,"h":120},
-    {"x":800,"y":0,"w":120,"h":1800}, {"x":1600,"y":0,"w":120,"h":1800}
-  ],
-  "buildings": [
-    {"name":"Home","type":"home","x":120,"y":120,"w":220,"h":160,"color":"#6c8ebf"},
-    {"name":"Remote Office","type":"work","x":980,"y":100,"w":260,"h":200,"color":"#8a7fb0"},
-    {"name":"Roadside Cafe","type":"work","x":1780,"y":100,"w":220,"h":160,"color":"#d09a5a"},
-    {"name":"Corner Mart","type":"shop","x":120,"y":620,"w":240,"h":180,"color":"#5aa36b"},
-    {"name":"Clinic","type":"hospital","x":1000,"y":640,"w":240,"h":200,"color":"#d8d8d8"},
-    {"name":"Iron Gym","type":"gym","x":1780,"y":660,"w":200,"h":180,"color":"#b5533a"},
-    {"name":"Build Site","type":"work","x":300,"y":1300,"w":260,"h":200,"color":"#c9b037"},
-    {"name":"Pine Park","type":"park","x":1000,"y":1320,"w":300,"h":300,"color":"#3d8a4a"}
-  ]
+"room":{"name":"Your Room","exits":{"street":5},"desc":{
+  "morning":"Gray light through the blinds. The radiator ticks. A boarding-house room: bed, desk, laptop, a window onto Mill Lane.",
+  "day":"The room is stuffy. Dust hangs in a bar of window light.",
+  "evening":"Streetlight leaks orange through the blinds. Pipes knock somewhere below.",
+  "night":"Dark. The mini-fridge hums. Your phone glows on the nightstand."},
+ "actions":[
+  {"label":"Sleep","type":"sleep"},
+  {"label":"Take a nap (2h)","x":{"time":2,"energy":18,"mood":1},"text":"You drift off to the radiator's ticking and wake with a crease on your cheek."},
+  {"label":"Cook instant noodles ($3)","req":{"money":3},"x":{"money":-3,"hunger":28,"time":0.5},"text":"Boil water, shake the flavor packet. Salty, hot, fine."},
+  {"label":"Take a shower","x":{"time":0.4,"mood":4},"text":"The water pressure is a rumor, but it's hot."},
+  {"label":"Freelance gig on the laptop","req":{"energy":15},"x":{"time":3,"energy":-14,"hunger":-6},"text":"You open the client portal and start typing. The hours slide by.",
+   "chance":{"base":0.65,"sk":"intellect","per":0.06},
+   "win":{"text":"The client approves the work and pays on time. +$35","x":{"money":35,"sk":{"intellect":0.15}}},
+   "lose":{"text":"The client nitpicks every line and pays half. +$12","x":{"money":12,"mood":-4}}},
+  {"type":"rent"}
+ ]},
+"street":{"name":"Main Street","outside":true,"exits":{"room":5,"diner":5,"mart":5,"library":10,"gym":10,"clinic":10,"alley":5,"docks":20},"desc":{
+  "morning":"Delivery vans idle outside shuttered shops. A man hoses down the sidewalk in front of the barber.",
+  "day":"Main Street is slow: pickups, a school bus, two old men arguing on a bench.",
+  "evening":"Shop windows flicker on. People walk home with grocery bags.",
+  "night":"The stoplight blinks yellow for nobody. A dog barks three streets over."},
+ "actions":[
+  {"label":"Hand out flyers for the diner ($12, 2h)","req":{"energy":10},"x":{"time":2,"money":12,"energy":-8,"hunger":-4,"rep":1},"text":"Most people take a flyer just to be polite. A few even smile."},
+  {"label":"Pickpocket a distracted tourist","chance":{"base":0.35,"sk":"street","per":0.08},"x":{"time":0.2},"text":"You drift close, eyes on the shop window, hand low.",
+   "win":{"text":"Light fingers. A thin wallet changes hands. +$35","x":{"money":35,"heat":12,"sk":{"street":0.3}}},
+   "lose":{"text":"A hand clamps your wrist. You wrench free and run, but people saw your face.","x":{"heat":25,"rep":-4,"health":-5,"mood":-4}}},
+  {"label":"Sleep on a bench (7h)","x":{"time":7,"energy":40,"health":-8,"mood":-6},"text":"The bench is cold and the night is long. You sleep in pieces."},
+  {"label":"People-watch for a while (30m)","x":{"time":0.5,"mood":2},"text":["A kid leads a very reluctant goat down the road.","Two cousins argue over a parking spot, then hug.","Someone's truck backfires and the whole street flinches."]}
+ ]},
+"diner":{"name":"Maple & Rye Diner","open":[6,22],"exits":{"street":5},"desc":{
+  "morning":"Bacon fat, burnt coffee, and the clatter of plates. Dolores works the counter with a pot in each hand.",
+  "day":"Lunch rush: every booth full, the grill hissing.",
+  "evening":"Quieter now. A trucker nurses a slice of pie at the counter.",
+  "night":"Fluorescent lights buzz. Dolores wipes the counter in slow circles."},
+ "actions":[
+  {"label":"Order the daily plate ($9)","req":{"money":9},"x":{"money":-9,"hunger":45,"mood":3,"time":1},"text":"Meatloaf, mash, green beans. Honest food."},
+  {"label":"Drink a coffee ($3)","req":{"money":3},"x":{"money":-3,"energy":10,"time":0.5},"text":"Strong, bitter, bottomless if Dolores likes you."},
+  {"label":"Chat with Dolores (30m)","x":{"time":0.5,"mood":3,"sk":{"charisma":0.25}},"text":["She tells you who in town owes who money.","Dolores gives you advice you didn't ask for. It's good.","She asks how the city kid is holding up. You lie a little."]}
+ ]},
+"mart":{"name":"Corner Mart","open":[7,23],"exits":{"street":5},"desc":{
+  "morning":"A kid buys a lottery scratcher with sleepy seriousness. The clerk watches the door.",
+  "day":"Humming coolers, shelves a little dusty. The clerk, Pete, reads a paperback.",
+  "evening":"Neon beer signs buzz in the window. The place smells of floor cleaner.",
+  "night":"Bright and empty. Pete's eyes follow you down each aisle."},
+ "actions":[
+  {"label":"Browse the shelves","type":"shop"},
+  {"label":"Shoplift a sandwich","chance":{"base":0.4,"sk":"street","per":0.06},"x":{"time":0.2},"text":"You pick your moment. Pete turns to the register.",
+   "win":{"text":"It disappears into your jacket. You walk out calm.","x":{"item":"sandwich","heat":10,"sk":{"street":0.3}}},
+   "lose":{"text":"\"Hey!\" Pete is faster than he looks. He takes it back and tells you not to return.","x":{"heat":28,"rep":-3,"mood":-4}}}
+ ]},
+"library":{"name":"Hollow Creek Library","open":[9,20],"exits":{"street":10},"desc":{
+  "morning":"Quiet and cool. The librarian stamps cards by hand.",
+  "day":"Dust, old paper, and one very good wifi router.",
+  "evening":"The reading lamps hum. Someone's asleep over a atlas.",
+  "night":"Closed."},
+ "actions":[
+  {"label":"Study for a few hours (3h)","req":{"energy":12},"x":{"time":3,"energy":-10,"hunger":-6,"mood":1,"sk":{"intellect":0.35}},"text":"You pick a corner and read until the words stop sliding off."},
+  {"label":"Read the town newspaper (30m)","x":{"time":0.5,"mood":1},"text":["Zoning dispute. Lost cat. A feud over a fence.","Pie contest results. The runner-up is already contesting them."]}
+ ]},
+"gym":{"name":"Iron Gym","open":[5,23],"exits":{"street":10},"desc":{
+  "morning":"Rubber mats, chalk dust, a radio playing classic rock.",
+  "day":"A few regulars. Nobody talks. Everybody nods.",
+  "evening":"The after-work crowd grunts through sets.",
+  "night":"Dim lights and a lone lifter in the corner."},
+ "actions":[
+  {"label":"Workout ($8, 1.5h)","req":{"money":8,"energy":20},"x":{"money":-8,"time":1.5,"energy":-15,"hunger":-8,"health":2,"sk":{"fitness":0.3}},"text":"You push until your arms shake. It feels like progress."}
+ ]},
+"clinic":{"name":"Hollow Creek Clinic","open":[8,20],"exits":{"street":10},"desc":{
+  "morning":"Antiseptic and old magazines. The nurse nods you in.",
+  "day":"A cough from the waiting room. A child's drawing on the wall.",
+  "evening":"Almost empty. A vending machine hums.",
+  "night":"Closed."},
+ "actions":[
+  {"label":"Get treated ($40, 2h)","req":{"money":40},"x":{"money":-40,"time":2,"health":60},"text":"The doctor is brisk and kind. You leave patched up."}
+ ]},
+"alley":{"name":"Back Alley","outside":true,"exits":{"street":5},"desc":{
+  "morning":"Wet brick and trash bags. Someone's left a sleeping bag under the fire escape.",
+  "day":"Quiet. Almost peaceful.",
+  "evening":"A man named Rook leans on a dumpster, watching you.",
+  "night":"Shadows pool by the dumpsters. Someone laughs, low, further down."},
+ "actions":[
+  {"label":"Run an errand for Rook (1h)","x":{"time":1},"text":"Rook slides you a paper bag. \"Corner of Mill and Third. Don't look inside.\"",
+   "chance":{"base":0.7,"sk":"street","per":0.04},
+   "win":{"text":"The drop goes smooth. Rook peels off a few bills. +$45","x":{"money":45,"heat":10,"rep":1,"sk":{"street":0.3}}},
+   "lose":{"text":"A rival crew finds you before the drop. You walk away bruised and empty-handed.","x":{"health":-15,"mood":-5,"heat":5}}}
+ ]},
+"docks":{"name":"Harbor Docks","outside":true,"exits":{"street":20},"desc":{
+  "morning":"Cranes groan, gulls scream, forklifts beep. The air tastes of salt and diesel.",
+  "day":"Containers stack like a town of their own.",
+  "evening":"Shift change. Tired men file out past the gate.",
+  "night":"Floodlights hum over empty yards. Water laps the pilings."},
+ "actions":[
+  {"label":"Watch the ships (30m)","x":{"time":0.5,"mood":2},"text":"A rust-red freighter slides out to sea. You wonder where it goes."}
+ ]}
 }

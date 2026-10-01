@@ -1,0 +1,6 @@
+{
+  "sandwich":{"name":"Sandwich","price":6,"x":{"hunger":25},"text":"Dry bread, decent ham. It does the job."},
+  "energy_drink":{"name":"Energy drink","price":8,"x":{"energy":20,"mood":-1},"text":"Sweet, fizzy, a little chemical. Your hands buzz."},
+  "first_aid":{"name":"First aid kit","price":25,"x":{"health":30},"text":"You patch yourself up with practiced, clumsy care."},
+  "headphones":{"name":"Cheap headphones","price":15,"x":{"mood":12},"text":"You put on a playlist and the town goes soft around the edges."}
+}
