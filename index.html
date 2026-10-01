@@ -7,16 +7,11 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<canvas id="game"></canvas>
-<div id="hud">
-  <div id="clock"></div>
-  <div id="money"></div>
-  <div class="bars" id="bars"></div>
-  <div id="hint"></div>
-</div>
-<div id="menu" hidden></div>
-<div id="toast"></div>
-<div id="help">WASD / arrows: move · E: enter place · F: car · M: save</div>
+<main>
+  <header><h1>IRL: In Remote Life</h1><div id="status"></div></header>
+  <section id="log" aria-live="polite"></section>
+  <section id="opts"></section>
+</main>
 <script type="module" src="js/main.js"></script>
 </body>
 </html>
