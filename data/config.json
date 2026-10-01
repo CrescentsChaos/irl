@@ -1,0 +1,9 @@
+{
+  "start": {"money": 120, "health": 100, "hunger": 80, "energy": 90, "hour": 8, "day": 1},
+  "minutesPerSecond": 2,
+  "hungerPerHour": 3,
+  "energyPerHour": 2,
+  "player": {"speed": 210, "x": 230, "y": 340},
+  "car": {"x": 420, "y": 400, "maxSpeed": 620, "accel": 420, "turn": 2.6},
+  "rent": {"every": 7, "amount": 60}
+}

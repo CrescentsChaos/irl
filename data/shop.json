@@ -1,0 +1,6 @@
+[
+  {"name":"Sandwich","price":6,"hunger":25,"health":0,"energy":0},
+  {"name":"Energy drink","price":8,"hunger":0,"health":0,"energy":20},
+  {"name":"Hot meal","price":15,"hunger":55,"health":5,"energy":5},
+  {"name":"First aid kit","price":25,"hunger":0,"health":30,"energy":0}
+]

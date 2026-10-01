@@ -1,0 +1,17 @@
+{
+  "width": 2400, "height": 1800,
+  "roads": [
+    {"x":0,"y":400,"w":2400,"h":120}, {"x":0,"y":1100,"w":2400,"h":120},
+    {"x":800,"y":0,"w":120,"h":1800}, {"x":1600,"y":0,"w":120,"h":1800}
+  ],
+  "buildings": [
+    {"name":"Home","type":"home","x":120,"y":120,"w":220,"h":160,"color":"#6c8ebf"},
+    {"name":"Remote Office","type":"work","x":980,"y":100,"w":260,"h":200,"color":"#8a7fb0"},
+    {"name":"Roadside Cafe","type":"work","x":1780,"y":100,"w":220,"h":160,"color":"#d09a5a"},
+    {"name":"Corner Mart","type":"shop","x":120,"y":620,"w":240,"h":180,"color":"#5aa36b"},
+    {"name":"Clinic","type":"hospital","x":1000,"y":640,"w":240,"h":200,"color":"#d8d8d8"},
+    {"name":"Iron Gym","type":"gym","x":1780,"y":660,"w":200,"h":180,"color":"#b5533a"},
+    {"name":"Build Site","type":"work","x":300,"y":1300,"w":260,"h":200,"color":"#c9b037"},
+    {"name":"Pine Park","type":"park","x":1000,"y":1320,"w":300,"h":300,"color":"#3d8a4a"}
+  ]
+}

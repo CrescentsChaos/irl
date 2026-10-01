@@ -1,0 +1,5 @@
+{
+  "Remote Office": [{"name":"Data entry","pay":45,"hours":4,"energy":15,"hunger":10}],
+  "Roadside Cafe": [{"name":"Barista shift","pay":30,"hours":3,"energy":12,"hunger":6}],
+  "Build Site": [{"name":"Day labourer","pay":80,"hours":5,"energy":28,"hunger":16}]
+}
