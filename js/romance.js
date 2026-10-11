@@ -713,7 +713,7 @@ export function initRomance(api) {
     const IN = { f: 'women', m: 'men', a: 'anyone' }, cyc = ['f', 'm', 'a'];
     add(`Interested in: ${IN[m.into]} (tap to change)`, () => { m.into = cyc[(cyc.indexOf(m.into) + 1) % 3]; api.render(); });
     add(`Wants children: ${m.kids} (tap to change)`, () => { const k = ['yes', 'maybe', 'no']; m.kids = k[(k.indexOf(m.kids) + 1) % 3]; api.render(); });
-    add('Browse a dating app (1h)', () => mingle('app', 'love'), tired()); add('Ask a friend to set you up (1h)', () => mingle('set', 'love'), S.fr.length ? tired() : 'No friends to ask');
+    add('Browse a dating app (1h)', () => mingle('app', 'love'), tired() || api.phoneW()); add('Ask a friend to set you up (1h)', () => mingle('set', 'love'), S.fr.length ? tired() : 'No friends to ask');
     for (const p of [...partners(), ...partners(['flirt'])].slice(0, 4)) add(`${p.name} \u2014 ${p.role}\u2026`, () => { S.pv = p.id; S.rmv = 'main'; S.rmo = 'love'; api.go('rom'); });
     const cand = people().filter(p => p.alive && okP(p) && p.r?.st !== 'ex' && (!p.r || (p.r.st === 'friend' && !p.r.no)) && p.kind !== 'family' && !ACT.includes(p.r?.st)).sort((a, b) => b.bond - a.bond).slice(0, 3);
     for (const p of cand) add(`${p.name} \u2014 ${p.role}, ${p.age}\u2026`, () => { S.pv = p.id; S.rmv = 'main'; S.rmo = 'love'; api.go('rom'); });
@@ -724,7 +724,7 @@ export function initRomance(api) {
   }
   function lifeOpts(add, loc) {
     if (!S.rm || S.age < 18) return;
-    if (loc === 'room') add('Browse a dating app (1h)', () => mingle('app'), tired());
+    if (loc === 'room') add('Browse a dating app (1h)', () => mingle('app'), tired() || api.phoneW());
     else if (!['alley', 'clinic'].includes(loc)) add('Look for someone to chat up (1h)', () => mingle('out'), tired());
   }
   const rentF = () => { const sp = S.fam.find(p => p.k === 'spouse' && p.alive && p.lives); return sp && sp.age >= 18 && sp.age < 66 ? 0.55 : 1; };

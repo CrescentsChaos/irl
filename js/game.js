@@ -1,11 +1,12 @@
 import { dayWx, wxAt, wxLine, fmtT, exposure, wxFx, wxSummary, SEVERE } from './weather.js';
 import { initRomance } from './romance.js';
+import { initShop } from './shop.js';
 import { dateOf, MON, climate, seasonOf, holidays, bdayMD, isMyBday, initCal, wxPick, seasonFx } from './calendar.js';
 const $ = i => document.getElementById(i), R = Math.random;
 const cl = (v, a = 0, b = 100) => Math.max(a, Math.min(b, v));
 const pick = t => Array.isArray(t) ? t[Math.floor(R() * t.length)] : t;
 const KEY = 'irl-text-v1', WD = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-let D, S, view = window.IRL_VIEW || 'main', opts = [], ev = null, quiet = false, RM, SPF = null;
+let D, S, view = window.IRL_VIEW || 'main', opts = [], ev = null, quiet = false, RM, SH, SPF = null;
 
 const day = () => Math.floor(S.t / 1440) + 1, hr = () => (S.t / 60) % 24;
 const per = h => h < 5 ? 'night' : h < 12 ? 'morning' : h < 18 ? 'day' : h < 22 ? 'evening' : 'night';
@@ -46,7 +47,7 @@ function bodyLine(L, b) {
   return `You stand ${Math.round(bd.ht)} cm (${ftin(bd.ht)}) and weigh ${Math.round(bd.wt)} kg (${Math.round(bd.wt * 2.2046)} lb): ${buildW(bd.bmi, L.age)}. Your strongest natural gift is ${top} (${tw(L.tal[top])}). Your drive is ${dw(b.ded)}, and ${LK[lkIdx(L.lk)]}.`;
 }
 // skills: talent and dedication set how fast you learn, levels slow you down, repeated practice builds momentum
-const learn = k => (0.55 + (S.tal[k] ?? 5) * 0.09) * (0.7 + (S.ded ?? 50) / 100 * 0.6) / (1 + (S.sk[k] || 0) * 0.3) * (k === 'fitness' && bodyEf() >= 1.1 ? 0.85 : 1);
+const learn = k => (0.55 + (S.tal[k] ?? 5) * 0.09) * (0.7 + (S.ded ?? 50) / 100 * 0.6) / (1 + (S.sk[k] || 0) * 0.3) * (k === 'fitness' && bodyEf() >= 1.1 ? 0.85 : 1) * (k === 'fitness' ? SH.fitMul() : 1);
 function gainSk(e) {
   const dl = (e.time || 0) >= 0.25;
   if (e.ed) { S.gp = cl(S.gp + e.ed * (0.4 + S.tal.intellect * 0.05 + S.ded * 0.004) * (1 - S.gp / 110)); S.eff = 1; }
@@ -136,9 +137,10 @@ function promo(sp, m) {
 }
 function shiftPay(base, ks) {
   const tl = ks.length ? ks.reduce((s, k) => s + (S.tal[k] ?? 5), 0) / ks.length : avgTal(), perf = R() * 0.8 + 0.1 + (S.ded - 50) / 250 + (tl - 5) / 25 + luckF() * 0.15;
-  if (perf > 1.05) return { pay: Math.round(base * 1.25), msg: 'You do excellent work today, and it gets noticed.', good: 1 };
-  if (perf < 0.15) return { pay: Math.round(base * 0.85), msg: 'Distracted and sloppy, you make mistakes you have to fix.', good: 0 };
-  return { pay: Math.round(base), msg: '', good: 1 };
+  const dm = SH.dress(), dn = dm < 0.95 ? ' Your clothes do not help.' : '';
+  if (perf > 1.05) return { pay: Math.round(base * 1.25 * dm), msg: 'You do excellent work today, and it gets noticed.' + dn, good: 1 };
+  if (perf < 0.15) return { pay: Math.round(base * 0.85 * dm), msg: 'Distracted and sloppy, you make mistakes you have to fix.' + dn, good: 0 };
+  return { pay: Math.round(base * dm), msg: dn.trim(), good: 1 };
 }
 const admit = k => k === 'uni' ? cl((S.gp - 35) / 50 + luckF() * 0.25 + (S.tal.intellect - 5) * 0.01, 0.05, 0.97) : cl((S.gp - 18) / 45 + luckF() * 0.2, 0.1, 0.97);
 const FN = {
@@ -199,16 +201,18 @@ function bday(sp) {
   }
   if (S.fl.withFamily && S.age >= 22 && S.age <= 32 && R() < 0.2) leave(['You moved into a place of your own. The quiet takes some getting used to.', '']);
   else if (S.fl.withFamily && S.age >= 18 && !S.fam.some(p => p.alive && p.lives)) leave(['The family home is empty now. You are on your own.', '']);
+  SH.bdayGifts(sp);
   if (RM) RM.yearly(sp);
 }
 //// ===== end of new systems =====
 
 export function start(data) {
   D = data;
-  RM = initRomance({ R, pick, rnd, fx, hist, after, people, byId, norm, why, day, hr, luckF, getS: () => S, getD: () => D, note, bar, render, quiet: () => quiet, go: v => { view = v; render(); }, place: () => D.world[S.loc]?.name || 'the street', say: (t, c = '', j) => { if (SPF) SPF([t, c]); else { log(t, c); if (j) note(t); } } });
+  RM = initRomance({ phoneW: () => SH.phoneW(), R, pick, rnd, fx, hist, after, people, byId, norm, why, day, hr, luckF, getS: () => S, getD: () => D, note, bar, render, quiet: () => quiet, go: v => { view = v; render(); }, place: () => D.world[S.loc]?.name || 'the street', say: (t, c = '', j) => { if (SPF) SPF([t, c]); else { log(t, c); if (j) note(t); } } });
+  SH = initShop({ R, pick, rnd, cl, fx, fmt, tpl, why, after, hist, note, bar, local, people, act, getS: () => S, getD: () => D, day, quiet: () => quiet, log, say: (t, c = '', j) => { if (SPF) SPF([t, c]); else { log(t, c); if (j) note(t); } }, setFlash: t => { S.flash = t; }, setView: v => { view = v; render(); }, wx: () => { ensureCal(); return wxAt(S, day(), 14); }, cold: () => { const c = climate(S.tk.country); return c === 'north' || c === 'south'; } });
   let saved = null; try { saved = JSON.parse(localStorage.getItem(KEY)); } catch {}
   document.addEventListener('keydown', e => { const n = +e.key; if (n >= 1 && n <= 9 && opts[n - 1] && !opts[n - 1].w && !['INPUT', 'SELECT'].includes(e.target.tagName)) opts[n - 1].f(); });
-  if (saved && saved.tk) { S = saved; S.know ??= []; S.jn ??= []; S.nid ??= 0; S.rgn ??= 0; S.fam.forEach(p => norm(p, 'family')); S.fr.forEach(f => { f.age ??= Math.max(5, S.age + rnd(-6, 6)); norm(f, 'friend'); }); S.know.forEach(p => norm(p, 'local')); S.stress ??= 25; S.lonely ??= 25; S.fl.in ??= {}; migrate(); RM.migrate(); if (S.pend) ev = mkEv(); log('— Welcome back. —', 'sys'); render(); } else if (view === 'new') intro(); else location.replace('new.html');
+  if (saved && saved.tk) { S = saved; S.know ??= []; S.jn ??= []; S.nid ??= 0; S.rgn ??= 0; S.fam.forEach(p => norm(p, 'family')); S.fr.forEach(f => { f.age ??= Math.max(5, S.age + rnd(-6, 6)); norm(f, 'friend'); }); S.know.forEach(p => norm(p, 'local')); S.stress ??= 25; S.lonely ??= 25; S.fl.in ??= {}; migrate(); RM.migrate(); SH.migrate(); if (S.pend) ev = mkEv(); log('— Welcome back. —', 'sys'); render(); } else if (view === 'new') intro(); else location.replace('new.html');
 }
 
 let LIFE;
@@ -285,7 +289,7 @@ export function newGame(typed) {
     sk: { fitness: fit, charisma: 1, intellect: (a < 13 ? 0.5 : 1) + [0, 0.2, 0.4, 0.8][b.ei], street: 0 }, inv: { keepsake: 1 }, fl: { withFamily: b.home === 'family' ? 1 : 0, in: {} }, job: null, owed: 0, wx: 0, log: [],
     fam, fr: b.fr, mem: b.mem, memi: 0, traits: b.ts.map(t => t.n), kw: L.kw, kc: L.kc, ef: a >= 65 ? 1.3 : 1, prof: p, tier: L.tier,
     tk: { ...L.tk, name, friend: b.fr[0].name, keepsake: b.keep, hobby: b.hobby, homeName: b.homeName, homeDesc: b.homeDesc, parent: ft('parent'), sibling: ft('sibling'), spouse: ft('spouse'), child: ft('child') } };
-  S.nid = 0; S.know = []; S.jn = []; S.rgn = L.rg;  S.edu = b.eduT; initPersonal(L, b); S.fam.forEach(p => norm(p, 'family')); S.fr.forEach(f => { f.age = Math.max(5, a + rnd(-6, 6)); f.bond = rnd(35, 75); norm(f, 'friend'); });
+  S.nid = 0; S.know = []; S.jn = []; S.rgn = L.rg;  S.edu = b.eduT; initPersonal(L, b); SH.startKit(); S.fam.forEach(p => norm(p, 'family')); S.fr.forEach(f => { f.age = Math.max(5, a + rnd(-6, 6)); f.bond = rnd(35, 75); norm(f, 'friend'); });
   RM.migrate(); for (const t of b.ts) for (const [k, v] of Object.entries(t.sk || {})) S.sk[k] += v;
   for (const [k, v] of Object.entries(p.sk || {})) S.sk[k] += v;
   view = 'main'; ev = null; log(`${name}, ${a}.`, 'place'); story(L, b).forEach(t => log(t, 'sys'));
@@ -297,7 +301,7 @@ function famAct(p) {
 }
 function thinkBack() { const i = S.memi++ % S.mem.length; log(`You think back. ${S.mem[i]}`, 'sys'); fx({ time: 0.25, mood: [4, -2, -3][i], stress: [-3, 2, 3][i] }); after(0.25); }
 
-function place() { const L = D.world[S.loc]; if (S.loc === 'diner') local('cook'); else if (S.loc === 'mart') local('clerk'); else if (S.loc === 'alley') local('rook'); log(`${L.name}`, 'place'); log(L.desc[per(hr())] + (L.outside ? ' ' + outsideWx() + ' ' + S.tk.air : '')); }
+function place() { const L = D.world[S.loc]; if (S.loc === 'diner') local('cook'); else if (S.loc === 'mart') local('clerk'); else if (S.loc === 'alley') local('rook'); else if (L.local) local(L.local); log(`${L.name}`, 'place'); log(L.desc[per(hr())] + (L.outside ? ' ' + outsideWx() + ' ' + S.tk.air : '')); }
 
 function adv(h) {
   let left = h * 60;
@@ -334,7 +338,7 @@ function msgFriend() {
   const f = pick(S.fr.length ? S.fr : people().filter(p => p.alive && p.kind !== 'family'));
   if (!f) { log('There is nobody to message right now.', 'sys'); return done(); }
   log(pick([`You text ${f.name}. The reply comes within minutes, and soon you are both laughing.`, `${f.name} sends a voice note that is mostly background noise and gossip. It's perfect.`, `You and ${f.name} trade messages about nothing. It helps more than you expected.`]));
-  fx({ time: 0.25, lonely: -14, mood: 4, stress: -3 }); after(0.25);
+  fx({ time: 0.25, lonely: -14 - SH.msgB(), mood: 4, stress: -3 }); after(0.25);
 }
 const SK = [['A few hours', 0, 'A few hours slip by.'], ['A day', 1, 'A day goes by, much like the others.'], ['A week', 7, 'A week goes by.'], ['A month', 30, 'A month slips past.'], ['A year', 365, 'A year goes by in ordinary days.'], ['A decade', 3650, 'Ten years pass, mostly in small moments you will only half remember.']];
 function skip(d, label) {
@@ -383,7 +387,7 @@ function hist(p, t) { p.hist.push(`Day ${day()} · ${tpl(t)}`); if (p.hist.lengt
 function norm(p, kind) {
   S.nid ??= 0; p.kind ??= kind; p.id ??= ++S.nid; p.alive ??= true; p.lives ??= false; p.bond ??= rnd(30, 60); p.hist ??= []; p.since ??= 1; p.role ??= p.tie || 'acquaintance'; p.age ??= rnd(20, 60);
   p.how ??= p.tie || (p.kind === 'family' ? `your ${p.role}` : 'around town');
-  p.traits ??= [...D.back.traits].sort(() => R() - 0.5).slice(0, 2).map(t => t.n); p.like ??= pick(D.back.hobbies);
+  p.inv ??= SH.npcInv(p); p.traits ??= [...D.back.traits].sort(() => R() - 0.5).slice(0, 2).map(t => t.n); p.like ??= pick(D.back.hobbies);
   p.job ??= p.age < 5 ? 'too young for school' : p.age < 18 ? 'in school' : p.age >= 65 ? 'retired' : pick(D.profs.filter(q => q.k === 'w')).t.toLowerCase();
 }
 function newPerson(o) {
@@ -392,12 +396,13 @@ function newPerson(o) {
   const p = { name, role: o.role, age: rnd(...(o.age || [18, 65])), bond: o.bond ?? rnd(12, 24), kind: 'local', how: o.how, since: day() };
   norm(p, 'local'); S.know ??= []; S.know.push(p); note(`Met ${name}, ${o.role}.`); return p;
 }
-const LOC = { cook: () => ({ name: S.tk.cook, role: `runs the ${S.tk.eatery}`, age: rnd(38, 64), how: 'you got to know them across the counter', job: 'cook and owner' }), clerk: () => ({ name: S.tk.clerk, role: `works at the ${S.tk.shop}`, age: rnd(22, 55), how: 'they watch the door and know everyone', job: 'shop clerk' }), rook: () => ({ name: 'Rook', role: 'hangs around the back alley', age: rnd(28, 45), how: 'he found you before you found him', job: 'does favors nobody asks about' }) };
+const nm = () => pick(D.people[S.rgn || 0][R() < 0.5 ? 'f' : 'm']);
+const LOC = { cook: () => ({ name: S.tk.cook, role: `runs the ${S.tk.eatery}`, age: rnd(38, 64), how: 'you got to know them across the counter', job: 'cook and owner' }), clerk: () => ({ name: S.tk.clerk, role: `works at the ${S.tk.shop}`, age: rnd(22, 55), how: 'they watch the door and know everyone', job: 'shop clerk' }), pharm: () => ({ name: nm(), role: 'is the pharmacist on Shopping Row', age: rnd(28, 62), how: 'you buy small, awkward things from them', job: 'pharmacist' }), techie: () => ({ name: nm(), role: 'sells phones and laptops on Shopping Row', age: rnd(21, 45), how: 'they talk about specs the way others talk about football', job: 'electronics salesperson' }), tailor: () => ({ name: nm(), role: 'runs the clothing shop', age: rnd(30, 65), how: 'they can tell your size from across the street', job: 'shopkeeper and tailor' }), handy: () => ({ name: nm(), role: 'runs the hardware and home store', age: rnd(35, 68), how: 'they have an answer for every broken thing', job: 'hardware shop owner' }), booker: () => ({ name: nm(), role: 'keeps the books and gifts shop', age: rnd(25, 70), how: 'they always have a recommendation you did not ask for', job: 'bookseller' }), grocer: () => ({ name: nm(), role: 'runs the market stalls and shelves', age: rnd(30, 66), how: 'they know what is fresh and what is lying', job: 'grocer' }), rook: () => ({ name: 'Rook', role: 'hangs around the back alley', age: rnd(28, 45), how: 'he found you before you found him', job: 'does favors nobody asks about' }) };
 function local(k) { S.know ??= []; let p = S.know.find(x => x.key === k); if (!p) { p = { ...LOC[k](), key: k, kind: 'local', bond: 18, since: day() }; norm(p, 'local'); S.know.push(p); note(`Got to know ${p.name}, who ${p.role}.`); } return p; }
 const evRef = e => e.has ? S.fam.find(p => p.k === e.has && p.alive && (e.has !== 'child' || p.lives)) : e.text.includes('{friend}') ? S.fr[0] : e.text.includes('{cook}') ? local('cook') : null;
 function meet(a) {
   const kid = S.age < 18, st = S.prof.k, w = a.at === 'work', roles = kid ? ['a kid from the neighborhood', 'someone from school'] : w ? (st === 's' ? ['a classmate'] : st === 'r' ? ['someone from the park'] : ['a coworker']) : a.roles;
-  if (R() < 0.55 + (S.sk.charisma || 0) * 0.06 + (S.mood - 50) * 0.003) {
+  if (R() < 0.55 + (S.sk.charisma || 0) * 0.06 + (S.mood - 50) * 0.003 + SH.social()) {
     const p = newPerson({ role: pick(roles), how: `you got talking ${w ? (st === 's' ? 'at school' : 'at work') : a.at}`, age: kid || (w && st === 's') ? [Math.max(5, S.age - 2), S.age + 3] : [18, 70] });
     log(`You end up talking with ${p.name}, ${p.role}. ${pick(['Easy laughter, easy silences.', 'It starts awkward and ends warmer.', 'You swap names and a little of your day.'])}`, 'good'); fx({ time: 0.5, lonely: -6, mood: 3 }); hist(p, 'You met.');
   } else { log(pick(['You open your mouth, but the moment passes.', 'A polite smile, a short answer, and the conversation fizzles.'])); fx({ time: 0.25, mood: -1 }); }
@@ -422,6 +427,8 @@ function pAct(p) {
     o.push({ l: `Ask ${n} for advice`, w: late, f: run('Asked for advice.', 0.5, p.bond >= 40 ? { stress: -8, mood: 3, sk: { intellect: 0.05 } } : { stress: -2, mood: 1 }, [`You lay out what is on your mind. ${n} listens, then says something that actually helps.`], 2) });
   }
   o.push({ l: `Get ${n} a small gift (@10)`, w: late ? '' : why({ money: 10 }), f: run('Gave a gift.', 0.25, { money: -10, mood: 3, lonely: -3 }, [`You give ${n} something small and thoughtful. Their face does the rest.`], 6) });
+  o.push({ l: `Give ${n} something from your pockets…`, w: late || (SH.giftable().length ? '' : 'Nothing to give'), f: () => { view = 'give'; render(); } });
+  if (p.age >= 8) o.push({ l: `Ask ${n} if they can spare something…`, w: late || (p.bond < 25 ? 'Not close enough' : ''), f: () => { view = 'ask'; render(); } });
   if (p.bond < 50) o.push({ l: `Clear the air with ${n}`, w: late, f: run('Tried to clear the air.', 1, {}, [`You ask ${n} to talk, really talk.`], 0, { p: 0.4 + (S.sk.charisma || 0) * 0.08, win: { t: 'Some of the tension drains out of the room.', x: { stress: -6, mood: 3 }, bd: 12 }, lose: { t: 'It goes in circles and ends badly.', x: { stress: 5, mood: -3 }, bd: -4 } }) });
   return o;
 }
@@ -431,7 +438,7 @@ function cardP(p) {
   return `<div class="card"><h2>${p.name}</h2><div class="meta">${p.role}${p.alive ? ', ' + p.age : ' (passed away)'}</div>` + (S.flash && S.pv === p.id ? `<p class="good">${S.flash}</p>` : '') +
     `<p>${p.alive ? (p.lives ? 'Lives with you.' : 'Lives nearby in {city}.') : 'Remembered.'} Works as: ${p.job}. Into ${p.like}. Personality: ${p.traits.join(', ')}.</p>` +
     `<p class="meta">How you know them: ${p.how}. Known ${kn}. Last time you were in touch: ${ago}.</p>` + (p.alive ? `<div>${bar('Bond', p.bond, '#8fcf9a')} ${bw(p.bond)}</div>` : '') +
-    (p.hist.length ? `<p class="meta">${p.hist.slice().reverse().slice(0, 5).join('<br>')}</p>` : '') + '</div>';
+    SH.belongings(p) + (p.hist.length ? `<p class="meta">${p.hist.slice().reverse().slice(0, 5).join('<br>')}</p>` : '') + '</div>';
 }
 function meHTML() {
   const pp = people(), cp = pp.filter(p => p.alive && p.bond >= 60), j = S.job ? D.jobs[S.job.id].levels[S.job.lvl].title : '', rep = S.rep < 20 ? 'a stranger' : S.rep < 50 ? 'a familiar face' : 'a local name';
@@ -454,6 +461,10 @@ function profile() {
   if (view === 'person') { const p = byId(S.pv); return p ? tpl(cardP(p) + RM.card(p)) : ''; }
   if (view === 'rom') { const p = byId(S.pv); return p ? tpl(cardP(p) + RM.card(p)) : ''; }
   if (view === 'love') return tpl(RM.loveHTML());
+  if (view === 'shop') return tpl(SH.shopHTML());
+  if (view === 'sell') return tpl(SH.sellHTML());
+  if (view === 'inv') return tpl(SH.invHTML());
+  if (view === 'give' || view === 'ask') { const p = byId(S.pv); return p ? tpl(cardP(p)) : ''; }
   const pp = people(); return `<div class="card"><h2>People in your life</h2><p class="meta">${pp.filter(p => p.alive).length} known · ${pp.filter(p => p.alive && p.bond >= 60).length} close · ${pp.filter(p => !p.alive).length} remembered. Choose someone to see their profile and spend time with them.</p></div>`;
 }
 function newDay() {
@@ -461,7 +472,7 @@ function newDay() {
   { const a = dayWx(S, day()), pv = dayWx(S, day() - 1); if (SEVERE.has(a.kind) || Math.abs(a.mean - pv.mean) > 7) log(wxSummary(S, a), 'sys'); }
   { const hd = holidays(dt.y, S.cal0, S.yr0, S.tk.country)[dt.doy]; if (hd) { const kin = S.fam.some(p => p.alive && p.bond > 40); if (hd.f && !kin) { S.mood = cl(S.mood - 3); S.lonely = cl(S.lonely + 5); log(`${hd.n}. The day is quiet, and you feel how few people are in it.`, 'sys'); } else { S.mood = cl(S.mood + 3); log(`${hd.n}. ${hd.t}`, 'good'); } }
     for (const p of [...S.fam, ...S.fr]) if (p.name && p.alive !== false && ((x) => x.m === dt.m && x.d === dt.d)(bdayMD(p))) { log(`It's ${p.name}'s birthday today.`); S.mood = cl(S.mood + 1); } }
-  dailyTrends(); RM.daily();
+  dailyTrends(); RM.daily(); SH.daily();
   if (day() > 1 && isMyBday(S, dt) && S.agedY !== dt.y) { S.agedY = dt.y; S.age++; log(`It's your birthday. You turn ${S.age}.`, 'good'); note(`Turned ${S.age}.`); if (!quiet) bday(rsp); }
   if (day() % r.every) return;
   if (S.prof.k === 'r') { const p = S.prof.pay * S.kw; S.money += p; log(`Your pension arrives: +${fmt(p)}.`, 'good'); }
@@ -478,7 +489,7 @@ function fx(e) {
   if (e.luck) S.fort = cl((S.fort || 0) + e.luck, -30, 30);
   gainSk(e);
   for (const [k, v] of Object.entries(e.bond || {})) { const p = S.fam.find(p => p.k === k && p.alive); if (p) { p.bond = cl(p.bond + v); if (v > 0) S.lonely = cl(S.lonely - v * 1.5); else S.stress = cl(S.stress - v); } }
-  if (e.item) S.inv[e.item] = (S.inv[e.item] || 0) + 1;
+  if (e.item) SH.add(e.item);
   if (e.flag) Object.assign(S.fl, e.flag);
   if (e.time) adv(e.time);
 }
@@ -554,7 +565,7 @@ function work(j, lv) {
 function sleep() {
   let h = (7 - hr() + 24) % 24; h = Math.min(Math.max(h, 6), 10);
   log(`You turn off the light and sleep.`); adv(h);
-  const bad = S.stress > 65 || S.lonely > 70; S.energy = cl(S.energy + h * (bad ? 10 : 13)); S.health = cl(S.health + h * 1.5); S.stress = cl(S.stress - h * (bad ? 1.5 : 3)); S.lonely = cl(S.lonely - h * 1.1);
+  const bad = S.stress > 65 || S.lonely > 70; const sm = SH.sleepMul(wxAt(S, day(), hr())); S.energy = cl(S.energy + h * (bad ? 10 : 13) * sm); S.health = cl(S.health + h * 1.5 * sm); S.stress = cl(S.stress - h * (bad ? 1.5 : 3) * sm); S.lonely = cl(S.lonely - h * 1.1);
   log(bad ? `You wake at ${clock()}. You slept, but your mind never fully switched off.` : `You wake at ${clock()}, rested.`, bad ? 'sys' : 'good'); after(h);
 }
 
@@ -569,13 +580,10 @@ function build() {
   if (view === 'me') { add('Back to life', () => { location.href = 'play.html'; }); add('Erase save and restart', () => { localStorage.removeItem(KEY); location.href = 'new.html'; }); return; }
   if (view === 'skip') { for (const [l, d, t] of SK) add(l, () => skip(d, t)); add('Back', () => { location.href = 'play.html'; }); return; }
   if (view === 'travel') { for (const [id, m] of Object.entries(L.exits)) add(`${D.world[id].name} (${m} min)`, () => go(id)); add('Back', () => { location.href = 'play.html'; }); return; }
-  if (view === 'shop') { for (const [id, it] of Object.entries(D.items)) if (it.price) add(`${it.name} — @${it.price}`, () => { S.money -= Math.round(it.price * S.kc * 10) / 10; S.inv[id] = (S.inv[id] || 0) + 1; log(`You buy a ${it.name.toLowerCase()}.`); render(); save(); }, S.money < Math.round(it.price * S.kc * 10) / 10 ? `Need @${it.price}` : ''); add('Back', () => { location.href = 'play.html'; }); return; }
-  if (view === 'inv') {
-    const ids = Object.keys(S.inv).filter(i => S.inv[i] > 0 && !D.items[i].rm);
-    for (const id of ids) add(`Use ${D.items[id].name} (x${S.inv[id]})`, () => { if (!D.items[id].keep) S.inv[id]--; log(D.items[id].text); fx(D.items[id].x); view = 'main'; save(); render(); });
-    if (!ids.length) log('Your pockets are empty.', 'sys');
-    add('Back', () => { location.href = 'play.html'; }); return;
-  }
+  if (view === 'shop') { SH.shopOpts(add); return; }
+  if (view === 'sell') { SH.sellOpts(add); add('Back to the shop', () => { view = 'shop'; render(); }); return; }
+  if (view === 'inv') { SH.invOpts(add); add('Back', () => { if (document.body.dataset.page === 'inventory') location.href = 'play.html'; else { view = 'main'; render(); } }); return; }
+  if (view === 'give' || view === 'ask') { const p = byId(S.pv); if (p) (view === 'give' ? SH.giveOpts : SH.askOpts)(add, p); add(`Back to ${p ? p.name : 'people'}`, () => { view = 'person'; render(); }); return; }
   if (view === 'char') {
     add('Back', () => { location.href = 'play.html'; });
     add('Erase save and restart', () => { localStorage.removeItem(KEY); location.href = 'new.html'; }); return;
@@ -585,11 +593,14 @@ function build() {
     if (locked && a.type !== 'rent') continue;
     if (a.type === 'rent') { if (S.owed > 0) add(`Pay the landlord — ${fmt(S.owed)}`, () => { S.money -= S.owed; S.owed = 0; S.fl.evicted = 0; log('You pay what you owe. The landlord gives your key back.', 'good'); done(); }, S.money < S.owed ? `Need ${fmt(S.owed)}` : ''); continue; }
     if (a.type === 'prof') { profOpt(add); continue; }
+    if (a.type === 'cook') { SH.cookOpt(add); continue; }
+    if (a.type === 'wash') { SH.washOpts(add); continue; }
+    if (a.type === 'lapwork') { SH.lapOpt(add, a, open); continue; }
     if (a.type === 'meet') { add(a.label, () => meet(a), open || (S.energy < 8 ? 'Too tired' : '')); continue; }
     const w = open || why(a.req);
-    add(a.label, a.type === 'sleep' ? sleep : a.type === 'shop' ? () => { view = 'shop'; render(); } : () => act(a), w);
+    add(a.label, a.type === 'sleep' ? sleep : a.type === 'shop' ? () => { S.shp = a.store || 'mart'; view = 'shop'; render(); } : () => act(a), w);
   }
-  if (S.loc === 'room' && !locked) { for (const p of [...S.fam.filter(p => p.alive)].sort((x, y) => y.lives - x.lives).slice(0, 4)) add(p.lives ? `Spend time with ${p.name}, your ${p.role} (1h)` : `Phone ${p.name}, your ${p.role} (20m)`, () => famAct(p)); add('Think back on your life', thinkBack); add('Message a friend', msgFriend); }
+  if (S.loc === 'room' && !locked) { for (const p of [...S.fam.filter(p => p.alive)].sort((x, y) => y.lives - x.lives).slice(0, 4)) add(p.lives ? `Spend time with ${p.name}, your ${p.role} (1h)` : `Phone ${p.name}, your ${p.role} (20m)`, () => famAct(p), p.lives ? '' : SH.phoneW()); SH.homeActs(add); add('Think back on your life', thinkBack); add('Message a friend', msgFriend, SH.phoneW()); }
   if (!locked) for (const o of jobOpts(L)) add(o.l, o.f, open ? open : o.w || '');
   RM.lifeOpts(add, S.loc);
   add('Let time pass…', () => { view = 'skip'; render(); });
@@ -635,7 +646,7 @@ function bar(n, v, col) { return `${n}<span class="bar"><i style="width:${v}%;ba
 function mScroll(pv) { if (!matchMedia('(max-width:1000px)').matches) return; requestAnimationFrame(() => { if (pv) return scrollTo(0, 0); const o = $('opts'); scrollTo(0, Math.max(0, o.getBoundingClientRect().top + scrollY - innerHeight * 0.5)); }); }
 const ensureCal = () => initCal(S);
 const wxStr = () => { ensureCal(); const w = wxAt(S, day(), hr()); return `${w.cond} ${fmtT(w.temp, S.tk.country)}`; };
-function outsideWx() { ensureCal(); const w = wxAt(S, day(), hr()), x = exposure(w); let t = wxLine(w); if (x) { S.health = cl(S.health + x.h); S.mood = cl(S.mood + x.m); S.energy = cl(S.energy + x.e); t += ' ' + x.t; } return t; }
+function outsideWx() { ensureCal(); const w = wxAt(S, day(), hr()), x = SH.shield(exposure(w), w); let t = wxLine(w); if (x) { S.health = cl(S.health + x.h); S.mood = cl(S.mood + x.m); S.energy = cl(S.energy + x.e); t += ' ' + x.t; } return t; }
 const dstr = () => { ensureCal(); const d = dateOf(day(), S.cal0, S.yr0); return `${d.d} ${MON[d.m].slice(0, 3)} ${d.y}`; };
 const ssnNow = () => { ensureCal(); return seasonOf(dateOf(day(), S.cal0, S.yr0).m, climate(S.tk.country)); };
 function hud() { const h = $('hud'); if (!h) return; h.innerHTML = [['Health', S.health, 1], ['Energy', S.energy, 1], ['Fed', S.hunger, 1], ['Mood', S.mood, 1], ['Stress', S.stress, 0], ['Lonely', S.lonely, 0]].map(([n, v, g]) => { v = Math.round(cl(v)); const c = g ? v : 100 - v; return `<div class="m"><span>${n}<b>${v}</b></span><i><u style="width:${v}%;background:var(--${c < 30 ? 'bad' : c < 55 ? 'hi' : 'good'})"></u></i></div>`; }).join(''); }
@@ -643,7 +654,7 @@ function render() {
   if (view === 'new' && S && S.name) { location.href = 'play.html'; return; }
   $('status').innerHTML = `<div class="clk"><b>${WD[(day() - 1) % 7]}</b> ${dstr()} · ${clock()}<span>${ssnNow()} · ${wxStr()} · ${S.tk.city}, age ${S.age}</span></div><div class="mny">${fmt(S.money)}${S.owed ? `<em>owe ${fmt(S.owed)}</em>` : ''}</div><div class="fl">You feel ${feel()}.</div>`; hud();
   if (ev) { if (S.log[S.log.length - 1]?.[0] !== tpl(ev.text)) log(ev.text, 'place'); }
-  const lg = $('log'), pv = ['people', 'person', 'me', 'love', 'rom'].includes(view);
+  const lg = $('log'), pv = ['people', 'person', 'me', 'love', 'rom', 'shop', 'sell', 'inv', 'give', 'ask'].includes(view);
   lg.innerHTML = pv ? profile() : S.log.slice(innerWidth <= 1000 ? -30 : -120).map(l => `<p class="${l[1]}">${l[0]}</p>`).join(''); lg.scrollTop = pv ? 0 : lg.scrollHeight; mScroll(pv);
 
   build();
