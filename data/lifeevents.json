@@ -1,0 +1,198 @@
+[
+ {
+  "w": 3,
+  "text": "You fell into an easy friendship with {new}. Somehow you kept ending up in the same places.",
+  "x": {
+   "lonely": -14,
+   "mood": 5
+  },
+  "min": {
+   "lonely": 25
+  },
+  "meet": true
+ },
+ {
+  "w": 2,
+  "text": "A friendship quietly faded. You and {fade} just stopped making time for each other.",
+  "x": {
+   "lonely": 9,
+   "mood": -3
+  },
+  "min": {
+   "lonely": 35
+  },
+  "fade": true
+ },
+ {
+  "w": 3,
+  "text": "{friend} turned up with news and a bad idea. You laughed more than you had in months.",
+  "x": {
+   "mood": 6,
+   "lonely": -10,
+   "stress": -4
+  }
+ },
+ {
+  "w": 3,
+  "text": "You made more room for {hobby}, and it made more room in you.",
+  "x": {
+   "mood": 5,
+   "stress": -6
+  }
+ },
+ {
+  "w": 3,
+  "text": "A hard stretch: too many worries and too little sleep. You came through it, a little thinner.",
+  "x": {
+   "stress": 10,
+   "mood": -6,
+   "health": -2
+  },
+  "min": {
+   "stress": 30
+  }
+ },
+ {
+  "w": 2,
+  "text": "Something small went right, then something else did, and for a while life felt easy.",
+  "x": {
+   "mood": 7,
+   "stress": -8
+  },
+  "max": {
+   "stress": 60
+  }
+ },
+ {
+  "w": 2,
+  "text": "An unexpected expense landed at the worst moment. It cost @40.",
+  "x": {
+   "money": -40,
+   "stress": 5
+  }
+ },
+ {
+  "w": 2,
+  "text": "Money turned up when you needed it: a refund, a gift, a favor repaid. #40",
+  "x": {
+   "money": 40,
+   "mood": 3
+  }
+ },
+ {
+  "w": 2,
+  "text": "You were properly sick for a week and had to slow down.",
+  "x": {
+   "health": -12,
+   "mood": -5,
+   "energy": -10
+  }
+ },
+ {
+  "w": 2,
+  "text": "You picked up something new almost by accident, just from paying attention.",
+  "x": {
+   "sk": {
+    "intellect": 0.3
+   },
+   "mood": 2
+  }
+ },
+ {
+  "w": 1,
+  "text": "Someone you love had a scare in the hospital. It ended well, but it stayed with you.",
+  "x": {
+   "stress": 9,
+   "mood": -4
+  },
+  "has": "parent"
+ },
+ {
+  "w": 2,
+  "text": "{parent} told a story from before you were born. You'll remember it.",
+  "x": {
+   "mood": 5,
+   "lonely": -6,
+   "bond": {
+    "parent": 6
+   }
+  },
+  "has": "parent"
+ },
+ {
+  "w": 1,
+  "text": "You and {sibling} had a falling out, then a clumsy, honest reconciliation.",
+  "x": {
+   "mood": 2,
+   "bond": {
+    "sibling": 5
+   }
+  },
+  "has": "sibling"
+ },
+ {
+  "w": 2,
+  "text": "A season of long walks and quiet evenings. You got to know yourself a little better.",
+  "x": {
+   "stress": -8,
+   "mood": 4
+  }
+ },
+ {
+  "w": 1,
+  "text": "A regret you had carried for years finally loosened its grip.",
+  "x": {
+   "mood": 6,
+   "stress": -5
+  },
+  "age": [
+   30,
+   99
+  ]
+ },
+ {
+  "w": 2,
+  "lk": 1,
+  "text": "A chance conversation on a bus turned into a real opportunity. Luck, mostly, but you were there to catch it. #60",
+  "x": {
+   "money": 60,
+   "mood": 5,
+   "luck": 6
+  }
+ },
+ {
+  "w": 2,
+  "lk": -1,
+  "text": "Nothing went to plan this year. Missed buses, missed calls, missed chances.",
+  "x": {
+   "mood": -5,
+   "stress": 6,
+   "luck": -6
+  }
+ },
+ {
+  "w": 2,
+  "text": "You kept showing up and practicing, and the effort finally started to show.",
+  "x": {
+   "mood": 4,
+   "sk": {
+    "intellect": 0.15,
+    "charisma": 0.1
+   }
+  },
+  "min": {
+   "ded": 55
+  }
+ },
+ {
+  "w": 2,
+  "text": "A long stretch of drifting went by. It felt fine at the time.",
+  "x": {
+   "mood": 1,
+   "stress": -3
+  },
+  "max": {
+   "ded": 35
+  }
+ }
+]

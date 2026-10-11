@@ -1,10 +1,135 @@
 {
-"ties":["childhood friend","old coworker","neighbor","cousin","friend from school","old teammate"],
-"traits":[{"n":"stubborn","sk":{"fitness":0.2}},{"n":"generous","rep":6},{"n":"anxious","mood":-6,"sk":{"intellect":0.3}},{"n":"curious","sk":{"intellect":0.4}},{"n":"loyal","rep":4},{"n":"restless","mood":-3,"sk":{"street":0.3}},{"n":"patient","mood":4},{"n":"impulsive","sk":{"street":0.3}},{"n":"proud","rep":4},{"n":"dry-humored","sk":{"charisma":0.4}},{"n":"dreamy","mood":3},{"n":"careful","sk":{"intellect":0.2}}],
-"hobbies":["football on any scrap of flat ground","cooking for anyone who sits still","fixing broken radios","long walks at dusk","drawing in the margins of everything","collecting old coins","listening to the same five albums","fishing wherever there's water","card games with the neighbors","growing herbs on a windowsill"],
-"keepsakes":["your late grandmother's brooch","a cracked phone case with an old photo in it","a worn deck of cards","a wristwatch that runs four minutes slow","a folded letter you never answered","a lucky coin"],
-"child":["Learning to ride a bike on the road outside, a hand on the saddle, in {city}.","The smell of {food} on the one day each week everyone ate together.","Hiding from the rain at a bus shelter with {friend}, laughing until it stopped.","Winning a school prize and pretending not to care.","A long summer when the power kept going out and nobody minded."],
-"turn":["You once lost a job in a bad year and learned how fast money disappears.","You almost left {city} for good, then didn't.","A teacher once told you that you were smarter than you acted. You still think about it.","You fell out with someone close and never quite repaired it.","An accident left a small scar you touch when you're thinking.","You once helped a stranger in a crisis and they never learned your name."],
-"regret":["You wish you'd called home more often.","You wish you'd saved earlier.","You wish you'd learned another language.","You wish you'd said yes to that one invitation.","You wish you'd stood up for yourself sooner."],
-"moved":["for work","to be near family","for a fresh start","for school","for love"]
+ "ties": [
+  "childhood friend",
+  "old coworker",
+  "neighbor",
+  "cousin",
+  "friend from school",
+  "old teammate"
+ ],
+ "traits": [
+  {
+   "n": "stubborn",
+   "sk": {
+    "fitness": 0.2
+   },
+   "ded": 8
+  },
+  {
+   "n": "generous",
+   "rep": 6
+  },
+  {
+   "n": "anxious",
+   "mood": -6,
+   "sk": {
+    "intellect": 0.3
+   },
+   "ded": -2
+  },
+  {
+   "n": "curious",
+   "sk": {
+    "intellect": 0.4
+   },
+   "ded": 4
+  },
+  {
+   "n": "loyal",
+   "rep": 4,
+   "ded": 4
+  },
+  {
+   "n": "restless",
+   "mood": -3,
+   "sk": {
+    "street": 0.3
+   },
+   "ded": -6
+  },
+  {
+   "n": "patient",
+   "mood": 4,
+   "ded": 6
+  },
+  {
+   "n": "impulsive",
+   "sk": {
+    "street": 0.3
+   },
+   "ded": -8
+  },
+  {
+   "n": "proud",
+   "rep": 4,
+   "ded": 4
+  },
+  {
+   "n": "dry-humored",
+   "sk": {
+    "charisma": 0.4
+   }
+  },
+  {
+   "n": "dreamy",
+   "mood": 3,
+   "ded": -6
+  },
+  {
+   "n": "careful",
+   "sk": {
+    "intellect": 0.2
+   },
+   "ded": 8
+  }
+ ],
+ "hobbies": [
+  "football on any scrap of flat ground",
+  "cooking for anyone who sits still",
+  "fixing broken radios",
+  "long walks at dusk",
+  "drawing in the margins of everything",
+  "collecting old coins",
+  "listening to the same five albums",
+  "fishing wherever there's water",
+  "card games with the neighbors",
+  "growing herbs on a windowsill"
+ ],
+ "keepsakes": [
+  "your late grandmother's brooch",
+  "a cracked phone case with an old photo in it",
+  "a worn deck of cards",
+  "a wristwatch that runs four minutes slow",
+  "a folded letter you never answered",
+  "a lucky coin"
+ ],
+ "child": [
+  "Learning to ride a bike on the road outside, a hand on the saddle, in {city}.",
+  "The smell of {food} on the one day each week everyone ate together.",
+  "Hiding from the rain at a bus shelter with {friend}, laughing until it stopped.",
+  "Winning a school prize and pretending not to care.",
+  "A long summer when the power kept going out and nobody minded."
+ ],
+ "turn": [
+  "You once lost a job in a bad year and learned how fast money disappears.",
+  "You almost left {city} for good, then didn't.",
+  "A teacher once told you that you were smarter than you acted. You still think about it.",
+  "You fell out with someone close and never quite repaired it.",
+  "An accident left a small scar you touch when you're thinking.",
+  "You once helped a stranger in a crisis and they never learned your name."
+ ],
+ "regret": [
+  "You wish you'd called home more often.",
+  "You wish you'd saved earlier.",
+  "You wish you'd learned another language.",
+  "You wish you'd said yes to that one invitation.",
+  "You wish you'd stood up for yourself sooner."
+ ],
+ "moved": [
+  "for work",
+  "to be near family",
+  "for a fresh start",
+  "for school",
+  "for love"
+ ]
 }

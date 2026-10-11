@@ -1,60 +1,83 @@
 {
- "start": {
-  "money": 140,
-  "health": 100,
-  "hunger": 70,
-  "energy": 85,
-  "mood": 60,
-  "rep": 10,
-  "heat": 0,
-  "hour": 8,
-  "loc": "room",
-  "sk": {
-   "fitness": 1,
-   "charisma": 1,
-   "intellect": 1,
-   "street": 0
+  "start": {
+    "money": 140,
+    "health": 100,
+    "hunger": 70,
+    "energy": 85,
+    "mood": 60,
+    "rep": 10,
+    "heat": 0,
+    "hour": 8,
+    "loc": "room",
+    "sk": {
+      "fitness": 1,
+      "charisma": 1,
+      "intellect": 1,
+      "street": 0
+    }
+  },
+  "hungerPerHour": 3,
+  "energyPerHour": 2.5,
+  "heatDecay": 1.2,
+  "eventChance": 0.3,
+  "rent": {
+    "every": 7,
+    "amount": 60
+  },
+  "weather": [
+    {
+      "name": "clear",
+      "line": "The sky is wide and pale."
+    },
+    {
+      "name": "rain",
+      "line": "Rain ticks against everything."
+    },
+    {
+      "name": "fog",
+      "line": "Fog sits low over the town."
+    },
+    {
+      "name": "windy",
+      "line": "Wind pushes loose trash down the road."
+    },
+    {
+      "name": "snow",
+      "line": "Snow muffles the street."
+    },
+    {
+      "name": "heatwave",
+      "line": "The heat presses down on everything."
+    }
+  ],
+  "intro": "You left the city with two bags and a laptop. Remote work was supposed to make life easy. Hollow Creek has one diner, one stoplight, and signal that comes and goes. Rent is due every seventh day. Make it work.",
+  "W": [
+    0.25,
+    0.45,
+    0.8,
+    1.2,
+    1.6
+  ],
+  "C": [
+    0.35,
+    0.5,
+    0.85,
+    1.1,
+    1.4
+  ],
+  "body": {
+    "h": [
+      179,
+      177,
+      177,
+      170,
+      172,
+      170,
+      166,
+      172,
+      165,
+      179,
+      181
+    ]
   }
- },
- "hungerPerHour": 3,
- "energyPerHour": 2.5,
- "heatDecay": 1.2,
- "eventChance": 0.3,
- "rent": {
-  "every": 7,
-  "amount": 60
- },
- "weather": [
-  {
-   "name": "clear",
-   "line": "The sky is wide and pale."
-  },
-  {
-   "name": "rain",
-   "line": "Rain ticks against everything."
-  },
-  {
-   "name": "fog",
-   "line": "Fog sits low over the town."
-  },
-  {
-   "name": "windy",
-   "line": "Wind pushes loose trash down the road."
-  }
- ],
- "intro": "You left the city with two bags and a laptop. Remote work was supposed to make life easy. Hollow Creek has one diner, one stoplight, and signal that comes and goes. Rent is due every seventh day. Make it work.",
- "W": [
-  0.25,
-  0.45,
-  0.8,
-  1.2,
-  1.6
- ],
- "C": [
-  0.35,
-  0.5,
-  0.85,
-  1.1,
-  1.4
- ]
 }

@@ -394,5 +394,302 @@
     "text": "They nod. They've heard that before."
    }
   ]
+ },
+ {
+  "id": "lonely_text",
+  "w": 3,
+  "at": [
+   "room",
+   "street"
+  ],
+  "min": {
+   "lonely": 60
+  },
+  "text": "The apartment feels very quiet. Your thumb hovers over {friend}'s name.",
+  "choices": [
+   {
+    "label": "Send a message",
+    "x": {
+     "time": 0.5,
+     "lonely": -18,
+     "mood": 6,
+     "stress": -3
+    },
+    "text": "The reply is instant. You talk until your face hurts from smiling."
+   },
+   {
+    "label": "Put the phone down",
+    "x": {
+     "mood": -3,
+     "lonely": 3
+    },
+    "text": "You tell yourself they're probably busy."
+   }
+  ]
+ },
+ {
+  "id": "overwhelmed",
+  "w": 3,
+  "at": [
+   "room",
+   "street",
+   "diner",
+   "mart"
+  ],
+  "min": {
+   "stress": 70
+  },
+  "text": "Your chest is tight and everything feels like too much at once.",
+  "choices": [
+   {
+    "label": "Stop and breathe slowly",
+    "x": {
+     "time": 0.25,
+     "stress": -18,
+     "mood": 2
+    },
+    "text": "In for four, out for six. The edges soften."
+   },
+   {
+    "label": "Call {friend}",
+    "x": {
+     "time": 0.5,
+     "stress": -10,
+     "lonely": -12,
+     "mood": 4
+    },
+    "text": "You don't explain much. {friend} just stays on the line."
+   },
+   {
+    "label": "Push through it",
+    "x": {
+     "stress": 5,
+     "mood": -3,
+     "health": -2
+    },
+    "text": "You clench your jaw and keep going. It costs you."
+   }
+  ]
+ },
+ {
+  "id": "sunny",
+  "w": 2,
+  "at": [
+   "street",
+   "docks"
+  ],
+  "min": {
+   "mood": 65
+  },
+  "text": "The light catches the buildings just right and for a moment everything looks kind.",
+  "choices": [
+   {
+    "label": "Stop and take it in",
+    "x": {
+     "time": 0.25,
+     "mood": 6,
+     "stress": -6
+    },
+    "text": "You stand there a while. Nobody minds."
+   },
+   {
+    "label": "Keep walking",
+    "x": {
+     "mood": 1
+    },
+    "text": "You carry the feeling with you for a few streets."
+   }
+  ]
+ },
+ {
+  "id": "scholarship",
+  "w": 1,
+  "at": [
+   "library"
+  ],
+  "min": {
+   "age": 14
+  },
+  "text": "A flyer on the library noticeboard: a small local scholarship, open to anyone who can write a good essay.",
+  "choices": [
+   {
+    "label": "Enter the competition",
+    "chance": {
+     "base": 0.2,
+     "sk": "intellect",
+     "per": 0.07
+    },
+    "x": {
+     "time": 2,
+     "energy": -8,
+     "ed": 1
+    },
+    "win": {
+     "text": "Weeks later a letter arrives. You won. +#80",
+     "x": {
+      "money": 80,
+      "mood": 8,
+      "ed": 2,
+      "luck": 3
+     }
+    },
+    "lose": {
+     "text": "No reply ever comes, but the writing taught you something.",
+     "x": {
+      "mood": -2,
+      "sk": {
+       "intellect": 0.1
+      }
+     }
+    }
+   },
+   {
+    "label": "Walk past",
+    "text": "You have enough on your plate.",
+    "x": {}
+   }
+  ]
+ },
+ {
+  "id": "tutor",
+  "w": 1,
+  "at": [
+   "library"
+  ],
+  "hours": [
+   12,
+   20
+  ],
+  "min": {
+   "age": 8
+  },
+  "text": "A retired teacher at the next table notices you struggling. \"Want a hand with that?\"",
+  "choices": [
+   {
+    "label": "Accept the help (@5)",
+    "req": {
+     "money": 5
+    },
+    "x": {
+     "money": -5,
+     "time": 1.5,
+     "ed": 1.8,
+     "mood": 2,
+     "sk": {
+      "intellect": 0.15
+     }
+    },
+    "text": "An hour with someone who explains things properly is worth more than three alone."
+   },
+   {
+    "label": "Decline politely",
+    "x": {},
+    "text": "You wave them off and go back to your book."
+   }
+  ]
+ },
+ {
+  "id": "windfall",
+  "lk": 1,
+  "w": 0.7,
+  "text": "You spot a folded banknote caught under a bench.",
+  "choices": [
+   {
+    "label": "Pocket it",
+    "x": {
+     "money": 15,
+     "mood": 3,
+     "luck": 2
+    },
+    "text": "Small luck, but you'll take it."
+   }
+  ]
+ },
+ {
+  "id": "opening",
+  "lk": 1,
+  "w": 0.6,
+  "at": [
+   "street",
+   "diner",
+   "mart"
+  ],
+  "min": {
+   "age": 16
+  },
+  "text": "Someone you barely know mentions their cousin is hiring, and that you seem like the type they'd want.",
+  "choices": [
+   {
+    "label": "Ask for an introduction",
+    "x": {
+     "rep": 3,
+     "mood": 4,
+     "money": 25,
+     "luck": 3
+    },
+    "text": "A word in the right ear. Nothing life-changing, but it pays, and doors open a crack."
+   },
+   {
+    "label": "Let it go",
+    "x": {},
+    "text": "You smile and change the subject."
+   }
+  ]
+ },
+ {
+  "id": "bicycle",
+  "lk": -1,
+  "w": 0.7,
+  "at": [
+   "street"
+  ],
+  "text": "A cyclist clips you at the crossing and keeps going. Your elbow throbs.",
+  "choices": [
+   {
+    "label": "Walk it off",
+    "x": {
+     "health": -6,
+     "mood": -3,
+     "luck": -2
+    },
+    "text": "Wrong place, wrong second."
+   }
+  ]
+ },
+ {
+  "id": "pipe",
+  "lk": -1,
+  "w": 0.5,
+  "at": [
+   "room"
+  ],
+  "min": {
+   "age": 16
+  },
+  "text": "A pipe bursts in the wall above your bed. The landlord shrugs.",
+  "choices": [
+   {
+    "label": "Pay for the repair (@30)",
+    "req": {
+     "money": 30
+    },
+    "x": {
+     "money": -30,
+     "stress": 5,
+     "luck": -3
+    },
+    "text": "The bill is the kind that arrives with a sigh."
+   },
+   {
+    "label": "Mop up and live with it",
+    "x": {
+     "mood": -4,
+     "stress": 6,
+     "health": -3,
+     "luck": -2
+    },
+    "text": "The wall will smell for weeks."
+   }
+  ]
  }
 ]

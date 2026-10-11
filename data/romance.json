@@ -1,0 +1,3110 @@
+{
+"ll": {
+"words": "words of affirmation",
+"time": "quality time",
+"gifts": "thoughtful gifts",
+"acts": "acts of service",
+"touch": "physical affection"
+},
+"llh": {
+"words": "kind words and honest praise",
+"time": "undivided attention",
+"gifts": "small, thoughtful surprises",
+"acts": "practical help and reliability",
+"touch": "closeness, hugs and held hands"
+},
+"att": {
+"secure": "steady and open",
+"anxious": "anxious and needing reassurance",
+"avoidant": "guarded and needing space"
+},
+"vals": {
+"ambitious": "ambitious",
+"family": "family-minded",
+"adventurous": "adventurous",
+"homebody": "a homebody",
+"creative": "creative",
+"principled": "principled"
+},
+"topics": [
+"who does the chores",
+"money",
+"too little time together",
+"how you spend your weekends",
+"a thoughtless remark at dinner",
+"in-laws and holidays",
+"plans for the future",
+"a forgotten promise",
+"screen time",
+"how loud one of you was in the morning"
+],
+"flirt": {
+"yes": [
+"You hold the eye contact a moment too long. {n} does not look away, and smiles.",
+"{n} laughs at your joke harder than it deserved, then touches your arm.",
+"You pay {n} a compliment that lands softly. The air between you shifts."
+],
+"meh": [
+"{n} smiles politely and changes the subject.",
+"The line falls flat. {n} gives you a kind, noncommittal nod.",
+"You fumble the words. {n} is amused but unmoved."
+],
+"no": [
+"{n} says gently that {he} sees you as a friend, and only a friend. You take it with grace.",
+"{n} laughs kindly. 'I am not looking for that,' {he} says. You are still friends, even if it stings.",
+"It becomes clear that {n} is not interested in you that way. The air clears; the friendship stays."
+]
+},
+"askout": {
+"yes": [
+"'I would love to,' {n} says, as if the answer were obvious.",
+"{n} grins. 'Took you long enough.'",
+"{n} thinks for a second, then smiles. 'Yes. Let us see where this goes.'"
+],
+"no": [
+"{n} says {he} likes you, but not like that, and not yet.",
+"'I think we are better as we are,' {n} says. It is kind and it is final.",
+"{n} hesitates and says no. You both pretend it does not sting."
+]
+},
+"ilu": [
+"'I love you,' you say, and it is the simplest sentence in the world.",
+"The words come out before you can plan them. 'I love you.'"
+],
+"ilu_ok": [
+"{n} goes still, then smiles with wet eyes. 'I love you too.'",
+"'I have been waiting to hear that,' {n} says, laughing and a little teary."
+],
+"ilu_no": [
+"{n} says, gently, that {he} is not there yet. The words hang there, unanswered.",
+"'Thank you,' {n} says. {He} does not say it back."
+],
+"compliment": {
+"yes": [
+"{n} blushes, delighted. Sometimes it is the small things.",
+"You tell {n} exactly what you love about {him}. It lands."
+],
+"meh": [
+"{n} accepts it with a smile that does not quite reach {his} eyes."
+]
+},
+"kiss": {
+"yes": [
+"You lean in, and so does {n}. The kiss is warm, unhurried, and says the rest.",
+"A kiss in the doorway, slow and sure, and the world rearranges itself around it.",
+"Under the streetlight, you kiss {n}. Neither of you wants to be the one who pulls away."
+],
+"no": [
+"You lean in, and {n} turns slightly, offering a cheek instead. You respect it at once, and the moment passes softly."
+]
+},
+"intim": {
+"first": {
+"great": [
+"It is the first time for the two of you, and it is tender, curious, and unhurried.",
+"The first time is a small, shared discovery. You laugh, and then you are quiet, and then it is simply right."
+],
+"good": [
+"The first time is a little awkward and a lot of warmth."
+],
+"ok": [
+"The first time is clumsy and sweet. You both laugh about it afterward."
+],
+"awkward": [
+"The first time does not go as imagined. Nobody is hurt, but both of you are quiet and a little shy."
+]
+},
+"night": {
+"great": [
+"The door closes, the world goes quiet, and the night is everything you wanted. You wake tangled up and happy.",
+"You and {n} lose track of time entirely. When the light comes back, neither of you is in a hurry to leave the bed."
+],
+"good": [
+"The evening folds into a long, tender night. You fall asleep close.",
+"The night is warm and good, and the morning is better."
+],
+"ok": [
+"It is nice, if ordinary. You both sleep well.",
+"A comfortable night, a little tired on both sides."
+],
+"awkward": [
+"Neither of you is quite in the moment. You laugh it off and cuddle instead.",
+"The mood slips away before it gets going. It is fine. It is also a little flat."
+]
+},
+"new": {
+"great": [
+"You try something new. {n} laughs and then does not stop smiling for the rest of the night.",
+"A new idea turns the evening playful and electric."
+],
+"good": [
+"It is a little silly, and a lot of fun."
+],
+"ok": [
+"It is a good idea that is hard to pull off."
+],
+"awkward": [
+"It does not work, and you both end up laughing helplessly."
+]
+},
+"decline": [
+"You tell {n} you are not in the mood. {n} nods, understanding. 'Another time,' {he} says.",
+"{n} says not tonight, with a kiss and a smile. You are fine. You hold each other instead."
+],
+"after": [
+"{n} falls asleep with a hand on your chest.",
+"You lie there listening to {n} breathe.",
+"You share toast at one in the morning.",
+"The city hums outside. Everything inside is warm."
+]
+},
+"rings": [
+{
+"n": "a simple band",
+"c": 120,
+"q": 0.0
+},
+{
+"n": "a fine ring",
+"c": 450,
+"q": 0.05
+},
+{
+"n": "a stunning ring",
+"c": 1400,
+"q": 0.08
+},
+{
+"n": "no ring, just the question",
+"c": 0,
+"q": -0.1
+}
+],
+"weddings": [
+{
+"id": "court",
+"n": "a quiet courthouse ceremony",
+"c": 100,
+"h": 3,
+"mood": 8,
+"g": 6,
+"line": "You stand before the registrar with two witnesses and an enormous amount of feeling."
+},
+{
+"id": "small",
+"n": "a small gathering with family and close friends",
+"c": 800,
+"h": 6,
+"mood": 12,
+"g": 16,
+"line": "Chairs in a garden, someone playing a guitar, and the quiet certainty that this is right."
+},
+{
+"id": "big",
+"n": "a big wedding",
+"c": 3500,
+"h": 10,
+"mood": 15,
+"g": 30,
+"line": "The hall is full, the music is loud, and the day is a blur you will relive for years."
+},
+{
+"id": "dest",
+"n": "a destination wedding",
+"c": 7000,
+"h": 14,
+"mood": 18,
+"g": 14,
+"line": "Salt air, a sunset, and a handful of people who crossed the world to be there."
+}
+],
+"honeymoon": [
+"You and {n} slip away for a few days, with no schedule and no one to answer to.",
+"The honeymoon is soft focus and late breakfasts and the quiet joy of being married."
+],
+"breakup": {
+"kind": [
+"You sit down with {n} and say it honestly, with care. {n} cries a little; you do too.",
+"You tell {n} that it is not working, and that you are sorry. It is an unhappy conversation, but a decent one."
+],
+"blunt": [
+"You tell {n} it is over, flatly. The silence afterward is brutal.",
+"You say it like ripping off a bandage. {n} stares, then goes pale."
+],
+"ghost": [
+"You stop answering. Days pass. Eventually {n} stops trying.",
+"You let the silence grow until it says everything for you. It is cowardly, and you know it."
+],
+"brk": [
+"You tell {n} you need some time apart. You are both quiet about what that means."
+]
+},
+"theyleave": [
+"{n} ends it. The words are quiet and final, and they take the air out of the room.",
+"{n} says it is over. You hear the door close and the silence behind it.",
+"'I am sorry,' {n} says, 'but I am done.'"
+],
+"grief": [
+"You find yourself reaching for your phone to text {n}, and then remembering.",
+"A song you both loved comes on, and you have to sit down.",
+"Everything in the apartment seems to hold a trace of {n}."
+],
+"sep": [
+"You and {n} agree to separate. The silence in the home afterwards is its own kind of noise.",
+"You tell {n} you need a separation. {n} nods, eyes wet."
+],
+"reunite": [
+"You and {n} find your way back to each other. It is slower and more careful this time.",
+"{n} says yes. You both know you are starting from a different place now."
+],
+"reunite_no": [
+"{n} says no. It is gentle and it is final."
+],
+"friends_yes": [
+"{n} agrees to stay friends. It is a delicate peace, and it holds.",
+"'I would like that,' {n} says."
+],
+"friends_no": [
+"{n} says {he} needs distance. You understand."
+],
+"marry": [
+"You say your vows. {n} is crying and laughing in the same breath.",
+"'I do,' you both say, and the room erupts."
+],
+"div": {
+"fast": "an uncontested divorce",
+"med": "a mediated divorce",
+"fight": "a contested divorce",
+"done": [
+"The decree arrives in the post. The marriage is legally over, and it hurts more than you thought.",
+"You sign the last page. It is done."
+],
+"settle": "The settlement splits what you built.",
+"cust": {
+"you": "You keep primary custody of the children.",
+"shared": "You and {n} share custody of the children.",
+"them": "{n} is awarded primary custody. You will pay support."
+}
+},
+"preg": {
+"symptoms": [
+"You feel off lately: tired, queasy, strange. Your thoughts keep circling back to one possibility.",
+"{n} has been quiet and pale, and finally says, softly, that {he} might be pregnant."
+],
+"news_you": "You take a test. The result is clear: you are pregnant.",
+"news_them": "{n} tells you the news: {he} is pregnant. It is yours.",
+"lost": [
+"It does not last. The loss is quiet and heavy, and nothing anyone says quite helps.",
+"The pregnancy ends early. You grieve what might have been."
+],
+"birth": [
+"After a long, hard night, a new person arrives, small and furious and perfect.",
+"Hours of effort, and then a first cry that rearranges everything."
+]
+},
+"ev": [
+{
+"id": "argue",
+"w": 4,
+"st": [
+"dating",
+"together",
+"engaged",
+"married"
+],
+"text": "A small thing turns into a real argument with {n}: {topic}. Voices rise, then fall into a charged silence.",
+"ch": [
+{
+"l": "Apologize first, even if it stings",
+"win": {
+"t": "You say sorry before pride can stop you. {n} exhales, and the argument loses its teeth.",
+"r": {
+"res": -10,
+"trust": 3,
+"love": 2
+}
+},
+"aw": 3,
+"lose": {
+"t": "Your apology lands badly; {n} hears it as an attempt to end the conversation.",
+"r": {
+"res": 4
+}
+},
+"chance": {
+"b": 0.6,
+"sk": "charisma",
+"pc": 0.04,
+"m": {
+"trust": 0.002
+}
+}
+},
+{
+"l": "Stand your ground",
+"win": {
+"t": "You hold your position calmly. {n} grudgingly admits there is something in it.",
+"r": {
+"res": -2,
+"trust": 1
+},
+"x": {
+"stress": -2
+}
+},
+"aw": 2,
+"lose": {
+"t": "Neither of you gives an inch. It ends with a slammed door and a cold night.",
+"r": {
+"res": 12,
+"love": -2,
+"trust": -2
+},
+"x": {
+"stress": 6,
+"mood": -4
+}
+},
+"chance": {
+"b": 0.3,
+"sk": "charisma",
+"pc": 0.04
+}
+},
+{
+"l": "Suggest a compromise",
+"win": {
+"t": "You find a middle ground. Making it work feels like a small victory you share.",
+"r": {
+"res": -8,
+"trust": 4,
+"love": 2,
+"cmf": 2
+},
+"x": {
+"stress": -3
+}
+},
+"aw": 3,
+"lose": {
+"t": "The compromise satisfies nobody, and the resentment lingers.",
+"r": {
+"res": 5
+}
+},
+"chance": {
+"b": 0.45,
+"sk": "intellect",
+"pc": 0.05,
+"m": {
+"trust": 0.003
+}
+}
+},
+{
+"l": "Walk out to cool off",
+"win": {
+"t": "You take a long walk. When you come back the edges have worn off.",
+"r": {
+"res": -3
+},
+"x": {
+"stress": -3
+}
+},
+"aw": 1,
+"lose": {
+"t": "{n} sees the walk as abandonment. 'You always leave,' {he} says quietly.",
+"r": {
+"res": 10,
+"trust": -3,
+"love": -1
+}
+},
+"chance": {
+"b": 0.4,
+"att": {
+"avoidant": 0.2,
+"anxious": -0.25
+}
+}
+}
+]
+},
+{
+"id": "jealous",
+"w": 1.5,
+"st": [
+"dating",
+"together",
+"engaged",
+"married"
+],
+"when": {
+"minJl": 45
+},
+"text": "{n} saw a message on your phone from someone {he} does not know. {He} has gone very quiet.",
+"ch": [
+{
+"l": "Show {him} the message and explain",
+"win": {
+"t": "{n} reads it and relaxes. The doubt fades, though not entirely.",
+"r": {
+"trust": 4,
+"res": -5,
+"love": 1
+}
+},
+"aw": 3,
+"lose": {
+"t": "The explanation sounds defensive even to you. {n} remains unconvinced.",
+"r": {
+"trust": -3,
+"res": 6
+}
+},
+"chance": {
+"b": 0.6,
+"sk": "charisma",
+"pc": 0.03,
+"m": {
+"trust": 0.003
+}
+}
+},
+{
+"l": "Tell {him} it's not a big deal",
+"win": {
+"t": "{n} lets it go, but not happily.",
+"r": {
+"res": 3,
+"trust": -1
+}
+},
+"aw": 1,
+"lose": {
+"t": "'Not a big deal?' {n} says. The fight that follows lasts hours.",
+"r": {
+"res": 10,
+"trust": -5,
+"love": -2
+},
+"x": {
+"stress": 5
+}
+},
+"chance": {
+"b": 0.35,
+"m": {
+"trust": 0.004
+}
+}
+},
+{
+"l": "Reassure {him} with all your attention",
+"win": {
+"t": "You spend the evening making sure {n} knows how much {he} matters. It works.",
+"r": {
+"trust": 3,
+"love": 3,
+"res": -6
+},
+"x": {
+"stress": -2
+}
+},
+"aw": 2
+}
+]
+},
+{
+"id": "ily",
+"w": 2.5,
+"st": [
+"dating",
+"together"
+],
+"when": {
+"minLove": 48,
+"noIly": 1
+},
+"text": "{n} takes a breath. 'I think I love you,' {he} says, quickly, like jumping into cold water.",
+"ch": [
+{
+"l": "Say it back",
+"win": {
+"t": "'I love you too.' It is easy to say. It was easy all along.",
+"r": {
+"love": 8,
+"trust": 4,
+"com": 8
+},
+"x": {
+"mood": 10,
+"lonely": -10
+},
+"a": [
+"ily",
+"ilyback"
+],
+"j": 1
+},
+"aw": 3
+},
+{
+"l": "Admit you are not sure yet",
+"win": {
+"t": "You tell the truth gently. {n} nods, hurt but understanding.",
+"r": {
+"love": -2,
+"trust": 2,
+"com": -2
+},
+"x": {
+"stress": 3
+},
+"a": [
+"ily"
+]
+},
+"aw": 1,
+"lose": {
+"t": "You tell the truth gently. {n} smiles thinly, and the evening is never quite as warm.",
+"r": {
+"love": -4,
+"trust": -1,
+"res": 3
+},
+"x": {
+"stress": 4
+},
+"a": [
+"ily"
+]
+},
+"chance": {
+"b": 0.5,
+"sk": "charisma",
+"pc": 0.04
+}
+}
+]
+},
+{
+"id": "official",
+"w": 2,
+"st": [
+"dating"
+],
+"when": {
+"minLove": 38,
+"minPas": 35
+},
+"text": "{n} turns to you. 'Where is this going?' {he} asks. 'Because I do not want to share you.'",
+"ch": [
+{
+"l": "Say you want to be exclusive",
+"win": {
+"t": "{n} grins. 'Then it is official.' You are together now.",
+"r": {
+"love": 5,
+"com": 18,
+"trust": 3
+},
+"x": {
+"mood": 8,
+"lonely": -8
+},
+"a": [
+"official"
+],
+"j": 1
+},
+"aw": 3
+},
+{
+"l": "Say you want to keep things casual",
+"win": {
+"t": "{n} swallows it. 'Okay,' {he} says. It does not sound okay.",
+"r": {
+"com": -10,
+"love": -4,
+"res": 6
+},
+"x": {
+"stress": 3
+}
+},
+"aw": 1,
+"lose": {
+"t": "'Then I am done,' {n} says, calmly.",
+"r": {
+"love": -10,
+"res": 14
+},
+"x": {
+"stress": 6,
+"mood": -5
+},
+"a": [
+"theyleave"
+]
+},
+"chance": {
+"b": 0.4,
+"sk": "charisma",
+"pc": 0.03,
+"m": {
+"com": 0.004
+}
+}
+},
+{
+"l": "Ask for a little more time",
+"win": {
+"t": "{n} nods. 'A little,' {he} says.",
+"r": {
+"com": -2,
+"trust": -1
+}
+},
+"aw": 1
+}
+]
+},
+{
+"id": "movein",
+"w": 2,
+"st": [
+"together"
+],
+"when": {
+"minLove": 55,
+"minTrust": 50,
+"apart": 1
+},
+"text": "{n} has been circling the subject for days. Finally: 'Would you move in with me?'",
+"ch": [
+{
+"l": "Say yes",
+"win": {
+"t": "You pack up the next weekend. The place is smaller, and far more yours.",
+"r": {
+"love": 4,
+"com": 12,
+"trust": 3
+},
+"x": {
+"mood": 8,
+"lonely": -10
+},
+"a": [
+"movein"
+],
+"j": 1
+},
+"aw": 2
+},
+{
+"l": "Say you are not ready",
+"win": {
+"t": "{n} says that is fine. Mostly.",
+"r": {
+"com": -4,
+"trust": -1
+}
+},
+"aw": 1,
+"lose": {
+"t": "{n}'s smile falters. 'I see,' {he} says.",
+"r": {
+"com": -8,
+"res": 4,
+"love": -2
+},
+"x": {
+"stress": 3
+}
+},
+"chance": {
+"b": 0.55,
+"sk": "charisma",
+"pc": 0.03,
+"m": {
+"trust": 0.003
+}
+}
+}
+]
+},
+{
+"id": "propose",
+"w": 2,
+"st": [
+"together"
+],
+"when": {
+"minLove": 62,
+"minTrust": 58,
+"minCom": 55,
+"minDays": 140
+},
+"text": "{n} is nervous, which is not like {him}. {He} takes your hand. 'Will you marry me?'",
+"ch": [
+{
+"l": "Say yes",
+"win": {
+"t": "'Yes,' you say, and mean it. {n} slips on a ring with trembling hands.",
+"r": {
+"love": 10,
+"com": 22,
+"trust": 4,
+"pas": 6
+},
+"x": {
+"mood": 14,
+"lonely": -12
+},
+"a": [
+"engage"
+],
+"j": 1
+},
+"aw": 4
+},
+{
+"l": "Say not yet",
+"win": {
+"t": "{n} breathes out and tries to smile. 'Okay. Not yet.'",
+"r": {
+"com": -6,
+"trust": -2,
+"love": -2
+},
+"x": {
+"stress": 4
+}
+},
+"aw": 1
+},
+{
+"l": "Say no",
+"win": {
+"t": "{n} nods slowly. Neither of you says anything for a long time.",
+"r": {
+"love": -12,
+"com": -18,
+"res": 10
+},
+"x": {
+"stress": 8,
+"mood": -8
+},
+"a": [
+"theyleave"
+]
+},
+"aw": 0.3
+}
+]
+},
+{
+"id": "invite",
+"w": 3,
+"st": [
+"dating",
+"together",
+"engaged",
+"married"
+],
+"when": {
+"minCmf": 40,
+"minAttr": 40
+},
+"text": "{n} looks at you for a long moment, then moves closer. The question is unspoken, and unmistakable.",
+"ch": [
+{
+"l": "Yes, take it as it comes",
+"win": {
+"t": "You let the evening go where it wants to go.",
+"r": {
+"pas": 2
+},
+"a": [
+"intim"
+]
+},
+"aw": 4
+},
+{
+"l": "Not tonight, gently",
+"win": {
+"t": "You say so kindly. {n} nods and kisses you anyway. There is no pressure, only warmth.",
+"r": {
+"trust": 2,
+"cmf": 1
+}
+},
+"aw": 1,
+"lose": {
+"t": "You say so kindly. {n} nods, a bit deflated.",
+"r": {
+"pas": -2
+}
+},
+"chance": {
+"b": 0.7,
+"sk": "charisma",
+"pc": 0.02,
+"m": {
+"trust": 0.002
+}
+}
+}
+]
+},
+{
+"id": "partner_job",
+"w": 1.2,
+"st": [
+"together",
+"engaged",
+"married"
+],
+"when": {
+"young": 1
+},
+"text": "{n} comes home pale. 'They let me go,' {he} says. 'Today. Just like that.'",
+"ch": [
+{
+"l": "Hold {him} and say you will manage",
+"win": {
+"t": "You sit with {n} for a long time. Tomorrow you will make a plan, tonight you are just there.",
+"r": {
+"trust": 6,
+"love": 3,
+"com": 4
+},
+"x": {
+"stress": 3,
+"mood": -1
+}
+},
+"aw": 3
+},
+{
+"l": "Offer to cover things for a while (@50)",
+"win": {
+"t": "You cover what you can, and {n} cries a little with relief.",
+"r": {
+"trust": 8,
+"love": 4,
+"com": 5
+},
+"x": {
+"money": -50,
+"stress": -1
+}
+},
+"aw": 2,
+"req": {
+"money": 50
+}
+},
+{
+"l": "Tell {him} to start applying tomorrow",
+"win": {
+"t": "{n} nods stiffly. It is practical, and it hurts.",
+"r": {
+"trust": -3,
+"love": -3,
+"res": 5
+}
+},
+"aw": 1
+}
+]
+},
+{
+"id": "partner_grief",
+"w": 0.9,
+"st": [
+"dating",
+"together",
+"engaged",
+"married"
+],
+"when": {
+"minLove": 30
+},
+"text": "{n} calls, voice shaky: someone close to {him} has died. {He} does not know what to do with the news.",
+"ch": [
+{
+"l": "Drop everything and go to {him}",
+"win": {
+"t": "You sit with {n} through the worst of it. {He} will not forget that.",
+"r": {
+"trust": 8,
+"love": 5,
+"com": 4
+},
+"x": {
+"energy": -6,
+"stress": 3,
+"mood": -3
+}
+},
+"aw": 3
+},
+{
+"l": "Send food and stay in touch",
+"win": {
+"t": "It is something. {n} is grateful, though {he} wishes you were closer.",
+"r": {
+"trust": 2,
+"love": 1
+}
+},
+"aw": 2
+},
+{
+"l": "Say you are sorry and keep your distance",
+"win": {
+"t": "{n} notices that you did not come.",
+"r": {
+"trust": -6,
+"love": -4,
+"res": 6
+}
+},
+"aw": 0.5
+}
+]
+},
+{
+"id": "partner_sick",
+"w": 1,
+"st": [
+"dating",
+"together",
+"engaged",
+"married"
+],
+"when": {
+"minLove": 30
+},
+"text": "{n} is ill and trying to hide how badly. {He} says it is nothing. It does not look like nothing.",
+"ch": [
+{
+"l": "Take {him} to the clinic (@40)",
+"win": {
+"t": "You sit in the waiting room together. It is nothing serious, thanks to you.",
+"r": {
+"trust": 6,
+"love": 4,
+"com": 3
+},
+"x": {
+"money": -40,
+"energy": -5,
+"stress": 2
+}
+},
+"aw": 3,
+"req": {
+"money": 40
+}
+},
+{
+"l": "Make soup and keep {him} company",
+"win": {
+"t": "You tend to {n} for a day or two. {He} recovers, grateful and a little smug about being pampered.",
+"r": {
+"trust": 4,
+"love": 4,
+"cmf": 3
+},
+"x": {
+"energy": -4
+}
+},
+"aw": 3
+},
+{
+"l": "Tell {him} to rest and leave it there",
+"win": {
+"t": "{n} manages alone, and remembers it.",
+"r": {
+"trust": -3,
+"love": -2,
+"res": 3
+}
+},
+"aw": 0.5
+}
+]
+},
+{
+"id": "tempt",
+"w": 2,
+"st": [
+"together",
+"engaged",
+"married"
+],
+"when": {
+"young": 1
+},
+"text": "Someone at {place} has been paying you plenty of attention. Tonight the attention turns obvious. You could do something about it.",
+"ch": [
+{
+"l": "Politely decline and move on",
+"win": {
+"t": "You make it clear you are taken. It feels good to have chosen.",
+"r": {
+"com": 1
+},
+"x": {
+"mood": 3,
+"stress": -2
+}
+},
+"aw": 5
+},
+{
+"l": "Flirt back, just a little",
+"win": {
+"t": "It is harmless, you tell yourself. The thrill is real, and so is the guilt.",
+"x": {
+"mood": 2,
+"stress": 4
+},
+"a": [
+"flirtother"
+]
+},
+"aw": 1.5
+},
+{
+"l": "Go further",
+"win": {
+"t": "You cross the line. It feels like falling, and it does not feel good for long.",
+"x": {
+"stress": 8,
+"mood": -3
+},
+"a": [
+"cheat"
+],
+"j": 1
+},
+"aw": 0.4
+}
+]
+},
+{
+"id": "suspect",
+"w": 5,
+"st": [
+"together",
+"engaged",
+"married"
+],
+"when": {
+"aff": 1
+},
+"text": "Something is off. {n} is on the phone more, guards the screen, and has stories that do not quite line up.",
+"ch": [
+{
+"l": "Confront {him} directly",
+"win": {
+"t": "{n} holds your gaze, then looks away. 'I did not mean for it to happen,' {he} says.",
+"r": {
+"trust": -30,
+"res": 25,
+"love": -8
+},
+"x": {
+"stress": 15,
+"mood": -12
+},
+"a": [
+"uncovered"
+]
+},
+"aw": 3,
+"lose": {
+"t": "{n} looks genuinely hurt. 'You think I would do that?' {he} says. It turns out {he} had not. Not yet.",
+"r": {
+"trust": -4,
+"res": 6
+},
+"x": {
+"stress": 5
+}
+},
+"chance": {
+"b": 0.85
+}
+},
+{
+"l": "Look through {his} things",
+"win": {
+"t": "You find enough to know. It is worse than the suspicion.",
+"r": {
+"trust": -25,
+"res": 20
+},
+"x": {
+"stress": 12,
+"mood": -10
+},
+"a": [
+"uncovered"
+]
+},
+"aw": 1
+},
+{
+"l": "Say nothing and watch",
+"win": {
+"t": "You wait. The distance grows.",
+"r": {
+"trust": -6,
+"res": 6,
+"love": -3
+},
+"x": {
+"stress": 6
+}
+},
+"aw": 1
+},
+{
+"l": "Ask a friend what they have seen",
+"win": {
+"t": "Your friend hesitates, which is its own answer.",
+"r": {
+"trust": -10,
+"res": 8
+},
+"x": {
+"stress": 8
+}
+},
+"aw": 1
+}
+]
+},
+{
+"id": "caught",
+"w": 0,
+"st": [
+"together",
+"engaged",
+"married",
+"dating"
+],
+"text": "{n} has found out that you were unfaithful. {He} lays out what {he} knows, calmly, which is worse than shouting.",
+"ch": [
+{
+"l": "Admit it and take responsibility",
+"win": {
+"t": "You tell the truth, with no excuses. {n} cries, and stays, for now.",
+"r": {
+"trust": -20,
+"res": 18,
+"love": -5
+},
+"x": {
+"stress": 10,
+"mood": -8
+},
+"j": 1
+},
+"aw": 3,
+"lose": {
+"t": "You tell the truth. {n} listens, then quietly says it is over.",
+"r": {
+"trust": -30,
+"res": 25
+},
+"x": {
+"stress": 12,
+"mood": -10
+},
+"a": [
+"theyleave"
+]
+},
+"chance": {
+"b": 0.45,
+"sk": "charisma",
+"pc": 0.03,
+"m": {
+"love": 0.003,
+"trust": 0.002
+}
+}
+},
+{
+"l": "Deny it",
+"win": {
+"t": "{n} is not sure what to believe. Doubt hangs over everything.",
+"r": {
+"trust": -8,
+"res": 8
+},
+"x": {
+"stress": 6
+}
+},
+"aw": 1,
+"lose": {
+"t": "{n} has proof. The lie makes it so much worse, and {he} leaves.",
+"r": {
+"trust": -35,
+"res": 30
+},
+"x": {
+"stress": 12,
+"mood": -10
+},
+"a": [
+"theyleave"
+]
+},
+"chance": {
+"b": 0.15
+}
+},
+{
+"l": "Beg for another chance",
+"win": {
+"t": "{n} wavers. 'I do not know if I can,' {he} says, but does not go.",
+"r": {
+"trust": -18,
+"res": 14,
+"love": -3
+},
+"x": {
+"stress": 8
+}
+},
+"aw": 2,
+"lose": {
+"t": "{n} shakes {his} head. 'I trusted you,' {he} says, and goes.",
+"r": {
+"trust": -30,
+"res": 22
+},
+"x": {
+"stress": 10,
+"mood": -8
+},
+"a": [
+"theyleave"
+]
+},
+"chance": {
+"b": 0.3,
+"m": {
+"love": 0.004
+}
+}
+}
+]
+},
+{
+"id": "cheated",
+"w": 0,
+"st": [
+"together",
+"engaged",
+"married"
+],
+"text": "{n} has been unfaithful. The truth sits between you, ugly and plain. You have to decide what happens next.",
+"ch": [
+{
+"l": "Forgive and try to rebuild",
+"win": {
+"t": "It is not easy. But {n} is willing to do the work, and so are you.",
+"r": {
+"res": -8,
+"trust": 10,
+"com": 4
+},
+"x": {
+"stress": 6,
+"mood": -3
+},
+"j": 1
+},
+"aw": 2,
+"lose": {
+"t": "You try, but the picture will not leave your mind.",
+"r": {
+"res": 8,
+"trust": -2
+},
+"x": {
+"stress": 8
+}
+},
+"chance": {
+"b": 0.4,
+"m": {
+"trust": 0.002,
+"love": 0.003
+}
+}
+},
+{
+"l": "Insist on couples counseling (@60)",
+"win": {
+"t": "The counselor is skilled and patient. Some of what you hear is difficult.",
+"r": {
+"res": -12,
+"trust": 12,
+"com": 5,
+"love": 3
+},
+"x": {
+"money": -60,
+"stress": 3
+}
+},
+"aw": 2,
+"req": {
+"money": 60
+}
+},
+{
+"l": "End it",
+"win": {
+"t": "You leave. It hurts, and it is clean.",
+"x": {
+"stress": 6,
+"mood": -6
+},
+"a": [
+"breakup_hard"
+],
+"j": 1
+},
+"aw": 3
+}
+]
+},
+{
+"id": "threat",
+"w": 0.8,
+"st": [
+"dating",
+"together",
+"engaged",
+"married"
+],
+"when": {
+"minLove": 25
+},
+"text": "Walking home with {n}, a stranger starts shadowing {him}, closing the distance and muttering. {n} grips your arm.",
+"ch": [
+{
+"l": "Step in front of {him} and face the stranger",
+"win": {
+"t": "You stand firm and the stranger backs off, muttering. {n} has not stopped holding your arm.",
+"r": {
+"trust": 10,
+"love": 6,
+"attr": 3
+},
+"x": {
+"stress": 4,
+"rep": 1
+}
+},
+"aw": 2,
+"lose": {
+"t": "The stranger shoves you before leaving. You are shaken and bruised, but {n} is safe.",
+"r": {
+"trust": 8,
+"love": 5
+},
+"x": {
+"health": -8,
+"stress": 6
+}
+},
+"chance": {
+"b": 0.4,
+"sk": "street",
+"pc": 0.05
+}
+},
+{
+"l": "Steer {him} to a lit shop and call for help",
+"win": {
+"t": "You get {n} safely inside, and someone takes the stranger in hand. You did the smart thing.",
+"r": {
+"trust": 8,
+"love": 4
+},
+"x": {
+"stress": 3
+}
+},
+"aw": 3
+},
+{
+"l": "Walk away fast and hope for the best",
+"win": {
+"t": "You get out of there, but {n} noticed that you did not shield {him}.",
+"r": {
+"trust": -8,
+"love": -4,
+"res": 4
+},
+"x": {
+"stress": 4
+}
+},
+"aw": 0.5
+}
+]
+},
+{
+"id": "redflag",
+"w": 3,
+"st": [
+"dating",
+"together",
+"engaged",
+"married"
+],
+"when": {
+"minRed": 1,
+"maxRed": 1
+},
+"text": "{n} has started asking where you are, who with, and why you did not answer. 'I just worry,' {he} says, taking your phone. 'Let me see.'",
+"ch": [
+{
+"l": "Set a firm boundary",
+"win": {
+"t": "You say no, calmly. {n} bristles, then backs down this time.",
+"r": {
+"res": 6,
+"com": -2
+},
+"x": {
+"stress": 4,
+"mood": 1
+},
+"a": [
+"redwatch"
+]
+},
+"aw": 3,
+"lose": {
+"t": "{n} gets cold and angry. The air in the room changes.",
+"r": {
+"res": 14,
+"trust": -4
+},
+"x": {
+"stress": 8
+},
+"a": [
+"redup"
+]
+},
+"chance": {
+"b": 0.55,
+"sk": "charisma",
+"pc": 0.03
+}
+},
+{
+"l": "Go along with it to keep the peace",
+"win": {
+"t": "It keeps the evening calm. It also teaches both of you something.",
+"r": {
+"com": 3
+},
+"x": {
+"stress": 6,
+"mood": -4
+},
+"a": [
+"redup"
+]
+},
+"aw": 1.5
+},
+{
+"l": "Talk to a friend about it",
+"win": {
+"t": "Your friend tells you it is not okay, and that you deserve better. You needed to hear it.",
+"x": {
+"stress": -5,
+"mood": 2,
+"lonely": -6
+},
+"a": [
+"redwatch"
+]
+},
+"aw": 2
+},
+{
+"l": "End the relationship",
+"win": {
+"t": "You leave before it gets worse. It is hard and it is right.",
+"x": {
+"stress": 4,
+"mood": -3
+},
+"a": [
+"breakup_safe"
+],
+"j": 1
+},
+"aw": 1.5
+}
+]
+},
+{
+"id": "unsafe",
+"w": 4,
+"st": [
+"dating",
+"together",
+"engaged",
+"married",
+"separated"
+],
+"when": {
+"minRed": 2
+},
+"text": "The argument with {n} turns frightening. {He} blocks the door, voice hard and low, and for the first time you are afraid.",
+"ch": [
+{
+"l": "Get out and go somewhere safe",
+"win": {
+"t": "You get out. A friend takes you in without asking questions. You are safe, and that is what matters.",
+"x": {
+"stress": -4,
+"mood": -3,
+"lonely": -8
+},
+"a": [
+"breakup_safe"
+],
+"j": 1
+},
+"aw": 4
+},
+{
+"l": "Call for help (@0)",
+"win": {
+"t": "The emergency line is calm and quick. Help arrives, and you are able to leave safely.",
+"x": {
+"stress": -2,
+"mood": -2
+},
+"a": [
+"breakup_safe",
+"order_free"
+],
+"j": 1
+},
+"aw": 4
+},
+{
+"l": "Apply for a protective order (@70)",
+"win": {
+"t": "A court grants an emergency order. It is a piece of paper, but it is also a line drawn clearly.",
+"x": {
+"money": -70,
+"stress": -4
+},
+"a": [
+"breakup_safe",
+"order"
+],
+"j": 1
+},
+"aw": 2,
+"req": {
+"money": 70
+}
+},
+{
+"l": "Stay and try to calm things down",
+"win": {
+"t": "It passes, this time. You both know it will happen again.",
+"r": {
+"trust": -6
+},
+"x": {
+"stress": 10,
+"mood": -6
+},
+"a": [
+"redup"
+]
+},
+"aw": 0.3
+}
+]
+},
+{
+"id": "ex_text",
+"w": 2,
+"st": [
+"ex"
+],
+"text": "A message from {n} lights up your phone: a late-night text with a lot of feeling behind it.",
+"ch": [
+{
+"l": "Reply warmly",
+"win": {
+"t": "You talk for an hour. It is gentle, and complicated.",
+"r": {
+"love": 3,
+"res": -4,
+"pas": 2
+},
+"x": {
+"mood": -1,
+"lonely": -5
+}
+},
+"aw": 2
+},
+{
+"l": "Ignore it",
+"win": {
+"t": "You put the phone face down. It buzzes once more, then stops.",
+"x": {
+"stress": -1
+}
+},
+"aw": 2
+},
+{
+"l": "Block the number",
+"win": {
+"t": "You block it and feel the quiet settle.",
+"x": {
+"stress": -3,
+"mood": 1
+},
+"a": [
+"block"
+]
+},
+"aw": 1
+},
+{
+"l": "Meet up to talk",
+"win": {
+"t": "You meet and it is half closure, half temptation.",
+"r": {
+"love": 4,
+"pas": 4,
+"res": -6,
+"trust": 2
+},
+"x": {
+"mood": 2,
+"stress": 3
+}
+},
+"aw": 1
+}
+]
+},
+{
+"id": "ex_haunt",
+"w": 0,
+"st": [
+"ex"
+],
+"text": "{n} will not leave you alone: messages, appearances where you are, a presence you did not ask for.",
+"ch": [
+{
+"l": "Block and ignore",
+"win": {
+"t": "You cut every channel. It helps, for now.",
+"x": {
+"stress": 2
+},
+"a": [
+"block"
+]
+},
+"aw": 2,
+"lose": {
+"t": "The messages find new ways to arrive.",
+"x": {
+"stress": 7,
+"mood": -3
+}
+},
+"chance": {
+"b": 0.5
+}
+},
+{
+"l": "Report it and seek a protective order (@70)",
+"win": {
+"t": "The paper arrives. {n} backs off, and you start sleeping again.",
+"x": {
+"money": -70,
+"stress": -5
+},
+"a": [
+"order",
+"block"
+],
+"j": 1
+},
+"aw": 3,
+"lose": {
+"t": "It takes longer, but the order is granted.",
+"x": {
+"money": -70,
+"stress": 2
+},
+"a": [
+"order",
+"block"
+]
+},
+"chance": {
+"b": 0.6
+},
+"req": {
+"money": 70
+}
+},
+{
+"l": "Confront {him} in person",
+"win": {
+"t": "You say it clearly and {n} has no answer. For now it stops.",
+"r": {
+"res": 5
+},
+"x": {
+"stress": 3
+}
+},
+"aw": 0.5,
+"lose": {
+"t": "It escalates. You regret going alone.",
+"x": {
+"stress": 10,
+"mood": -5,
+"health": -3
+}
+},
+"chance": {
+"b": 0.3,
+"sk": "street",
+"pc": 0.03
+}
+}
+]
+},
+{
+"id": "coldfeet",
+"w": 3,
+"st": [
+"engaged"
+],
+"text": "A week before the big day, {n} goes quiet. Finally: \"I am scared. I love you, but I am scared.\"",
+"ch": [
+{
+"l": "Talk it through, patiently",
+"win": {
+"t": "You listen to every fear and answer what you can. By the end, you are both steadier.",
+"r": {
+"trust": 8,
+"love": 4,
+"com": 6
+},
+"x": {
+"stress": -2
+}
+},
+"aw": 3,
+"lose": {
+"t": "It is a hard conversation. Some of it is not resolved.",
+"r": {
+"trust": 2,
+"com": -3
+},
+"x": {
+"stress": 5
+}
+},
+"chance": {
+"b": 0.55,
+"sk": "charisma",
+"pc": 0.04,
+"m": {
+"trust": 0.003
+}
+}
+},
+{
+"l": "Give {him} space to think",
+"win": {
+"t": "A few days later {n} comes back, calmer and certain.",
+"r": {
+"com": 4,
+"trust": 2
+}
+},
+"aw": 2,
+"lose": {
+"t": "The space grows into a gap. {n} does not come back certain.",
+"r": {
+"com": -14,
+"love": -6
+},
+"x": {
+"stress": 6
+}
+},
+"chance": {
+"b": 0.5,
+"att": {
+"secure": 0.25,
+"anxious": -0.2
+}
+}
+},
+{
+"l": "Call it off together",
+"win": {
+"t": "It is one of the hardest conversations of your life, and you have it together.",
+"x": {
+"stress": 6,
+"mood": -6
+},
+"a": [
+"breakup_kind"
+],
+"j": 1
+},
+"aw": 0.5
+}
+]
+},
+{
+"id": "div_filed",
+"w": 0,
+"st": [
+"married",
+"separated"
+],
+"text": "A letter arrives from a lawyer: {n} has filed for divorce.",
+"ch": [
+{
+"l": "Agree to an uncontested divorce",
+"win": {
+"t": "You sign. It is quick, polite, and surprisingly painful.",
+"x": {
+"stress": 4,
+"mood": -5
+},
+"a": [
+"div_fast"
+],
+"j": 1
+},
+"aw": 3
+},
+{
+"l": "Contest it (@600)",
+"win": {
+"t": "You hire a lawyer. It is going to be a long fight.",
+"x": {
+"money": -60,
+"stress": 8
+},
+"a": [
+"div_contest"
+],
+"j": 1
+},
+"aw": 1,
+"req": {
+"money": 60
+}
+},
+{
+"l": "Ask {him} to try counseling first (@60)",
+"win": {
+"t": "{n} agrees, reluctantly. The petition is paused.",
+"r": {
+"res": -6,
+"trust": 4
+},
+"x": {
+"money": -60,
+"stress": 3
+}
+},
+"aw": 1,
+"lose": {
+"t": "{n} will not be moved. 'It is too late,' {he} says.",
+"x": {
+"stress": 6
+},
+"a": [
+"div_fast"
+]
+},
+"chance": {
+"b": 0.35,
+"sk": "charisma",
+"pc": 0.03,
+"m": {
+"love": 0.004
+}
+},
+"req": {
+"money": 60
+}
+}
+]
+},
+{
+"id": "breakup_they",
+"w": 0,
+"st": [
+"dating",
+"together",
+"engaged",
+"married"
+],
+"text": "{n} sits you down. {His} voice is level. \"We need to talk. I have been unhappy for a long time.\"",
+"ch": [
+{
+"l": "Fight for it",
+"win": {
+"t": "You say what you have been too proud to say. {n} listens, really listens, and hesitates.",
+"r": {
+"love": 6,
+"res": -10,
+"trust": 5,
+"com": 8
+},
+"x": {
+"stress": 4,
+"mood": 2
+},
+"j": 1
+},
+"aw": 3,
+"lose": {
+"t": "You give it everything. It is not enough. {n} is already gone, somewhere you cannot follow.",
+"x": {
+"stress": 10,
+"mood": -8
+},
+"a": [
+"theyleave"
+]
+},
+"chance": {
+"b": 0.3,
+"sk": "charisma",
+"pc": 0.05,
+"m": {
+"love": 0.004,
+"trust": 0.003
+}
+}
+},
+{
+"l": "Accept it with dignity",
+"win": {
+"t": "You nod, thank {him} for the good parts, and let it end.",
+"x": {
+"stress": 5,
+"mood": -5
+},
+"a": [
+"theyleave"
+]
+},
+"aw": 2
+},
+{
+"l": "Beg {him} to stay",
+"win": {
+"t": "{n} pities you, and that is worse.",
+"r": {
+"res": 6,
+"love": -4
+},
+"x": {
+"stress": 8,
+"mood": -6
+},
+"a": [
+"theyleave"
+]
+},
+"aw": 0.5
+}
+]
+},
+{
+"id": "drift",
+"w": 1.5,
+"st": [
+"together",
+"married"
+],
+"when": {
+"minYears": 4
+},
+"text": "Life with {n} has become a loop of schedules and shared chores. You are fine, which is a polite word for something quieter than that.",
+"ch": [
+{
+"l": "Plan a proper date night (@25)",
+"win": {
+"t": "You dress up for each other and remember why you chose each other.",
+"r": {
+"pas": 8,
+"love": 4,
+"res": -5,
+"attr": 4
+},
+"x": {
+"money": -25,
+"mood": 5,
+"stress": -3
+}
+},
+"aw": 3,
+"req": {
+"money": 25
+}
+},
+{
+"l": "Say it out loud",
+"win": {
+"t": "{n} says, 'I have felt it too.' That is a start.",
+"r": {
+"trust": 5,
+"love": 3,
+"res": -4,
+"cmf": 3
+},
+"x": {
+"stress": -2
+}
+},
+"aw": 2,
+"lose": {
+"t": "{n} hears criticism where you meant care.",
+"r": {
+"res": 5
+}
+},
+"chance": {
+"b": 0.55,
+"sk": "charisma",
+"pc": 0.04
+}
+},
+{
+"l": "Do nothing",
+"win": {
+"t": "The loop goes on. Nobody says anything.",
+"r": {
+"pas": -4,
+"love": -1,
+"res": 2
+}
+},
+"aw": 1
+}
+]
+},
+{
+"id": "anniv",
+"w": 0,
+"st": [
+"dating",
+"together",
+"engaged",
+"married"
+],
+"text": "It is your anniversary with {n} today.",
+"ch": [
+{
+"l": "Plan something special (@40)",
+"win": {
+"t": "You make a day of it. {n} is moved, and so are you.",
+"r": {
+"love": 5,
+"pas": 4,
+"trust": 2,
+"res": -4
+},
+"x": {
+"money": -40,
+"mood": 7
+}
+},
+"aw": 3,
+"req": {
+"money": 40
+}
+},
+{
+"l": "Mark it with a card and a kiss",
+"win": {
+"t": "Simple, sincere, and enough.",
+"r": {
+"love": 2,
+"trust": 1
+},
+"x": {
+"mood": 3
+}
+},
+"aw": 3
+},
+{
+"l": "Let it pass",
+"win": {
+"t": "{n} says nothing, which is louder than words.",
+"r": {
+"love": -3,
+"res": 5,
+"trust": -2
+}
+},
+"aw": 0.2
+}
+]
+},
+{
+"id": "gesture",
+"w": 2,
+"st": [
+"dating",
+"together",
+"engaged",
+"married"
+],
+"when": {
+"minLove": 35
+},
+"text": "{n} turns up with no warning: your favorite thing from the corner shop and an excuse that does not fool either of you.",
+"ch": [
+{
+"l": "Savor it",
+"win": {
+"t": "You laugh, and it is the best part of the day.",
+"r": {
+"love": 3,
+"trust": 1,
+"pas": 2,
+"res": -3
+},
+"x": {
+"mood": 6,
+"lonely": -6
+}
+},
+"aw": 1
+}
+]
+},
+{
+"id": "kid_sick",
+"w": 2,
+"kid": 1,
+"text": "{n} wakes crying in the night, hot and miserable. It is going to be a long one.",
+"ch": [
+{
+"l": "Stay up with {him} all night",
+"win": {
+"t": "{n} falls asleep on your chest at dawn. You are exhausted and completely certain of your place.",
+"x": {
+"energy": -12,
+"stress": 3,
+"mood": 2
+},
+"a": [
+"kb+6"
+]
+},
+"aw": 3
+},
+{
+"l": "Take {him} to the clinic (@40)",
+"win": {
+"t": "A doctor says it is a bug that will pass. You are tired but relieved.",
+"x": {
+"money": -40,
+"energy": -6,
+"stress": -2
+},
+"a": [
+"kb+4"
+]
+},
+"aw": 2,
+"req": {
+"money": 40
+}
+}
+]
+},
+{
+"id": "kid_school",
+"w": 1.5,
+"kid": 1,
+"min_age": 5,
+"text": "{n}'s teacher asks to speak with you. There is a note home about {his} behavior.",
+"ch": [
+{
+"l": "Listen and work on it together",
+"win": {
+"t": "You and {n} talk it over. Things improve.",
+"x": {
+"stress": 2
+},
+"a": [
+"kb+5"
+]
+},
+"aw": 3
+},
+{
+"l": "Defend {him} sharply",
+"win": {
+"t": "The teacher backs off. {n} learns something about loyalty, and maybe something else too.",
+"x": {
+"stress": 3
+},
+"a": [
+"kb+2"
+]
+},
+"aw": 1
+}
+]
+},
+{
+"id": "kid_first",
+"w": 1.5,
+"kid": 1,
+"max_age": 4,
+"text": "{n} does something for the first time today, and looks up to check that you saw it.",
+"ch": [
+{
+"l": "Cheer so loud the neighbors hear",
+"win": {
+"t": "{n} beams and does it again. Your heart is full to bursting.",
+"x": {
+"mood": 10,
+"stress": -6,
+"lonely": -8
+},
+"a": [
+"kb+6"
+]
+},
+"aw": 1
+}
+]
+}
+],
+"dates": [
+{
+"id": "coffee",
+"l": "Grab a coffee together (@6)",
+"cost": 6,
+"h": 1,
+"hrs": [
+7,
+22
+],
+"ll": "time",
+"b": {
+"attr": 2,
+"love": 2,
+"pas": 1,
+"trust": 1
+},
+"mx": {
+"mood": 3,
+"lonely": -8,
+"stress": -2
+},
+"en": 0,
+"cmf": 0,
+"st": [
+"flirt",
+"dating",
+"together",
+"engaged",
+"married"
+],
+"t": {
+"great": [
+"You and {n} stay until the cafe starts stacking chairs, still talking.",
+"{n} laughs at something you say, and the whole room seems brighter for it."
+],
+"good": [
+"Easy conversation, warm cups, and the feeling of being exactly where you should be.",
+"You trade stories. {n} reaches over to steal a sip of yours."
+],
+"meh": [
+"A pleasant hour that never quite catches fire."
+],
+"bad": [
+"The conversation keeps stalling. You both check your phones too often."
+]
+}
+},
+{
+"id": "walk",
+"l": "Take a walk together",
+"cost": 0,
+"h": 1.5,
+"hrs": [
+6,
+22
+],
+"ll": "time",
+"b": {
+"attr": 1,
+"love": 2,
+"trust": 2
+},
+"mx": {
+"mood": 3,
+"lonely": -6,
+"stress": -5
+},
+"en": 0,
+"cmf": 0,
+"st": [
+"flirt",
+"dating",
+"together",
+"engaged",
+"married"
+],
+"t": {
+"great": [
+"You walk without a destination, and {n} slips a hand into yours somewhere along the way.",
+"The streets go golden and quiet. {n} talks about things {he} rarely says aloud."
+],
+"good": [
+"You walk and talk. It is simple and it is good.",
+"You fall into step with {n} as if you had always walked together."
+],
+"meh": [
+"You walk. It is fine. Neither of you says much."
+],
+"bad": [
+"You pick a route nobody enjoys, and the silence grows awkward."
+]
+}
+},
+{
+"id": "dinner",
+"l": "Take {n} out to dinner (@25)",
+"cost": 25,
+"h": 2.5,
+"hrs": [
+17,
+24
+],
+"ll": "time",
+"b": {
+"attr": 3,
+"love": 3,
+"pas": 3,
+"trust": 1
+},
+"mx": {
+"mood": 5,
+"lonely": -10,
+"hunger": 40
+},
+"en": 0,
+"cmf": 0,
+"st": [
+"flirt",
+"dating",
+"together",
+"engaged",
+"married"
+],
+"t": {
+"great": [
+"Candlelight, good food, and {n} looking at you the way people do when it matters.",
+"Dinner stretches into a long, glowing evening. You do not want it to end."
+],
+"good": [
+"The food is good and the company is better.",
+"{n} tells a story that has you both laughing until the waiter checks on you."
+],
+"meh": [
+"The food is forgettable and the evening is pleasant enough."
+],
+"bad": [
+"The service is slow, the table is cramped, and the mood never recovers."
+]
+}
+},
+{
+"id": "movie",
+"l": "Go to the movies (@14)",
+"cost": 14,
+"h": 3,
+"hrs": [
+12,
+24
+],
+"ll": "time",
+"b": {
+"attr": 2,
+"love": 2,
+"pas": 2
+},
+"mx": {
+"mood": 4,
+"lonely": -7
+},
+"en": 0,
+"cmf": 0,
+"st": [
+"flirt",
+"dating",
+"together",
+"engaged",
+"married"
+],
+"t": {
+"great": [
+"Halfway through the film, {n} leans against your shoulder.",
+"You argue happily about the ending all the way home."
+],
+"good": [
+"You share a bucket of popcorn and a lot of whispered commentary.",
+"It is a decent film, and {n} is decent company."
+],
+"meh": [
+"The film is mediocre. You both pretend otherwise."
+],
+"bad": [
+"The film is terrible and the seats are worse."
+]
+}
+},
+{
+"id": "picnic",
+"l": "Plan a picnic (@10)",
+"cost": 10,
+"h": 3,
+"hrs": [
+9,
+18
+],
+"ll": "acts",
+"b": {
+"attr": 2,
+"love": 3,
+"trust": 2
+},
+"mx": {
+"mood": 5,
+"lonely": -8,
+"stress": -5,
+"hunger": 30
+},
+"en": 0,
+"cmf": 0,
+"st": [
+"flirt",
+"dating",
+"together",
+"engaged",
+"married"
+],
+"t": {
+"great": [
+"{n} is delighted that you planned all of it. The afternoon is lazy, sunlit and kind.",
+"You lie on the blanket, trading dreams, ants, and sandwiches."
+],
+"good": [
+"A simple lunch outdoors, shared slowly.",
+"It turns out you both make a good team at carrying a basket."
+],
+"meh": [
+"A bit of wind, a few ants, a middling afternoon."
+],
+"bad": [
+"The weather turns, the sandwiches get soggy, and you retreat."
+]
+}
+},
+{
+"id": "cook",
+"l": "Cook dinner together (@12)",
+"cost": 12,
+"h": 2,
+"hrs": [
+15,
+22
+],
+"ll": "acts",
+"b": {
+"attr": 2,
+"love": 3,
+"pas": 2,
+"trust": 2,
+"cmf": 2
+},
+"mx": {
+"mood": 5,
+"lonely": -9,
+"stress": -4,
+"hunger": 45
+},
+"en": 0,
+"cmf": 0,
+"st": [
+"dating",
+"together",
+"engaged",
+"married"
+],
+"t": {
+"great": [
+"You cook, taste, and steal kisses over a chopping board. The meal is secondary.",
+"{n} puts on music and the kitchen becomes the best room in the world."
+],
+"good": [
+"You work side by side. The result is edible and the process is fun."
+],
+"meh": [
+"The recipe wins. You both end up too tired to enjoy it."
+],
+"bad": [
+"Something burns. Something else boils over. You order takeaway."
+]
+}
+},
+{
+"id": "adventure",
+"l": "Plan an adventurous day out (@30)",
+"cost": 30,
+"h": 6,
+"hrs": [
+7,
+18
+],
+"ll": "time",
+"b": {
+"attr": 4,
+"love": 3,
+"pas": 3,
+"trust": 2
+},
+"mx": {
+"mood": 6,
+"lonely": -10,
+"energy": -14,
+"stress": -5
+},
+"en": 0,
+"cmf": 0,
+"st": [
+"flirt",
+"dating",
+"together",
+"engaged",
+"married"
+],
+"t": {
+"great": [
+"You come home sunburnt, muddy and giddy. {n} says it was the best day in a long time.",
+"You find a hidden view nobody told you about, and keep it between the two of you."
+],
+"good": [
+"A good day of trying new things together."
+],
+"meh": [
+"The plan was better than the day."
+],
+"bad": [
+"Things go wrong in a row. You laugh about it, eventually, but not yet."
+]
+}
+},
+{
+"id": "getaway",
+"l": "Plan a weekend getaway (@150)",
+"cost": 150,
+"h": 28,
+"hrs": [
+6,
+17
+],
+"ll": "time",
+"b": {
+"attr": 5,
+"love": 6,
+"pas": 6,
+"trust": 3,
+"cmf": 3
+},
+"mx": {
+"mood": 10,
+"lonely": -14,
+"stress": -12,
+"hunger": 20,
+"energy": 6
+},
+"en": 0,
+"cmf": 0,
+"st": [
+"dating",
+"together",
+"engaged",
+"married"
+],
+"t": {
+"great": [
+"The weekend feels like a small, perfect life. You come home with sand in your bags and {n} in your heart.",
+"Two days, no schedule, only each other. You will remember this for years."
+],
+"good": [
+"A good trip, a little rushed, and well worth it."
+],
+"meh": [
+"The weekend is pleasant but oddly flat."
+],
+"bad": [
+"The trip is a string of small disasters. You come home exhausted."
+]
+}
+},
+{
+"id": "deeptalk",
+"l": "Have a long, honest conversation",
+"cost": 0,
+"h": 2,
+"hrs": [
+0,
+24
+],
+"ll": "words",
+"b": {
+"love": 3,
+"trust": 5,
+"cmf": 3
+},
+"mx": {
+"mood": 2,
+"stress": -4,
+"lonely": -7
+},
+"en": 0,
+"cmf": 0,
+"st": [
+"flirt",
+"dating",
+"together",
+"engaged",
+"married"
+],
+"t": {
+"great": [
+"You say the true things out loud and {n} says some back. It feels like walking through a door together.",
+"Somewhere past midnight you realize you have never been this honest with anyone."
+],
+"good": [
+"You talk about fears and plans. {n} listens closely, and you do the same."
+],
+"meh": [
+"Talking about everything and nothing. It does not get deep."
+],
+"bad": [
+"Something you say lands wrong. {n} goes quiet."
+]
+}
+},
+{
+"id": "flowers",
+"l": "Surprise them with flowers (@10)",
+"cost": 10,
+"h": 0.5,
+"hrs": [
+8,
+21
+],
+"ll": "gifts",
+"b": {
+"attr": 2,
+"love": 3,
+"pas": 2
+},
+"mx": {
+"mood": 3,
+"lonely": -3
+},
+"en": 0,
+"cmf": 0,
+"st": [
+"flirt",
+"dating",
+"together",
+"engaged",
+"married"
+],
+"t": {
+"great": [
+"{n} holds the flowers like something precious. The smile lasts all evening.",
+"{n} presses them to {his} face and laughs, a little embarrassed and very pleased."
+],
+"good": [
+"{n} is touched that you thought of it."
+],
+"meh": [
+"{n} says thanks, though the gesture does not seem to land."
+],
+"bad": [
+"{n} is allergic. It is a long, sneezing evening."
+]
+}
+},
+{
+"id": "note",
+"l": "Write {n} a heartfelt message",
+"cost": 0,
+"h": 0.5,
+"hrs": [
+0,
+24
+],
+"ll": "words",
+"b": {
+"love": 3,
+"trust": 1,
+"pas": 1
+},
+"mx": {
+"mood": 2,
+"lonely": -4
+},
+"en": 0,
+"cmf": 0,
+"st": [
+"dating",
+"together",
+"engaged",
+"married"
+],
+"t": {
+"great": [
+"{n} reads it three times and calls you straight away.",
+"You pour your honest feelings into a few lines. {n} saves the message."
+],
+"good": [
+"{n} replies with a flood of hearts."
+],
+"meh": [
+"{n} reads it and replies with a quick thank you."
+],
+"bad": [
+"You try too hard. The message reads stiffly."
+]
+}
+},
+{
+"id": "night",
+"l": "Go out dancing (@18)",
+"cost": 18,
+"h": 4,
+"hrs": [
+19,
+24
+],
+"ll": "time",
+"b": {
+"attr": 3,
+"love": 1,
+"pas": 4
+},
+"mx": {
+"mood": 6,
+"lonely": -9,
+"energy": -10,
+"stress": -6
+},
+"en": 0,
+"cmf": 0,
+"st": [
+"flirt",
+"dating",
+"together",
+"engaged",
+"married"
+],
+"t": {
+"great": [
+"You dance until the lights come up. {n} is magnetic.",
+"The music is loud, the night is bright, and you do not let go of {n}."
+],
+"good": [
+"A good night of dancing and shouting over the music."
+],
+"meh": [
+"The place is too crowded and loud to really connect."
+],
+"bad": [
+"The club is a mess and the night ends early."
+]
+}
+},
+{
+"id": "cuddle",
+"l": "Cuddle up on the couch",
+"cost": 0,
+"h": 1.5,
+"hrs": [
+0,
+24
+],
+"ll": "touch",
+"b": {
+"pas": 2,
+"love": 3,
+"cmf": 4,
+"trust": 2
+},
+"mx": {
+"mood": 4,
+"stress": -6,
+"lonely": -10
+},
+"en": 0,
+"cmf": 20,
+"st": [
+"dating",
+"together",
+"engaged",
+"married"
+],
+"t": {
+"great": [
+"You fall asleep tangled up together, content and warm.",
+"Nothing happens, and it is exactly right."
+],
+"good": [
+"You lean against each other and let the world wait."
+],
+"meh": [
+"You both end up scrolling on your phones side by side."
+],
+"bad": [
+"{n} is not in the mood. You give each other some space."
+]
+}
+},
+{
+"id": "doubledate",
+"l": "Go on a double date with a friend (@20)",
+"cost": 20,
+"h": 3,
+"hrs": [
+17,
+24
+],
+"ll": "time",
+"b": {
+"attr": 2,
+"love": 2,
+"trust": 3,
+"cmf": 2
+},
+"mx": {
+"mood": 5,
+"lonely": -9
+},
+"en": 0,
+"cmf": 0,
+"st": [
+"dating",
+"together",
+"engaged",
+"married"
+],
+"t": {
+"great": [
+"{n} fits in with your friends effortlessly, and you realize how much that matters to you.",
+"The four of you laugh until the staff ask you to quiet down."
+],
+"good": [
+"A friendly, easy evening with people you like."
+],
+"meh": [
+"Your friend and {n} never quite warm to each other."
+],
+"bad": [
+"Your friend and {n} spend the night sniping. It is miserable."
+]
+}
+},
+{
+"id": "gift",
+"l": "Surprise them with a thoughtful gift (@40)",
+"cost": 40,
+"h": 0.5,
+"hrs": [
+8,
+21
+],
+"ll": "gifts",
+"b": {
+"attr": 2,
+"love": 4,
+"pas": 2,
+"trust": 1
+},
+"mx": {
+"mood": 3
+},
+"en": 0,
+"cmf": 0,
+"st": [
+"dating",
+"together",
+"engaged",
+"married"
+],
+"t": {
+"great": [
+"You remembered something {n} mentioned in passing. {n} is genuinely moved.",
+"{n} unwraps it slowly and then hugs you for a long time."
+],
+"good": [
+"A good gift, warmly received."
+],
+"meh": [
+"{n} is polite but obviously expected something else."
+],
+"bad": [
+"The gift misses badly, and you both feel it."
+]
+}
+},
+{
+"id": "massage",
+"l": "Give them a massage",
+"cost": 0,
+"h": 1,
+"hrs": [
+0,
+24
+],
+"ll": "touch",
+"b": {
+"pas": 3,
+"love": 2,
+"cmf": 3,
+"trust": 2
+},
+"mx": {
+"mood": 3,
+"stress": -3,
+"lonely": -6
+},
+"en": 0,
+"cmf": 25,
+"st": [
+"dating",
+"together",
+"engaged",
+"married"
+],
+"t": {
+"great": [
+"{n} melts under your hands and murmurs how much {he} needed this.",
+"The tension leaves {n} slowly, and something softer takes its place."
+],
+"good": [
+"{n} is grateful and relaxed."
+],
+"meh": [
+"You find a knot you cannot fix. It is still a nice gesture."
+],
+"bad": [
+"{n} flinches. It is not the right moment."
+]
+}
+},
+{
+"id": "hobby",
+"l": "Share your favorite pastime with them",
+"cost": 0,
+"h": 2,
+"hrs": [
+8,
+22
+],
+"ll": "time",
+"b": {
+"attr": 2,
+"love": 2,
+"trust": 2
+},
+"mx": {
+"mood": 5,
+"lonely": -8,
+"stress": -4
+},
+"en": 0,
+"cmf": 0,
+"st": [
+"flirt",
+"dating",
+"together",
+"engaged",
+"married"
+],
+"t": {
+"great": [
+"You show {n} what you love about {hobby}, and {n} catches the spark.",
+"Sharing {hobby} with {n} turns out to be unexpectedly intimate."
+],
+"good": [
+"{n} humors you, and a little curiosity creeps in."
+],
+"meh": [
+"{n} politely nods through it."
+],
+"bad": [
+"It is not for {n}, and you both know it."
+]
+}
+}
+]
+}

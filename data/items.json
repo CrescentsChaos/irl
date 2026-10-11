@@ -39,5 +39,12 @@
    "mood": 8
   },
   "text": "You turn {keepsake} over in your hands. For a moment the world goes quiet."
+ },
+ "condoms": {
+  "name": "Condoms (pack of 3)",
+  "price": 5,
+  "rm": 1,
+  "x": {},
+  "text": "A small, sensible purchase."
  }
 }

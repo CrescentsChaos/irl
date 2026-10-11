@@ -12,40 +12,88 @@
   },
   "actions": [
    {
-    "label": "Sleep",
+    "label": "Go to bed",
     "type": "sleep"
    },
    {
-    "label": "Take a nap (2h)",
+    "label": "Lie down for a while",
     "x": {
      "time": 2,
      "energy": 18,
-     "mood": 1
+     "mood": 1,
+     "stress": -4
     },
     "text": "You drift off to the radiator's ticking and wake with a crease on your cheek."
    },
    {
-    "label": "Cook instant noodles (@3)",
+    "label": "Make something quick to eat (@3)",
     "req": {
      "money": 3
     },
     "x": {
      "money": -3,
      "hunger": 28,
-     "time": 0.5
+     "time": 0.5,
+     "mood": 1
     },
     "text": "Boil water, shake the flavor packet. Salty, hot, fine."
    },
    {
-    "label": "Take a shower",
+    "label": "Wash up and change",
     "x": {
      "time": 0.4,
-     "mood": 4
+     "mood": 4,
+     "stress": -5
     },
     "text": "The water pressure is a rumor, but it's hot."
    },
    {
-    "label": "Freelance gig on the laptop",
+    "label": "Study from your own books",
+    "req": {
+     "energy": 15,
+     "age": [
+      6,
+      99
+     ]
+    },
+    "x": {
+     "time": 2,
+     "energy": -8,
+     "hunger": -4,
+     "stress": 2,
+     "ed": 1,
+     "sk": {
+      "intellect": 0.2
+     }
+    },
+    "text": [
+     "You open a battered textbook and work through it one stubborn page at a time.",
+     "You copy out notes, then close the book and try to recite them."
+    ]
+   },
+   {
+    "label": "Do push-ups and stretches",
+    "req": {
+     "energy": 10,
+     "age": [
+      8,
+      99
+     ]
+    },
+    "x": {
+     "time": 0.5,
+     "energy": -6,
+     "hunger": -2,
+     "mood": 1,
+     "stress": -2,
+     "sk": {
+      "fitness": 0.1
+     }
+    },
+    "text": "You count reps until the floor feels very close and very far away."
+   },
+   {
+    "label": "Sit down with the laptop and get some work done",
     "req": {
      "energy": 15,
      "age": [
@@ -56,7 +104,9 @@
     "x": {
      "time": 3,
      "energy": -14,
-     "hunger": -6
+     "hunger": -6,
+     "stress": 6,
+     "lonely": 3
     },
     "text": "You open the client portal and start typing. The hours slide by.",
     "chance": {
@@ -70,14 +120,16 @@
       "money": 35,
       "sk": {
        "intellect": 0.15
-      }
+      },
+      "mood": 3
      }
     },
     "lose": {
      "text": "The client nitpicks every line and pays half. +#12",
      "x": {
       "money": 12,
-      "mood": -4
+      "mood": -4,
+      "stress": 6
      }
     }
    },
@@ -108,7 +160,7 @@
   },
   "actions": [
    {
-    "label": "Hand out flyers for the {eatery} (#12, 2h)",
+    "label": "Help the {eatery} out by handing out flyers",
     "req": {
      "energy": 10,
      "age": [
@@ -121,12 +173,14 @@
      "money": 12,
      "energy": -8,
      "hunger": -4,
-     "rep": 1
+     "rep": 1,
+     "lonely": -3,
+     "stress": 2
     },
     "text": "Most people take a flyer just to be polite. A few even smile."
    },
    {
-    "label": "Pickpocket a distracted tourist",
+    "label": "Trail a distracted tourist a little too closely",
     "chance": {
      "base": 0.35,
      "sk": "street",
@@ -143,7 +197,9 @@
       "heat": 12,
       "sk": {
        "street": 0.3
-      }
+      },
+      "stress": 8,
+      "mood": -3
      }
     },
     "lose": {
@@ -152,7 +208,8 @@
       "heat": 25,
       "rep": -4,
       "health": -5,
-      "mood": -4
+      "mood": -4,
+      "stress": 10
      }
     },
     "req": {
@@ -163,25 +220,84 @@
     }
    },
    {
-    "label": "Sleep on a bench (7h)",
+    "label": "Try to sleep on a bench",
     "x": {
      "time": 7,
      "energy": 40,
      "health": -8,
-     "mood": -6
+     "mood": -6,
+     "stress": 4,
+     "lonely": 6
     },
     "text": "The bench is cold and the night is long. You sleep in pieces."
    },
    {
-    "label": "People-watch for a while (30m)",
+    "label": "Run laps around the block",
+    "req": {
+     "energy": 15,
+     "age": [
+      8,
+      99
+     ]
+    },
+    "x": {
+     "time": 0.75,
+     "energy": -12,
+     "hunger": -5,
+     "mood": 2,
+     "stress": -3,
+     "sk": {
+      "fitness": 0.15
+     }
+    },
+    "text": [
+     "Your lungs burn by the second lap. You do a third anyway.",
+     "The same corners, a little faster each time."
+    ]
+   },
+   {
+    "label": "Practice talking to strangers",
+    "req": {
+     "energy": 10,
+     "age": [
+      10,
+      99
+     ]
+    },
+    "x": {
+     "time": 1,
+     "energy": -5,
+     "stress": 2,
+     "sk": {
+      "charisma": 0.2
+     }
+    },
+    "text": [
+     "You ask for directions you don't need and try to make the answer a conversation.",
+     "You practice a smile in a shop window, then try it on a real person."
+    ]
+   },
+   {
+    "label": "Watch people go by",
     "x": {
      "time": 0.5,
-     "mood": 2
+     "mood": 2,
+     "stress": -3
     },
     "text": [
      "A kid leads a very reluctant goat down the road.",
      "Two cousins argue over a parking spot, then hug.",
      "Someone's truck backfires and the whole street flinches."
+    ]
+   },
+   {
+    "type": "meet",
+    "label": "Strike up a conversation with someone",
+    "at": "on the street",
+    "roles": [
+     "a neighbor",
+     "someone from the bus stop",
+     "someone who lives nearby"
     ]
    }
   ]
@@ -203,7 +319,7 @@
   },
   "actions": [
    {
-    "label": "Order the daily plate (@9)",
+    "label": "Sit down for a proper meal (@9)",
     "req": {
      "money": 9
     },
@@ -211,35 +327,51 @@
      "money": -9,
      "hunger": 45,
      "mood": 3,
-     "time": 1
+     "time": 1,
+     "lonely": -3,
+     "stress": -3
     },
     "text": "Meatloaf, mash, green beans. Honest food."
    },
    {
-    "label": "Drink a coffee (@3)",
+    "label": "Order a coffee (@3)",
     "req": {
      "money": 3
     },
     "x": {
      "money": -3,
      "energy": 10,
-     "time": 0.5
+     "time": 0.5,
+     "mood": 2
     },
     "text": "Strong, bitter, bottomless if {cook} likes you."
    },
    {
-    "label": "Chat with {cook} (30m)",
+    "label": "Talk with {cook} for a bit",
     "x": {
      "time": 0.5,
      "mood": 3,
      "sk": {
       "charisma": 0.25
-     }
+     },
+     "lonely": -12,
+     "stress": -4
     },
     "text": [
      "She tells you who in town owes who money.",
      "{cook} gives you advice you didn't ask for. It's good.",
      "She asks how the city kid is holding up. You lie a little."
+    ],
+    "with": "cook"
+   },
+   {
+    "type": "meet",
+    "label": "Strike up a conversation with someone",
+    "at": "at the counter",
+    "roles": [
+     "a regular",
+     "a delivery driver",
+     "someone at the next booth"
     ]
    }
   ]
@@ -261,11 +393,11 @@
   },
   "actions": [
    {
-    "label": "Browse the shelves",
+    "label": "Look around the shelves",
     "type": "shop"
    },
    {
-    "label": "Shoplift a sandwich",
+    "label": "Slip something into your jacket when the clerk looks away",
     "chance": {
      "base": 0.4,
      "sk": "street",
@@ -282,7 +414,9 @@
       "heat": 10,
       "sk": {
        "street": 0.3
-      }
+      },
+      "stress": 8,
+      "mood": -3
      }
     },
     "lose": {
@@ -290,7 +424,8 @@
      "x": {
       "heat": 28,
       "rep": -3,
-      "mood": -4
+      "mood": -4,
+      "stress": 10
      }
     },
     "req": {
@@ -298,6 +433,41 @@
       10,
       99
      ]
+    },
+    "with": "clerk",
+    "bd": {
+     "w": 0,
+     "l": -8
+    }
+   },
+   {
+    "label": "Buy a scratch card (@2)",
+    "req": {
+     "money": 2
+    },
+    "x": {
+     "money": -2,
+     "time": 0.1
+    },
+    "chance": {
+     "base": 0.06,
+     "sk": "none",
+     "per": 0
+    },
+    "text": "You scrape the silver coating off with a coin.",
+    "win": {
+     "text": "Three matching symbols. The clerk raises an eyebrow. +#30",
+     "x": {
+      "money": 30,
+      "mood": 6,
+      "luck": 2
+     }
+    },
+    "lose": {
+     "text": "Nothing. You flick the dust off your thumb.",
+     "x": {
+      "mood": -1
+     }
     }
    }
   ]
@@ -319,7 +489,7 @@
   },
   "actions": [
    {
-    "label": "Study for a few hours (3h)",
+    "label": "Settle in and study",
     "req": {
      "energy": 12
     },
@@ -330,19 +500,56 @@
      "mood": 1,
      "sk": {
       "intellect": 0.35
-     }
+     },
+     "stress": 3,
+     "ed": 1.2
     },
     "text": "You pick a corner and read until the words stop sliding off."
    },
    {
-    "label": "Read the town newspaper (30m)",
+    "label": "Work through old exam papers",
+    "req": {
+     "energy": 15,
+     "age": [
+      8,
+      99
+     ]
+    },
+    "x": {
+     "time": 3,
+     "energy": -12,
+     "hunger": -6,
+     "stress": 4,
+     "ed": 2,
+     "sk": {
+      "intellect": 0.25
+     }
+    },
+    "text": [
+     "Question after question. Some answers come easy. Some you have to fight for.",
+     "You mark your own work honestly, which hurts a little."
+    ]
+   },
+   {
+    "label": "Read the town paper",
     "x": {
      "time": 0.5,
-     "mood": 1
+     "mood": 1,
+     "stress": -2
     },
     "text": [
      "Zoning dispute. Lost cat. A feud over a fence.",
      "Pie contest results. The runner-up is already contesting them."
+    ]
+   },
+   {
+    "type": "meet",
+    "label": "Strike up a conversation with someone",
+    "at": "between the shelves",
+    "roles": [
+     "a fellow reader",
+     "a student",
+     "an old regular"
     ]
    }
   ]
@@ -364,7 +571,7 @@
   },
   "actions": [
    {
-    "label": "Workout (@8, 1.5h)",
+    "label": "Work out (@8)",
     "req": {
      "money": 8,
      "energy": 20,
@@ -381,9 +588,21 @@
      "health": 2,
      "sk": {
       "fitness": 0.3
-     }
+     },
+     "stress": -8,
+     "mood": 3,
+     "lonely": -2
     },
     "text": "You push until your arms shake. It feels like progress."
+   },
+   {
+    "type": "meet",
+    "label": "Strike up a conversation with someone",
+    "at": "between sets",
+    "roles": [
+     "a gym regular",
+     "someone training nearby"
+    ]
    }
   ]
  },
@@ -404,14 +623,15 @@
   },
   "actions": [
    {
-    "label": "Get treated (@40, 2h)",
+    "label": "See the doctor (@40)",
     "req": {
      "money": 40
     },
     "x": {
      "money": -40,
      "time": 2,
-     "health": 60
+     "health": 60,
+     "stress": -6
     },
     "text": "The doctor is brisk and kind. You leave patched up."
    }
@@ -431,7 +651,7 @@
   },
   "actions": [
    {
-    "label": "Run an errand for Rook (1h)",
+    "label": "Run an errand for Rook",
     "x": {
      "time": 1
     },
@@ -449,7 +669,9 @@
       "rep": 1,
       "sk": {
        "street": 0.3
-      }
+      },
+      "stress": 8,
+      "mood": -3
      }
     },
     "lose": {
@@ -457,7 +679,8 @@
      "x": {
       "health": -15,
       "mood": -5,
-      "heat": 5
+      "heat": 5,
+      "stress": 10
      }
     },
     "req": {
@@ -465,7 +688,29 @@
       15,
       99
      ]
+    },
+    "with": "rook",
+    "bd": {
+     "w": 4,
+     "l": -2
     }
+   },
+   {
+    "label": "Practice sleight of hand with a coin",
+    "req": {
+     "age": [
+      10,
+      99
+     ]
+    },
+    "x": {
+     "time": 1,
+     "stress": -1,
+     "sk": {
+      "street": 0.15
+     }
+    },
+    "text": "The coin walks across your knuckles. It drops. You pick it up and do it again."
    }
   ]
  },
@@ -483,12 +728,23 @@
   },
   "actions": [
    {
-    "label": "Watch the ships (30m)",
+    "label": "Watch the ships come and go",
     "x": {
      "time": 0.5,
-     "mood": 2
+     "mood": 2,
+     "stress": -5
     },
     "text": "A rust-red freighter slides out to sea. You wonder where it goes."
+   },
+   {
+    "type": "meet",
+    "label": "Strike up a conversation with someone",
+    "at": "by the water",
+    "roles": [
+     "a dockworker",
+     "a fisher",
+     "someone watching the ships"
+    ]
    }
   ]
  },
@@ -506,6 +762,12 @@
   "actions": [
    {
     "type": "prof"
+   },
+   {
+    "type": "meet",
+    "label": "Strike up a conversation with someone",
+    "at": "work",
+    "roles": []
    }
   ]
  }

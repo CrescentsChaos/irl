@@ -1,26 +1,891 @@
 [
-{"t":"Student","k":"s","wp":"school","pay":0,"a":[5,17],"tr":[1,5],"sk":{"intellect":0.5}},
-{"t":"Retiree","k":"r","wp":"the local park","pay":28,"a":[62,90],"tr":[1,5]},
-{"t":"Farmer","k":"w","wp":"the fields","pay":28,"h":7,"e":30,"hu":14,"a":[16,85],"tr":[1,4],"sk":{"fitness":0.8}},
-{"t":"Fisher","k":"w","wp":"the harbor","pay":34,"h":7,"e":30,"hu":14,"a":[16,75],"tr":[1,4],"sk":{"fitness":0.8}},
-{"t":"Street vendor","k":"w","wp":"your market stall","pay":26,"h":8,"e":20,"hu":8,"a":[14,80],"tr":[1,3],"sk":{"charisma":0.8,"street":0.5}},
-{"t":"Taxi driver","k":"w","wp":"the taxi rank","pay":40,"h":8,"e":16,"hu":8,"a":[20,70],"tr":[1,5],"sk":{"street":0.5}},
-{"t":"Teacher","k":"w","wp":"the staff room","pay":45,"h":6,"e":18,"hu":6,"a":[22,66],"tr":[1,5],"sk":{"intellect":1.5,"charisma":0.5}},
-{"t":"Nurse","k":"w","wp":"the hospital ward","pay":52,"h":7,"e":24,"hu":8,"a":[22,66],"tr":[1,5],"sk":{"intellect":1.5}},
-{"t":"Doctor","k":"w","wp":"the clinic","pay":100,"h":8,"e":24,"hu":8,"a":[28,68],"tr":[1,5],"sk":{"intellect":3,"charisma":1}},
-{"t":"Mechanic","k":"w","wp":"the garage","pay":44,"h":7,"e":24,"hu":10,"a":[18,65],"tr":[1,5],"sk":{"fitness":0.5,"intellect":0.5}},
-{"t":"Construction worker","k":"w","wp":"the building site","pay":48,"h":8,"e":32,"hu":14,"a":[18,60],"tr":[1,5],"sk":{"fitness":1.2}},
-{"t":"Cook","k":"w","wp":"the kitchen","pay":40,"h":7,"e":24,"hu":6,"a":[16,70],"tr":[1,5]},
-{"t":"Shop assistant","k":"w","wp":"the shop floor","pay":32,"h":7,"e":16,"hu":6,"a":[16,70],"tr":[1,5],"sk":{"charisma":0.5}},
-{"t":"Factory worker","k":"w","wp":"the factory floor","pay":46,"h":8,"e":28,"hu":10,"a":[18,62],"tr":[1,5]},
-{"t":"Software contractor","k":"w","wp":"your co-working desk","pay":80,"h":6,"e":16,"hu":4,"a":[20,60],"tr":[2,5],"sk":{"intellect":2.5}},
-{"t":"Courier","k":"w","wp":"the delivery route","pay":38,"h":8,"e":24,"hu":10,"a":[16,50],"tr":[1,5],"sk":{"fitness":0.8}},
-{"t":"Tailor","k":"w","wp":"the workshop","pay":34,"h":7,"e":14,"hu":6,"a":[18,80],"tr":[1,4]},
-{"t":"Miner","k":"w","wp":"the mine","pay":60,"h":8,"e":36,"hu":16,"a":[18,55],"tr":[1,4],"sk":{"fitness":1.5}},
-{"t":"Call-centre agent","k":"w","wp":"the call centre","pay":36,"h":7,"e":14,"hu":6,"a":[18,55],"tr":[2,4],"sk":{"charisma":1}},
-{"t":"Security guard","k":"w","wp":"the gatehouse","pay":38,"h":8,"e":12,"hu":6,"a":[20,65],"tr":[1,5],"sk":{"fitness":0.5}},
-{"t":"Musician","k":"w","wp":"the stage","pay":30,"h":5,"e":16,"hu":6,"a":[16,70],"tr":[1,5],"sk":{"charisma":1.5,"street":0.5}},
-{"t":"Journalist","k":"w","wp":"the newsroom","pay":54,"h":7,"e":16,"hu":6,"a":[22,65],"tr":[2,5],"sk":{"intellect":1.5,"charisma":1}},
-{"t":"Electrician","k":"w","wp":"the job site","pay":56,"h":7,"e":22,"hu":10,"a":[20,62],"tr":[1,5],"sk":{"intellect":1}},
-{"t":"Oil rig worker","k":"w","wp":"the rig","pay":90,"h":10,"e":36,"hu":16,"a":[22,55],"tr":[2,5],"sk":{"fitness":1.2}}
+{
+"t": "Student",
+"k": "s",
+"wp": "school",
+"pay": 0,
+"a": [
+5,
+17
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"intellect": 0.5
+}
+},
+{
+"t": "Retiree",
+"k": "r",
+"wp": "the local park",
+"pay": 28,
+"a": [
+62,
+90
+],
+"tr": [
+1,
+5
+]
+},
+{
+"t": "Farmer",
+"k": "w",
+"wp": "the fields",
+"pay": 28,
+"h": 7,
+"e": 30,
+"hu": 14,
+"a": [
+16,
+85
+],
+"tr": [
+1,
+4
+],
+"sk": {
+"fitness": 0.8
+},
+"ed": 0,
+"f": "labor"
+},
+{
+"t": "Fisher",
+"k": "w",
+"wp": "the harbor",
+"pay": 34,
+"h": 7,
+"e": 30,
+"hu": 14,
+"a": [
+16,
+75
+],
+"tr": [
+1,
+4
+],
+"sk": {
+"fitness": 0.8
+},
+"ed": 0,
+"f": "labor"
+},
+{
+"t": "Street vendor",
+"k": "w",
+"wp": "your market stall",
+"pay": 26,
+"h": 8,
+"e": 20,
+"hu": 8,
+"a": [
+14,
+80
+],
+"tr": [
+1,
+3
+],
+"sk": {
+"charisma": 0.8,
+"street": 0.5
+},
+"ed": 0,
+"f": "service"
+},
+{
+"t": "Taxi driver",
+"k": "w",
+"wp": "the taxi rank",
+"pay": 40,
+"h": 8,
+"e": 16,
+"hu": 8,
+"a": [
+20,
+70
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"street": 0.5
+},
+"ed": 0,
+"f": "service"
+},
+{
+"t": "Teacher",
+"k": "w",
+"wp": "the staff room",
+"pay": 45,
+"h": 6,
+"e": 18,
+"hu": 6,
+"a": [
+22,
+66
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"intellect": 1.5,
+"charisma": 0.5
+},
+"ed": 3,
+"f": "edu"
+},
+{
+"t": "Nurse",
+"k": "w",
+"wp": "the hospital ward",
+"pay": 52,
+"h": 7,
+"e": 24,
+"hu": 8,
+"a": [
+22,
+66
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"intellect": 1.5
+},
+"ed": 2,
+"f": "health"
+},
+{
+"t": "Doctor",
+"k": "w",
+"wp": "the clinic",
+"pay": 100,
+"h": 8,
+"e": 24,
+"hu": 8,
+"a": [
+22,
+68
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"intellect": 3,
+"charisma": 1
+},
+"ed": 3,
+"f": "health"
+},
+{
+"t": "Mechanic",
+"k": "w",
+"wp": "the garage",
+"pay": 44,
+"h": 7,
+"e": 24,
+"hu": 10,
+"a": [
+18,
+65
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"fitness": 0.5,
+"intellect": 0.5
+},
+"ed": 2,
+"f": "trade"
+},
+{
+"t": "Construction worker",
+"k": "w",
+"wp": "the building site",
+"pay": 48,
+"h": 8,
+"e": 32,
+"hu": 14,
+"a": [
+18,
+60
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"fitness": 1.2
+},
+"ed": 0,
+"f": "labor"
+},
+{
+"t": "Cook",
+"k": "w",
+"wp": "the kitchen",
+"pay": 40,
+"h": 7,
+"e": 24,
+"hu": 6,
+"a": [
+16,
+70
+],
+"tr": [
+1,
+5
+],
+"ed": 0,
+"f": "service"
+},
+{
+"t": "Shop assistant",
+"k": "w",
+"wp": "the shop floor",
+"pay": 32,
+"h": 7,
+"e": 16,
+"hu": 6,
+"a": [
+16,
+70
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"charisma": 0.5
+},
+"ed": 0,
+"f": "service"
+},
+{
+"t": "Factory worker",
+"k": "w",
+"wp": "the factory floor",
+"pay": 46,
+"h": 8,
+"e": 28,
+"hu": 10,
+"a": [
+18,
+62
+],
+"tr": [
+1,
+5
+],
+"ed": 0,
+"f": "labor"
+},
+{
+"t": "Software contractor",
+"k": "w",
+"wp": "your co-working desk",
+"pay": 80,
+"h": 6,
+"e": 16,
+"hu": 4,
+"a": [
+20,
+60
+],
+"tr": [
+2,
+5
+],
+"sk": {
+"intellect": 2.5
+},
+"ed": 2,
+"f": "tech"
+},
+{
+"t": "Courier",
+"k": "w",
+"wp": "the delivery route",
+"pay": 38,
+"h": 8,
+"e": 24,
+"hu": 10,
+"a": [
+16,
+50
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"fitness": 0.8
+},
+"ed": 0,
+"f": "labor"
+},
+{
+"t": "Tailor",
+"k": "w",
+"wp": "the workshop",
+"pay": 34,
+"h": 7,
+"e": 14,
+"hu": 6,
+"a": [
+18,
+80
+],
+"tr": [
+1,
+4
+],
+"ed": 1,
+"f": "trade"
+},
+{
+"t": "Miner",
+"k": "w",
+"wp": "the mine",
+"pay": 60,
+"h": 8,
+"e": 36,
+"hu": 16,
+"a": [
+18,
+55
+],
+"tr": [
+1,
+4
+],
+"sk": {
+"fitness": 1.5
+},
+"ed": 0,
+"f": "labor"
+},
+{
+"t": "Call-centre agent",
+"k": "w",
+"wp": "the call centre",
+"pay": 36,
+"h": 7,
+"e": 14,
+"hu": 6,
+"a": [
+18,
+55
+],
+"tr": [
+2,
+4
+],
+"sk": {
+"charisma": 1
+},
+"ed": 1,
+"f": "service"
+},
+{
+"t": "Security guard",
+"k": "w",
+"wp": "the gatehouse",
+"pay": 38,
+"h": 8,
+"e": 12,
+"hu": 6,
+"a": [
+20,
+65
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"fitness": 0.5
+},
+"ed": 1,
+"f": "service"
+},
+{
+"t": "Musician",
+"k": "w",
+"wp": "the stage",
+"pay": 30,
+"h": 5,
+"e": 16,
+"hu": 6,
+"a": [
+16,
+70
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"charisma": 1.5,
+"street": 0.5
+},
+"ed": 0,
+"f": "media"
+},
+{
+"t": "Journalist",
+"k": "w",
+"wp": "the newsroom",
+"pay": 54,
+"h": 7,
+"e": 16,
+"hu": 6,
+"a": [
+22,
+65
+],
+"tr": [
+2,
+5
+],
+"sk": {
+"intellect": 1.5,
+"charisma": 1
+},
+"ed": 3,
+"f": "media"
+},
+{
+"t": "Electrician",
+"k": "w",
+"wp": "the job site",
+"pay": 56,
+"h": 7,
+"e": 22,
+"hu": 10,
+"a": [
+20,
+62
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"intellect": 1
+},
+"ed": 2,
+"f": "trade"
+},
+{
+"t": "Oil rig worker",
+"k": "w",
+"wp": "the rig",
+"pay": 90,
+"h": 10,
+"e": 36,
+"hu": 16,
+"a": [
+22,
+55
+],
+"tr": [
+2,
+5
+],
+"sk": {
+"fitness": 1.2
+},
+"ed": 1,
+"f": "labor"
+},
+{
+"t": "Civil engineer",
+"k": "w",
+"wp": "the design office",
+"pay": 85,
+"h": 8,
+"e": 18,
+"hu": 6,
+"a": [
+22,
+66
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"intellect": 2
+},
+"ed": 3,
+"f": "tech"
+},
+{
+"t": "Architect",
+"k": "w",
+"wp": "the studio",
+"pay": 82,
+"h": 7,
+"e": 16,
+"hu": 6,
+"a": [
+22,
+68
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"intellect": 1.5,
+"charisma": 0.5
+},
+"ed": 3,
+"f": "tech"
+},
+{
+"t": "Research scientist",
+"k": "w",
+"wp": "the laboratory",
+"pay": 72,
+"h": 8,
+"e": 16,
+"hu": 6,
+"a": [
+22,
+68
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"intellect": 2.5
+},
+"ed": 3,
+"f": "tech"
+},
+{
+"t": "Accountant",
+"k": "w",
+"wp": "the accounts office",
+"pay": 62,
+"h": 7,
+"e": 14,
+"hu": 5,
+"a": [
+22,
+66
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"intellect": 1.5
+},
+"ed": 3,
+"f": "biz"
+},
+{
+"t": "Lawyer",
+"k": "w",
+"wp": "the law office",
+"pay": 110,
+"h": 8,
+"e": 18,
+"hu": 6,
+"a": [
+22,
+68
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"intellect": 2,
+"charisma": 1.5
+},
+"ed": 3,
+"f": "biz"
+},
+{
+"t": "Bank manager",
+"k": "w",
+"wp": "the bank",
+"pay": 95,
+"h": 8,
+"e": 16,
+"hu": 6,
+"a": [
+22,
+64
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"intellect": 1,
+"charisma": 1
+},
+"ed": 3,
+"f": "biz"
+},
+{
+"t": "Pharmacist",
+"k": "w",
+"wp": "the pharmacy",
+"pay": 78,
+"h": 7,
+"e": 16,
+"hu": 6,
+"a": [
+22,
+68
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"intellect": 1.5
+},
+"ed": 3,
+"f": "health"
+},
+{
+"t": "Social worker",
+"k": "w",
+"wp": "the community office",
+"pay": 48,
+"h": 7,
+"e": 20,
+"hu": 6,
+"a": [
+22,
+66
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"charisma": 1,
+"intellect": 1
+},
+"ed": 3,
+"f": "edu"
+},
+{
+"t": "Graphic designer",
+"k": "w",
+"wp": "the design studio",
+"pay": 58,
+"h": 7,
+"e": 14,
+"hu": 5,
+"a": [
+22,
+66
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"intellect": 1,
+"charisma": 0.5
+},
+"ed": 3,
+"f": "media"
+},
+{
+"t": "Paramedic",
+"k": "w",
+"wp": "the ambulance station",
+"pay": 56,
+"h": 9,
+"e": 28,
+"hu": 10,
+"a": [
+22,
+58
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"fitness": 1,
+"intellect": 0.8
+},
+"ed": 2,
+"f": "health"
+},
+{
+"t": "Plumber",
+"k": "w",
+"wp": "the job site",
+"pay": 52,
+"h": 7,
+"e": 24,
+"hu": 10,
+"a": [
+20,
+64
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"intellect": 0.8,
+"fitness": 0.4
+},
+"ed": 2,
+"f": "trade"
+},
+{
+"t": "Carpenter",
+"k": "w",
+"wp": "the workshop",
+"pay": 46,
+"h": 7,
+"e": 26,
+"hu": 10,
+"a": [
+18,
+66
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"fitness": 0.6,
+"intellect": 0.4
+},
+"ed": 2,
+"f": "trade"
+},
+{
+"t": "Welder",
+"k": "w",
+"wp": "the fabrication shop",
+"pay": 58,
+"h": 8,
+"e": 28,
+"hu": 12,
+"a": [
+20,
+60
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"fitness": 0.6,
+"intellect": 0.5
+},
+"ed": 2,
+"f": "trade"
+},
+{
+"t": "Chef",
+"k": "w",
+"wp": "the restaurant kitchen",
+"pay": 50,
+"h": 8,
+"e": 26,
+"hu": 8,
+"a": [
+20,
+66
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"intellect": 0.5,
+"charisma": 0.3
+},
+"ed": 2,
+"f": "service"
+},
+{
+"t": "Hairdresser",
+"k": "w",
+"wp": "the salon",
+"pay": 34,
+"h": 7,
+"e": 14,
+"hu": 6,
+"a": [
+17,
+70
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"charisma": 1
+},
+"ed": 1,
+"f": "service"
+},
+{
+"t": "University student",
+"k": "s",
+"u": "uni",
+"wp": "the lecture hall",
+"pay": 0,
+"a": [
+18,
+40
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"intellect": 0.5
+}
+},
+{
+"t": "Trade apprentice",
+"k": "s",
+"u": "trade",
+"wp": "the training workshop",
+"pay": 0,
+"a": [
+18,
+40
+],
+"tr": [
+1,
+5
+],
+"sk": {
+"fitness": 0.2,
+"intellect": 0.2
+}
+}
 ]
