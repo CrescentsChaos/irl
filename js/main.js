@@ -1,7 +1,7 @@
 import { start } from './game.js';
 const f = n => fetch('data/' + n + '.json').then(r => r.json());
-Promise.all(['config', 'world', 'jobs', 'items', 'events', 'countries', 'regions', 'professions', 'people', 'backstory'].map(f))
-  .then(([config, world, jobs, items, events, countries, regions, profs, people, back]) => start({ config, world, jobs, items, events, countries, regions, profs, people, back }))
+Promise.all(['config', 'world', 'jobs', 'items', 'events', 'countries', 'regions', 'professions', 'people', 'backstory', 'lifeevents', 'romance'].map(f))
+  .then(([config, world, jobs, items, events, countries, regions, profs, people, back, life, rom]) => start({ config, world, jobs, items, events, countries, regions, profs, people, back, life, rom }))
   .catch(() => {
     document.getElementById('log').innerHTML = '<p class="bad">Could not load game data. Browsers block JSON from file:// pages. Run <code>python3 -m http.server</code> in this folder and open http://localhost:8000, or host on GitHub Pages.</p>';
   });
