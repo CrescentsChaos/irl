@@ -1,0 +1,211 @@
+{
+ "mart": {
+  "n": "{shop}",
+  "mult": 1.25,
+  "clerk": "clerk",
+  "stock": [
+   "sandwich",
+   "chips",
+   "apple",
+   "water",
+   "coffee_can",
+   "energy_drink",
+   "chocolate",
+   "noodles",
+   "soap_small",
+   "umbrella",
+   "headphones",
+   "paperback"
+  ],
+  "buys": [],
+  "rate": 0
+ },
+ "grocer": {
+  "n": "Fresh Market",
+  "mult": 0.9,
+  "clerk": "grocer",
+  "stock": [
+   "groceries_s",
+   "groceries_l",
+   "fruit_bag",
+   "ready_meal",
+   "apple",
+   "water",
+   "flowers",
+   "herb_pot",
+   "sandwich",
+   "tea_tin"
+  ],
+  "buys": [],
+  "rate": 0
+ },
+ "pharm": {
+  "n": "Pharmacy",
+  "mult": 1,
+  "clerk": "pharm",
+  "stock": [
+   "painkillers",
+   "cold_med",
+   "bandages",
+   "first_aid",
+   "vitamins",
+   "toiletries",
+   "toiletries_big",
+   "soap_small",
+   "condoms"
+  ],
+  "buys": [],
+  "rate": 0
+ },
+ "tech": {
+  "n": "Electronics",
+  "mult": 1,
+  "clerk": "techie",
+  "stock": [
+   "phone_basic",
+   "phone_mid",
+   [
+    "phone_pro",
+    2
+   ],
+   "phone_case",
+   "laptop_refurb",
+   [
+    "laptop_mid",
+    3
+   ],
+   [
+    "laptop_pro",
+    2
+   ],
+   "headphones",
+   "headphones_pro",
+   [
+    "smartwatch",
+    3
+   ],
+   "ereader",
+   [
+    "console",
+    2
+   ],
+   "radio_kit",
+   "plan_sim",
+   "plan_sim3",
+   "plan_net"
+  ],
+  "buys": [
+   "tech"
+  ],
+  "rate": 0.45,
+  "fix": {
+   "slots": [
+    "phone",
+    "laptop",
+    "audio",
+    "watch",
+    "reader",
+    "console"
+   ],
+   "rate": 0.35,
+   "to": 72
+  }
+ },
+ "clothes": {
+  "n": "Clothing",
+  "mult": 1,
+  "clerk": "tailor",
+  "stock": [
+   "outfit_basic",
+   "outfit_good",
+   "shoes_basic",
+   "shoes_good",
+   "coat_warm",
+   "rain_jacket",
+   "sunhat",
+   "backpack",
+   "scarf",
+   "umbrella"
+  ],
+  "buys": [],
+  "rate": 0,
+  "fix": {
+   "slots": [
+    "outfit",
+    "shoes",
+    "coat",
+    "rain",
+    "hat",
+    "bag"
+   ],
+   "rate": 0.22,
+   "to": 68
+  }
+ },
+ "hardware": {
+  "n": "Hardware and Home",
+  "mult": 1,
+  "clerk": "handy",
+  "stock": [
+   "bedding_basic",
+   "bedding_good",
+   "fan",
+   "heater",
+   "toolkit",
+   "cookware",
+   "dumbbells",
+   "football",
+   "fishing_kit",
+   "bandages"
+  ],
+  "buys": [
+   "home"
+  ],
+  "rate": 0.35
+ },
+ "books": {
+  "n": "Books and Gifts",
+  "mult": 1,
+  "clerk": "booker",
+  "stock": [
+   "paperback",
+   "textbook",
+   "cookbook",
+   "sketchbook",
+   "playing_cards",
+   "coin_folder",
+   "candle",
+   "plush",
+   "mug",
+   "flowers",
+   "tea_tin",
+   "guitar"
+  ],
+  "buys": [
+   "book"
+  ],
+  "rate": 0.3
+ },
+ "pawn": {
+  "n": "Rook's counter",
+  "mult": 1,
+  "clerk": "rook",
+  "used": 1,
+  "stock": [
+   "phone_basic",
+   "laptop_refurb",
+   "headphones",
+   "shoes_basic",
+   "coat_warm",
+   "backpack",
+   "smartwatch",
+   "console",
+   "guitar"
+  ],
+  "buys": [
+   "*"
+  ],
+  "rate": 0.4,
+  "uprice": 0.5
+ }
+}
