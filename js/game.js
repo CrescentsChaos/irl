@@ -1,12 +1,12 @@
 import { dayWx, wxAt, wxLine, fmtT, exposure, wxFx, wxSummary, SEVERE } from './weather.js';
 import { initRomance } from './romance.js';
-import { initShop } from './shop.js';
+import { initDisasters } from './disasters.js';
 import { dateOf, MON, climate, seasonOf, holidays, bdayMD, isMyBday, initCal, wxPick, seasonFx } from './calendar.js';
 const $ = i => document.getElementById(i), R = Math.random;
 const cl = (v, a = 0, b = 100) => Math.max(a, Math.min(b, v));
 const pick = t => Array.isArray(t) ? t[Math.floor(R() * t.length)] : t;
 const KEY = 'irl-text-v1', WD = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-let D, S, view = window.IRL_VIEW || 'main', opts = [], ev = null, quiet = false, RM, SH, SPF = null;
+let D, S, view = window.IRL_VIEW || 'main', opts = [], ev = null, quiet = false, RM, DZ, SPF = null, slp = false;
 
 const day = () => Math.floor(S.t / 1440) + 1, hr = () => (S.t / 60) % 24;
 const per = h => h < 5 ? 'night' : h < 12 ? 'morning' : h < 18 ? 'day' : h < 22 ? 'evening' : 'night';
@@ -14,7 +14,8 @@ const clock = () => String(Math.floor(hr())).padStart(2, '0') + ':' + String(Mat
 const log = (t, c = '') => { if (quiet) return; S.log.push([S.tk ? tpl(t) : t, c]); if (S.log.length > 120) S.log.shift(); };
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
 const fmt = v => { const n = v < 100 ? String(+v.toFixed(1)) : Math.round(v).toLocaleString('en-US'), y = S.tk.cur; return y.length > 2 ? `${n} ${y}` : y + n; };
-const tpl = t => [0, 1].reduce(x => x.replace(/@(\d+)/g, (m, n) => fmt(n * S.kc)).replace(/#(\d+)/g, (m, n) => fmt(n * S.kw)).replace(/\{(\w+)\}/g, (m, k) => S.tk[k] ?? m), String(t));
+const kcx = () => S.kc * DZ.priceF();
+const tpl = t => [0, 1].reduce(x => x.replace(/@(\d+)/g, (m, n) => fmt(n * kcx())).replace(/#(\d+)/g, (m, n) => fmt(n * S.kw)).replace(/\{(\w+)\}/g, (m, k) => DZ.tk(k) ?? S.tk[k] ?? m), String(t));
 const pr = c => typeof c === 'number' ? c : Math.max(0.05, Math.min(0.95, c.base + (S.sk[c.sk] || 0) * (c.per || 0.05) + (S.mood - 50) * 0.002 - (S.stress > 70 ? 0.05 : 0) + ((S.tal?.[c.sk] ?? 5) - 5) * 0.012 + ((S.ded ?? 50) - 50) * 0.0006 + luckF() * 0.12 + bodyBonus(c.sk)));
 
 //// ===== talent, dedication, luck, body, education =====
@@ -47,7 +48,7 @@ function bodyLine(L, b) {
   return `You stand ${Math.round(bd.ht)} cm (${ftin(bd.ht)}) and weigh ${Math.round(bd.wt)} kg (${Math.round(bd.wt * 2.2046)} lb): ${buildW(bd.bmi, L.age)}. Your strongest natural gift is ${top} (${tw(L.tal[top])}). Your drive is ${dw(b.ded)}, and ${LK[lkIdx(L.lk)]}.`;
 }
 // skills: talent and dedication set how fast you learn, levels slow you down, repeated practice builds momentum
-const learn = k => (0.55 + (S.tal[k] ?? 5) * 0.09) * (0.7 + (S.ded ?? 50) / 100 * 0.6) / (1 + (S.sk[k] || 0) * 0.3) * (k === 'fitness' && bodyEf() >= 1.1 ? 0.85 : 1) * (k === 'fitness' ? SH.fitMul() : 1);
+const learn = k => (0.55 + (S.tal[k] ?? 5) * 0.09) * (0.7 + (S.ded ?? 50) / 100 * 0.6) / (1 + (S.sk[k] || 0) * 0.3) * (k === 'fitness' && bodyEf() >= 1.1 ? 0.85 : 1);
 function gainSk(e) {
   const dl = (e.time || 0) >= 0.25;
   if (e.ed) { S.gp = cl(S.gp + e.ed * (0.4 + S.tal.intellect * 0.05 + S.ded * 0.004) * (1 - S.gp / 110)); S.eff = 1; }
@@ -137,10 +138,9 @@ function promo(sp, m) {
 }
 function shiftPay(base, ks) {
   const tl = ks.length ? ks.reduce((s, k) => s + (S.tal[k] ?? 5), 0) / ks.length : avgTal(), perf = R() * 0.8 + 0.1 + (S.ded - 50) / 250 + (tl - 5) / 25 + luckF() * 0.15;
-  const dm = SH.dress(), dn = dm < 0.95 ? ' Your clothes do not help.' : '';
-  if (perf > 1.05) return { pay: Math.round(base * 1.25 * dm), msg: 'You do excellent work today, and it gets noticed.' + dn, good: 1 };
-  if (perf < 0.15) return { pay: Math.round(base * 0.85 * dm), msg: 'Distracted and sloppy, you make mistakes you have to fix.' + dn, good: 0 };
-  return { pay: Math.round(base * dm), msg: dn.trim(), good: 1 };
+  if (perf > 1.05) return { pay: Math.round(base * 1.25), msg: 'You do excellent work today, and it gets noticed.', good: 1 };
+  if (perf < 0.15) return { pay: Math.round(base * 0.85), msg: 'Distracted and sloppy, you make mistakes you have to fix.', good: 0 };
+  return { pay: Math.round(base), msg: '', good: 1 };
 }
 const admit = k => k === 'uni' ? cl((S.gp - 35) / 50 + luckF() * 0.25 + (S.tal.intellect - 5) * 0.01, 0.05, 0.97) : cl((S.gp - 18) / 45 + luckF() * 0.2, 0.1, 0.97);
 const FN = {
@@ -149,10 +149,12 @@ const FN = {
   major(a) { const n = MAJORS.find(m => m.id === a.arg).n.toLowerCase(); S.major = a.arg; S.pend = null; log(`You will study ${n}.`, 'good'); note(`Chose to study ${n}.`); },
   drop() { const u = S.stu; S.pend = null; if (u) { S.stu = null; S.edu = 'left your studies early'; } else { S.edl = 0; S.edu = 'left school early'; } log('You close one door and open another.', 'sys'); note(u ? 'Left your studies.' : 'Left school.'); startCareer(rsp); },
   rom(a) { RM.resolve(a.arg); },
+  dz(a) { DZ.pickChoice(a); },
   keep() { S.pend = null; log('You decide to stay the course.', 'sys'); }
 };
 function mkEv() {
   if (S.pend === 'rom') return RM.mkEvent();
+  if (S.pend === 'dz') return DZ.mkEvent();
   const rj = S.rej || {};
   if (S.pend === 'grad') { const ok = S.edl >= 1; return { id: 'grad', text: `School is finished. Your record is ${gw(S.gp)}${ok ? '' : ', and you left without a diploma'}. What comes next?`, choices: [
     { label: `Apply to university (about ${Math.round(admit('uni') * 100)}% chance)`, fn: 'apply', arg: 'uni', dis: !ok ? 'Needs a diploma' : S.gp < 35 ? 'Grades too low' : rj.uni ? 'Turned down' : '' },
@@ -183,6 +185,7 @@ function migrate() {
   if (!S.adH) { S.adH = avgH() + z() * 6.5; S.bmi0 = 21 + S.tier * 0.35 + z() * 2.4; }
   if (S.prof.k === 's' && !S.stu && S.age >= 18 && !S.pend) endSchool(() => {});
 }
+function famRefresh() { const ft = k => S.fam.find(x => x.k === k && x.alive && (k !== 'child' || x.lives))?.name; ['parent', 'sibling', 'spouse', 'child'].forEach(k => S.tk[k] = ft(k)); }
 function bday(sp) {
   S.ef = S.age >= 65 ? 1.3 : 1;
   const ft = k => S.fam.find(x => x.k === k && x.alive && (k !== 'child' || x.lives))?.name;
@@ -201,18 +204,18 @@ function bday(sp) {
   }
   if (S.fl.withFamily && S.age >= 22 && S.age <= 32 && R() < 0.2) leave(['You moved into a place of your own. The quiet takes some getting used to.', '']);
   else if (S.fl.withFamily && S.age >= 18 && !S.fam.some(p => p.alive && p.lives)) leave(['The family home is empty now. You are on your own.', '']);
-  SH.bdayGifts(sp);
   if (RM) RM.yearly(sp);
 }
 //// ===== end of new systems =====
 
 export function start(data) {
   D = data;
-  RM = initRomance({ phoneW: () => SH.phoneW(), R, pick, rnd, fx, hist, after, people, byId, norm, why, day, hr, luckF, getS: () => S, getD: () => D, note, bar, render, quiet: () => quiet, go: v => { view = v; render(); }, place: () => D.world[S.loc]?.name || 'the street', say: (t, c = '', j) => { if (SPF) SPF([t, c]); else { log(t, c); if (j) note(t); } } });
-  SH = initShop({ R, pick, rnd, cl, fx, fmt, tpl, why, after, hist, note, bar, local, people, act, getS: () => S, getD: () => D, day, quiet: () => quiet, log, say: (t, c = '', j) => { if (SPF) SPF([t, c]); else { log(t, c); if (j) note(t); } }, setFlash: t => { S.flash = t; }, setView: v => { view = v; render(); }, wx: () => { ensureCal(); return wxAt(S, day(), 14); }, cold: () => { const c = climate(S.tk.country); return c === 'north' || c === 'south'; } });
+  RM = initRomance({ R, pick, rnd, fx, hist, after, people, byId, norm, why, day, hr, luckF, getS: () => S, getD: () => D, note, bar, render, quiet: () => quiet, go: v => { view = v; render(); }, place: () => D.world[S.loc]?.name || 'the street', say: (t, c = '', j) => { if (SPF) SPF([t, c]); else { log(t, c); if (j) note(t); } } });
+  const sayF = (t, c = '', j) => { if (SPF) SPF([t, c]); else { log(t, c); if (j) note(t); } };
+  DZ = initDisasters({ R, pick, rnd, cl, fx, hist, people, day, hr, note, say: sayF, getS: () => S, getD: () => D, quiet: () => quiet, ssn: () => ssnNow(), luckF, newPerson, famRefresh, nextDay: () => { S.t += 1440; newDay(); }, asleep: () => slp, after, bar, tpl, pr });
   let saved = null; try { saved = JSON.parse(localStorage.getItem(KEY)); } catch {}
   document.addEventListener('keydown', e => { const n = +e.key; if (n >= 1 && n <= 9 && opts[n - 1] && !opts[n - 1].w && !['INPUT', 'SELECT'].includes(e.target.tagName)) opts[n - 1].f(); });
-  if (saved && saved.tk) { S = saved; S.know ??= []; S.jn ??= []; S.nid ??= 0; S.rgn ??= 0; S.fam.forEach(p => norm(p, 'family')); S.fr.forEach(f => { f.age ??= Math.max(5, S.age + rnd(-6, 6)); norm(f, 'friend'); }); S.know.forEach(p => norm(p, 'local')); S.stress ??= 25; S.lonely ??= 25; S.fl.in ??= {}; migrate(); RM.migrate(); SH.migrate(); if (S.pend) ev = mkEv(); log('— Welcome back. —', 'sys'); render(); } else if (view === 'new') intro(); else location.replace('new.html');
+  if (saved && saved.tk) { S = saved; S.know ??= []; S.jn ??= []; S.nid ??= 0; S.rgn ??= 0; S.fam.forEach(p => norm(p, 'family')); S.fr.forEach(f => { f.age ??= Math.max(5, S.age + rnd(-6, 6)); norm(f, 'friend'); }); S.know.forEach(p => norm(p, 'local')); S.stress ??= 25; S.lonely ??= 25; S.fl.in ??= {}; migrate(); RM.migrate(); DZ.migrate(); if (S.pend) ev = mkEv(); log('— Welcome back. —', 'sys'); render(); } else if (view === 'new') intro(); else location.replace('new.html');
 }
 
 let LIFE;
@@ -280,7 +283,7 @@ export function intro() {
   $('ct').onchange = () => { const r = rows.find(r => r[0] === $('ct').value); $('rg').value = r ? r[1] : ''; roll(); };
   $('gd').onchange = $('ag').onchange = $('ht').onchange = $('wt').onchange = roll; roll();
 }
-export const dbg = () => ({ opts, S, view, ev, set: v => { view = v; render(); } });
+export const dbg = () => ({ opts, S, view, ev, DZ, set: v => { view = v; render(); } });
 export function newGame(typed) {
   const c = D.config.start, L = LIFE, b = L.bio, a = L.age, p = L.p, fam = b.fam, fit = a < 13 ? 0.5 : a < 18 ? 1 : a < 50 ? 1.5 : a < 65 ? 1 : 0.5;
   const ft = k => fam.find(x => x.k === k && x.alive && (k !== 'child' || x.lives))?.name, name = `${typed || b.first} ${b.sur}`;
@@ -289,8 +292,8 @@ export function newGame(typed) {
     sk: { fitness: fit, charisma: 1, intellect: (a < 13 ? 0.5 : 1) + [0, 0.2, 0.4, 0.8][b.ei], street: 0 }, inv: { keepsake: 1 }, fl: { withFamily: b.home === 'family' ? 1 : 0, in: {} }, job: null, owed: 0, wx: 0, log: [],
     fam, fr: b.fr, mem: b.mem, memi: 0, traits: b.ts.map(t => t.n), kw: L.kw, kc: L.kc, ef: a >= 65 ? 1.3 : 1, prof: p, tier: L.tier,
     tk: { ...L.tk, name, friend: b.fr[0].name, keepsake: b.keep, hobby: b.hobby, homeName: b.homeName, homeDesc: b.homeDesc, parent: ft('parent'), sibling: ft('sibling'), spouse: ft('spouse'), child: ft('child') } };
-  S.nid = 0; S.know = []; S.jn = []; S.rgn = L.rg;  S.edu = b.eduT; initPersonal(L, b); SH.startKit(); S.fam.forEach(p => norm(p, 'family')); S.fr.forEach(f => { f.age = Math.max(5, a + rnd(-6, 6)); f.bond = rnd(35, 75); norm(f, 'friend'); });
-  RM.migrate(); for (const t of b.ts) for (const [k, v] of Object.entries(t.sk || {})) S.sk[k] += v;
+  S.nid = 0; S.know = []; S.jn = []; S.rgn = L.rg;  S.edu = b.eduT; initPersonal(L, b); S.fam.forEach(p => norm(p, 'family')); S.fr.forEach(f => { f.age = Math.max(5, a + rnd(-6, 6)); f.bond = rnd(35, 75); norm(f, 'friend'); });
+  RM.migrate(); DZ.migrate(); for (const t of b.ts) for (const [k, v] of Object.entries(t.sk || {})) S.sk[k] += v;
   for (const [k, v] of Object.entries(p.sk || {})) S.sk[k] += v;
   view = 'main'; ev = null; log(`${name}, ${a}.`, 'place'); story(L, b).forEach(t => log(t, 'sys'));
   note('Your story begins.'); log('It is an ordinary morning. Life was already going on before you opened your eyes.', 'sys'); place(); render(); save();
@@ -301,12 +304,12 @@ function famAct(p) {
 }
 function thinkBack() { const i = S.memi++ % S.mem.length; log(`You think back. ${S.mem[i]}`, 'sys'); fx({ time: 0.25, mood: [4, -2, -3][i], stress: [-3, 2, 3][i] }); after(0.25); }
 
-function place() { const L = D.world[S.loc]; if (S.loc === 'diner') local('cook'); else if (S.loc === 'mart') local('clerk'); else if (S.loc === 'alley') local('rook'); else if (L.local) local(L.local); log(`${L.name}`, 'place'); log(L.desc[per(hr())] + (L.outside ? ' ' + outsideWx() + ' ' + S.tk.air : '')); }
+function place() { const L = D.world[S.loc]; if (S.loc === 'diner') local('cook'); else if (S.loc === 'mart') local('clerk'); else if (S.loc === 'alley') local('rook'); log(`${L.name}`, 'place'); log(L.desc[per(hr())] + (L.outside ? ' ' + outsideWx() + ' ' + S.tk.air : '')); }
 
 function adv(h) {
-  let left = h * 60;
+  let left = h * 60, el = 0;
   while (left > 0) {
-    const s = Math.min(60, left), f = s / 60, d0 = day(); left -= s; S.t += s;
+    const s = Math.min(60, left), f = s / 60, d0 = day(); left -= s; S.t += s; el += f;
     S.hunger = cl(S.hunger - f * D.config.hungerPerHour); S.energy = cl(S.energy - f * D.config.energyPerHour * S.ef * bodyEf()); S.hs = (S.hs || 0) + S.hunger * f; S.hn = (S.hn || 0) + f;
     if (S.hunger <= 0 || S.energy <= 0) S.health = cl(S.health - f * 4);
     S.heat = cl(S.heat - f * D.config.heatDecay);
@@ -316,8 +319,10 @@ function adv(h) {
     const tg = 72 + (S.mb || 0) - S.stress * 0.35 - S.lonely * 0.3 - (S.hunger < 25 ? 12 : 0) - (S.energy < 20 ? 12 : 0) - (S.health < 40 ? 10 : 0);
     S.mood = cl(S.mood + (tg - S.mood) * Math.min(1, f * 0.08));
     if (day() > d0) newDay();
+    if (!quiet && DZ.tick(false)) break;
   }
   inner();
+  return el;
 }
 
 const INNER = [['h', s => s.hunger < 25, ['Your stomach growls loudly enough that you notice.', "You realize you haven't really eaten in hours."]], ['e', s => s.energy < 20, ['Your eyelids are heavy. Everything takes effort now.']], ['s', s => s.stress > 70, ['Your shoulders are up around your ears. The pressure keeps building.']], ['l', s => s.lonely > 65, ["It hits you that you haven't talked to anyone properly in a while."]], ['m', s => s.mood < 25, ['A gray mood settles over you and will not lift.']], ['j', s => s.mood > 80, ['You notice you are smiling for no particular reason.']]];
@@ -338,7 +343,7 @@ function msgFriend() {
   const f = pick(S.fr.length ? S.fr : people().filter(p => p.alive && p.kind !== 'family'));
   if (!f) { log('There is nobody to message right now.', 'sys'); return done(); }
   log(pick([`You text ${f.name}. The reply comes within minutes, and soon you are both laughing.`, `${f.name} sends a voice note that is mostly background noise and gossip. It's perfect.`, `You and ${f.name} trade messages about nothing. It helps more than you expected.`]));
-  fx({ time: 0.25, lonely: -14 - SH.msgB(), mood: 4, stress: -3 }); after(0.25);
+  fx({ time: 0.25, lonely: -14, mood: 4, stress: -3 }); after(0.25);
 }
 const SK = [['A few hours', 0, 'A few hours slip by.'], ['A day', 1, 'A day goes by, much like the others.'], ['A week', 7, 'A week goes by.'], ['A month', 30, 'A month slips past.'], ['A year', 365, 'A year goes by in ordinary days.'], ['A decade', 3650, 'Ten years pass, mostly in small moments you will only half remember.']];
 function skip(d, label) {
@@ -349,7 +354,7 @@ function skip(d, label) {
   for (; n < d; n++) {
     const a = S.age; S.att = 1; S.eff = (S.prof.k === 'w' || S.prof.k === 's' || S.job) ? 1 : 0; S.t += 1440; newDay();
     const inc = (S.prof.k === 'w' ? S.prof.pay * (1 + 0.18 * (S.rk || 0)) * 5 / 7 : S.prof.k === 'r' ? 12 : S.prof.k === 's' && S.age >= 18 ? (S.fl.withFamily ? 5 : 14) : 0) * S.kw + (S.job ? D.jobs[S.job.id].levels[S.job.lvl].pay * 3 / 7 * S.kw : 0);
-    const rd = S.age < 18 || S.fl.withFamily ? 0 : D.config.rent.amount / D.config.rent.every * S.kc * RM.rentF(), net = inc - (S.age < 18 ? 0 : S.fl.withFamily ? 3 : 7) * Math.min(S.kc, S.kw) - rd; S.money = Math.round((S.money + (net > 0 ? net * 0.35 : net) + rd) * 10) / 10; repay(inc);
+    const rd = S.age < 18 || S.fl.withFamily || DZ.noRent() ? 0 : D.config.rent.amount / D.config.rent.every * S.kc * RM.rentF(), net = inc - (S.age < 18 ? 0 : S.fl.withFamily ? 3 : 7) * Math.min(S.kc, S.kw) - rd; S.money = Math.round((S.money + (net > 0 ? net * 0.35 : net) + rd) * 10) / 10; repay(inc);
     const broke = S.money < 0; if (broke) { S.money = 0; S.hunger = 30; S.health = cl(S.health - 2); S.stress = cl(S.stress + 3); } else { S.hunger = 60; S.energy = 70; }
     const al = S.age >= 18 && !(S.fl.withFamily || S.fam.some(p => p.k === 'spouse' && p.alive && p.lives));
     S.stress = cl(S.stress + (22 + (S.owed > 0 ? 30 : 0) + (broke ? 20 : 0) + (S.prof.k === 'w' ? 6 : 0) - S.stress) * 0.12);
@@ -359,11 +364,12 @@ function skip(d, label) {
     for (const p of people()) if (p.alive) p.bond = cl(p.bond + (p.lives ? 0.01 : p.kind === 'family' ? -0.008 : -0.012));
     if (S.prof.k === 's') S.gp = cl(S.gp + (gpTarget() - S.gp) * 0.012);
     if (S.age > a) { bday(sp); if (S.pend) { stop = 'School is behind you, and a big decision is waiting.'; n++; break; } }
+    if (DZ.live()) { stop = 'Something serious is happening, and your attention snaps back to the present.'; n++; break; }
     if (S.health <= 15) { stop = 'Your body is telling you something is wrong. You stop and take stock.'; n++; break; }
     if (S.fl.evicted && !ev0) { stop = 'Rent went unpaid too long, and now your lock has been changed.'; n++; break; }
   }
   quiet = false; SPF = null; S.heat = 0;
-  S.t = Math.floor(S.t / 1440) * 1440 + 480; S.loc = S.fl.evicted ? 'street' : 'room';
+  { const lh = DZ.lh(); S.t = Math.floor(S.t / 1440) * 1440 + (lh != null ? lh * 60 : 480); } S.loc = S.fl.evicted ? 'street' : 'room';
   log(d === n ? label : `${n} days pass.`, 'place'); st.forEach(x => Array.isArray(x) ? log(x[0], x[1]) : log(x));
   const e = n / 365 * 3, cnt = e < 1 ? (R() < e ? 1 : 0) : Math.min(7, Math.round(e + R() * 2 - 1));
   for (let i = 0; i < cnt; i++) {
@@ -387,7 +393,7 @@ function hist(p, t) { p.hist.push(`Day ${day()} · ${tpl(t)}`); if (p.hist.lengt
 function norm(p, kind) {
   S.nid ??= 0; p.kind ??= kind; p.id ??= ++S.nid; p.alive ??= true; p.lives ??= false; p.bond ??= rnd(30, 60); p.hist ??= []; p.since ??= 1; p.role ??= p.tie || 'acquaintance'; p.age ??= rnd(20, 60);
   p.how ??= p.tie || (p.kind === 'family' ? `your ${p.role}` : 'around town');
-  p.inv ??= SH.npcInv(p); p.traits ??= [...D.back.traits].sort(() => R() - 0.5).slice(0, 2).map(t => t.n); p.like ??= pick(D.back.hobbies);
+  p.traits ??= [...D.back.traits].sort(() => R() - 0.5).slice(0, 2).map(t => t.n); p.like ??= pick(D.back.hobbies);
   p.job ??= p.age < 5 ? 'too young for school' : p.age < 18 ? 'in school' : p.age >= 65 ? 'retired' : pick(D.profs.filter(q => q.k === 'w')).t.toLowerCase();
 }
 function newPerson(o) {
@@ -396,13 +402,12 @@ function newPerson(o) {
   const p = { name, role: o.role, age: rnd(...(o.age || [18, 65])), bond: o.bond ?? rnd(12, 24), kind: 'local', how: o.how, since: day() };
   norm(p, 'local'); S.know ??= []; S.know.push(p); note(`Met ${name}, ${o.role}.`); return p;
 }
-const nm = () => pick(D.people[S.rgn || 0][R() < 0.5 ? 'f' : 'm']);
-const LOC = { cook: () => ({ name: S.tk.cook, role: `runs the ${S.tk.eatery}`, age: rnd(38, 64), how: 'you got to know them across the counter', job: 'cook and owner' }), clerk: () => ({ name: S.tk.clerk, role: `works at the ${S.tk.shop}`, age: rnd(22, 55), how: 'they watch the door and know everyone', job: 'shop clerk' }), pharm: () => ({ name: nm(), role: 'is the pharmacist on Shopping Row', age: rnd(28, 62), how: 'you buy small, awkward things from them', job: 'pharmacist' }), techie: () => ({ name: nm(), role: 'sells phones and laptops on Shopping Row', age: rnd(21, 45), how: 'they talk about specs the way others talk about football', job: 'electronics salesperson' }), tailor: () => ({ name: nm(), role: 'runs the clothing shop', age: rnd(30, 65), how: 'they can tell your size from across the street', job: 'shopkeeper and tailor' }), handy: () => ({ name: nm(), role: 'runs the hardware and home store', age: rnd(35, 68), how: 'they have an answer for every broken thing', job: 'hardware shop owner' }), booker: () => ({ name: nm(), role: 'keeps the books and gifts shop', age: rnd(25, 70), how: 'they always have a recommendation you did not ask for', job: 'bookseller' }), grocer: () => ({ name: nm(), role: 'runs the market stalls and shelves', age: rnd(30, 66), how: 'they know what is fresh and what is lying', job: 'grocer' }), rook: () => ({ name: 'Rook', role: 'hangs around the back alley', age: rnd(28, 45), how: 'he found you before you found him', job: 'does favors nobody asks about' }) };
+const LOC = { cook: () => ({ name: S.tk.cook, role: `runs the ${S.tk.eatery}`, age: rnd(38, 64), how: 'you got to know them across the counter', job: 'cook and owner' }), clerk: () => ({ name: S.tk.clerk, role: `works at the ${S.tk.shop}`, age: rnd(22, 55), how: 'they watch the door and know everyone', job: 'shop clerk' }), rook: () => ({ name: 'Rook', role: 'hangs around the back alley', age: rnd(28, 45), how: 'he found you before you found him', job: 'does favors nobody asks about' }) };
 function local(k) { S.know ??= []; let p = S.know.find(x => x.key === k); if (!p) { p = { ...LOC[k](), key: k, kind: 'local', bond: 18, since: day() }; norm(p, 'local'); S.know.push(p); note(`Got to know ${p.name}, who ${p.role}.`); } return p; }
 const evRef = e => e.has ? S.fam.find(p => p.k === e.has && p.alive && (e.has !== 'child' || p.lives)) : e.text.includes('{friend}') ? S.fr[0] : e.text.includes('{cook}') ? local('cook') : null;
 function meet(a) {
   const kid = S.age < 18, st = S.prof.k, w = a.at === 'work', roles = kid ? ['a kid from the neighborhood', 'someone from school'] : w ? (st === 's' ? ['a classmate'] : st === 'r' ? ['someone from the park'] : ['a coworker']) : a.roles;
-  if (R() < 0.55 + (S.sk.charisma || 0) * 0.06 + (S.mood - 50) * 0.003 + SH.social()) {
+  if (R() < 0.55 + (S.sk.charisma || 0) * 0.06 + (S.mood - 50) * 0.003) {
     const p = newPerson({ role: pick(roles), how: `you got talking ${w ? (st === 's' ? 'at school' : 'at work') : a.at}`, age: kid || (w && st === 's') ? [Math.max(5, S.age - 2), S.age + 3] : [18, 70] });
     log(`You end up talking with ${p.name}, ${p.role}. ${pick(['Easy laughter, easy silences.', 'It starts awkward and ends warmer.', 'You swap names and a little of your day.'])}`, 'good'); fx({ time: 0.5, lonely: -6, mood: 3 }); hist(p, 'You met.');
   } else { log(pick(['You open your mouth, but the moment passes.', 'A polite smile, a short answer, and the conversation fizzles.'])); fx({ time: 0.25, mood: -1 }); }
@@ -427,8 +432,6 @@ function pAct(p) {
     o.push({ l: `Ask ${n} for advice`, w: late, f: run('Asked for advice.', 0.5, p.bond >= 40 ? { stress: -8, mood: 3, sk: { intellect: 0.05 } } : { stress: -2, mood: 1 }, [`You lay out what is on your mind. ${n} listens, then says something that actually helps.`], 2) });
   }
   o.push({ l: `Get ${n} a small gift (@10)`, w: late ? '' : why({ money: 10 }), f: run('Gave a gift.', 0.25, { money: -10, mood: 3, lonely: -3 }, [`You give ${n} something small and thoughtful. Their face does the rest.`], 6) });
-  o.push({ l: `Give ${n} something from your pockets…`, w: late || (SH.giftable().length ? '' : 'Nothing to give'), f: () => { view = 'give'; render(); } });
-  if (p.age >= 8) o.push({ l: `Ask ${n} if they can spare something…`, w: late || (p.bond < 25 ? 'Not close enough' : ''), f: () => { view = 'ask'; render(); } });
   if (p.bond < 50) o.push({ l: `Clear the air with ${n}`, w: late, f: run('Tried to clear the air.', 1, {}, [`You ask ${n} to talk, really talk.`], 0, { p: 0.4 + (S.sk.charisma || 0) * 0.08, win: { t: 'Some of the tension drains out of the room.', x: { stress: -6, mood: 3 }, bd: 12 }, lose: { t: 'It goes in circles and ends badly.', x: { stress: 5, mood: -3 }, bd: -4 } }) });
   return o;
 }
@@ -436,9 +439,9 @@ function cardP(p) {
   const d = day() - p.since, kn = p.since <= 1 ? (p.kind === 'family' && p.k !== 'spouse' ? 'for as long as you can remember' : 'for years') : d < 30 ? 'a few days' : d < 365 ? Math.round(d / 30) + ' months' : Math.round(d / 365) + ' years';
   const ago = p.lastc ? (day() - p.lastc < 1 ? 'today' : `${day() - p.lastc} days ago`) : 'not lately';
   return `<div class="card"><h2>${p.name}</h2><div class="meta">${p.role}${p.alive ? ', ' + p.age : ' (passed away)'}</div>` + (S.flash && S.pv === p.id ? `<p class="good">${S.flash}</p>` : '') +
-    `<p>${p.alive ? (p.lives ? 'Lives with you.' : 'Lives nearby in {city}.') : 'Remembered.'} Works as: ${p.job}. Into ${p.like}. Personality: ${p.traits.join(', ')}.</p>` +
+    DZ.pNote(p) + `<p>${p.alive ? (p.lives ? 'Lives with you.' : 'Lives nearby in {city}.') : 'Remembered.'} Works as: ${p.job}. Into ${p.like}. Personality: ${p.traits.join(', ')}.</p>` +
     `<p class="meta">How you know them: ${p.how}. Known ${kn}. Last time you were in touch: ${ago}.</p>` + (p.alive ? `<div>${bar('Bond', p.bond, '#8fcf9a')} ${bw(p.bond)}</div>` : '') +
-    SH.belongings(p) + (p.hist.length ? `<p class="meta">${p.hist.slice().reverse().slice(0, 5).join('<br>')}</p>` : '') + '</div>';
+    (p.hist.length ? `<p class="meta">${p.hist.slice().reverse().slice(0, 5).join('<br>')}</p>` : '') + '</div>';
 }
 function meHTML() {
   const pp = people(), cp = pp.filter(p => p.alive && p.bond >= 60), j = S.job ? D.jobs[S.job.id].levels[S.job.lvl].title : '', rep = S.rep < 20 ? 'a stranger' : S.rep < 50 ? 'a familiar face' : 'a local name';
@@ -461,10 +464,7 @@ function profile() {
   if (view === 'person') { const p = byId(S.pv); return p ? tpl(cardP(p) + RM.card(p)) : ''; }
   if (view === 'rom') { const p = byId(S.pv); return p ? tpl(cardP(p) + RM.card(p)) : ''; }
   if (view === 'love') return tpl(RM.loveHTML());
-  if (view === 'shop') return tpl(SH.shopHTML());
-  if (view === 'sell') return tpl(SH.sellHTML());
-  if (view === 'inv') return tpl(SH.invHTML());
-  if (view === 'give' || view === 'ask') { const p = byId(S.pv); return p ? tpl(cardP(p)) : ''; }
+  if (view === 'dz') return tpl(DZ.pageHTML());
   const pp = people(); return `<div class="card"><h2>People in your life</h2><p class="meta">${pp.filter(p => p.alive).length} known · ${pp.filter(p => p.alive && p.bond >= 60).length} close · ${pp.filter(p => !p.alive).length} remembered. Choose someone to see their profile and spend time with them.</p></div>`;
 }
 function newDay() {
@@ -472,11 +472,11 @@ function newDay() {
   { const a = dayWx(S, day()), pv = dayWx(S, day() - 1); if (SEVERE.has(a.kind) || Math.abs(a.mean - pv.mean) > 7) log(wxSummary(S, a), 'sys'); }
   { const hd = holidays(dt.y, S.cal0, S.yr0, S.tk.country)[dt.doy]; if (hd) { const kin = S.fam.some(p => p.alive && p.bond > 40); if (hd.f && !kin) { S.mood = cl(S.mood - 3); S.lonely = cl(S.lonely + 5); log(`${hd.n}. The day is quiet, and you feel how few people are in it.`, 'sys'); } else { S.mood = cl(S.mood + 3); log(`${hd.n}. ${hd.t}`, 'good'); } }
     for (const p of [...S.fam, ...S.fr]) if (p.name && p.alive !== false && ((x) => x.m === dt.m && x.d === dt.d)(bdayMD(p))) { log(`It's ${p.name}'s birthday today.`); S.mood = cl(S.mood + 1); } }
-  dailyTrends(); RM.daily(); SH.daily();
+  dailyTrends(); DZ.daily(); RM.daily();
   if (day() > 1 && isMyBday(S, dt) && S.agedY !== dt.y) { S.agedY = dt.y; S.age++; log(`It's your birthday. You turn ${S.age}.`, 'good'); note(`Turned ${S.age}.`); if (!quiet) bday(rsp); }
   if (day() % r.every) return;
   if (S.prof.k === 'r') { const p = S.prof.pay * S.kw; S.money += p; log(`Your pension arrives: +${fmt(p)}.`, 'good'); }
-  if (S.age < 18 || S.fl.withFamily) return;
+  if (S.age < 18 || S.fl.withFamily || DZ.noRent()) return;
   S.owed += Math.round(r.amount * S.kc * RM.rentF() * 10) / 10;
   if (S.money >= S.owed) { S.money -= S.owed; log(`Rent day. ${fmt(S.owed)} leaves your pocket.`, 'sys'); S.owed = 0; }
   else { S.stress = cl(S.stress + 12); log(`Rent day, and you can't cover it. The landlord leaves a note under your door.`, 'bad'); if (S.owed >= r.amount * S.kc * 2 && !S.fl.evicted) { S.fl.evicted = 1; log('Your lock has been changed. Pay what you owe to get back in.', 'bad'); } }
@@ -485,18 +485,18 @@ function newDay() {
 function fx(e) {
   if (!e) return;
   for (const k of ['health', 'hunger', 'energy', 'mood', 'stress', 'lonely', 'heat', 'rep']) if (e[k]) S[k] = cl(S[k] + e[k]);
-  if (e.money) S.money = Math.max(0, Math.round((S.money + e.money * (e.money > 0 ? S.kw : S.kc)) * 10) / 10);
+  if (e.money) S.money = Math.max(0, Math.round((S.money + e.money * (e.money > 0 ? S.kw : kcx())) * 10) / 10);
   if (e.luck) S.fort = cl((S.fort || 0) + e.luck, -30, 30);
   gainSk(e);
   for (const [k, v] of Object.entries(e.bond || {})) { const p = S.fam.find(p => p.k === k && p.alive); if (p) { p.bond = cl(p.bond + v); if (v > 0) S.lonely = cl(S.lonely - v * 1.5); else S.stress = cl(S.stress - v); } }
-  if (e.item) SH.add(e.item);
+  if (e.item) S.inv[e.item] = (S.inv[e.item] || 0) + 1;
   if (e.flag) Object.assign(S.fl, e.flag);
   if (e.time) adv(e.time);
 }
 
 function why(r) {
   if (!r) return '';
-  if (r.money && S.money < r.money * S.kc) return `Need ${fmt(r.money * S.kc)}`;
+  if (r.money && S.money < r.money * kcx()) return `Need ${fmt(r.money * kcx())}`;
   if (r.age && (S.age < r.age[0] || S.age > r.age[1])) return `Age ${r.age[0]}+`;
   if (r.energy && S.energy < r.energy) return 'Too tired';
   if (r.open) { const h = hr(); if (h < r.open[0] || h >= r.open[1]) return `Closed (${r.open[0]}:00–${r.open[1]}:00)`; }
@@ -515,7 +515,8 @@ function act(a, chain = true) {
 
 function after(h, v) {
   if (S.health <= 0) { faint(); return done(); }
-  if (S.pend && !ev) { ev = mkEv(); if (!ev) S.pend = null; } else if (h > 0 && !ev && R() < D.config.eventChance * Math.min(2, h / 1.5 + 0.3)) ev = pickEvent();
+  DZ.poke();
+  if (S.pend && !ev) { ev = mkEv(); if (!ev) S.pend = null; } else if (h > 0 && !ev && !DZ.hush() && R() < D.config.eventChance * Math.min(2, h / 1.5 + 0.3)) ev = pickEvent();
   done(v);
 }
 function done(v) { view = ev ? 'event' : v || 'main'; save(); render(); }
@@ -535,7 +536,7 @@ function faint() {
 }
 
 function go(id) {
-  const m = D.world[S.loc].exits[id]; S.loc = id; adv(m / 60); view = 'main'; place(); after(m / 60);
+  const m = D.world[S.loc].exits[id] * DZ.travelF(); S.loc = id; adv(m / 60); view = 'main'; place(); after(m / 60);
 }
 
 function jobOpts(L) {
@@ -564,9 +565,9 @@ function work(j, lv) {
 
 function sleep() {
   let h = (7 - hr() + 24) % 24; h = Math.min(Math.max(h, 6), 10);
-  log(`You turn off the light and sleep.`); adv(h);
-  const bad = S.stress > 65 || S.lonely > 70; const sm = SH.sleepMul(wxAt(S, day(), hr())); S.energy = cl(S.energy + h * (bad ? 10 : 13) * sm); S.health = cl(S.health + h * 1.5 * sm); S.stress = cl(S.stress - h * (bad ? 1.5 : 3) * sm); S.lonely = cl(S.lonely - h * 1.1);
-  log(bad ? `You wake at ${clock()}. You slept, but your mind never fully switched off.` : `You wake at ${clock()}, rested.`, bad ? 'sys' : 'good'); after(h);
+  log(`You turn off the light and sleep.`); slp = true; const el = adv(h); slp = false; const cut = el < h - 0.01; h = el;
+  const bad = S.stress > 65 || S.lonely > 70; S.energy = cl(S.energy + h * (bad ? 10 : 13)); S.health = cl(S.health + h * 1.5); S.stress = cl(S.stress - h * (bad ? 1.5 : 3)); S.lonely = cl(S.lonely - h * 1.1);
+  if (cut) log('You are jolted awake.', 'bad'); else { DZ.sleep(h); log(bad ? `You wake at ${clock()}. You slept, but your mind never fully switched off.` : `You wake at ${clock()}, rested.`, bad ? 'sys' : 'good'); } after(h);
 }
 
 function build() {
@@ -575,38 +576,40 @@ function build() {
   if (view === 'event') { for (const c of ev.choices) add(c.label, () => { const e = ev, r = evRef(e); ev = null; if (r) { hist(r, c.label.replace(/\s*\(.*?\)/g, '')); if (r.kind !== 'family' && !c.x?.bond) r.bond = cl(r.bond + Math.sign(c.x?.mood || 0) * 3); } act(c, false); }, why(c.req) || c.dis || ''); return; }
   if (view === 'people') { const od = p => !p.alive ? 4 : p.lives ? 0 : p.kind === 'family' ? 1 : p.kind === 'friend' ? 2 : 3; for (const p of people().sort((a, b) => od(a) - od(b) || b.bond - a.bond)) add(`${p.name} — ${p.alive ? p.role : p.role + ', late'} · ${p.alive ? bw(p.bond) : 'remembered'}`, () => { S.pv = p.id; S.flash = ''; view = 'person'; render(); }); add('Back to life', () => { location.href = 'play.html'; }); return; }
   if (view === 'rom') { RM.buildRom(add); return; }
+  if (view === 'dz') { DZ.buildPage(add); return; }
   if (view === 'love') { RM.buildLove(add); return; }
-  if (view === 'person') { const p = byId(S.pv); if (p) { pAct(p).forEach(a => add(a.l, a.f, a.w)); if (p.alive && RM.ok(p)) add('Romance and relationship…', () => { S.rmv = 'main'; S.rmo = 'person'; view = 'rom'; render(); }); } add('Back to people', () => { view = 'people'; render(); }); return; }
+  if (view === 'person') { const p = byId(S.pv); if (p) { pAct(p).forEach(a => add(a.l, a.f, a.w)); DZ.pOpts(p).forEach(a => add(a.l, a.f, a.w)); if (p.alive && RM.ok(p)) add('Romance and relationship…', () => { S.rmv = 'main'; S.rmo = 'person'; view = 'rom'; render(); }); } add('Back to people', () => { view = 'people'; render(); }); return; }
   if (view === 'me') { add('Back to life', () => { location.href = 'play.html'; }); add('Erase save and restart', () => { localStorage.removeItem(KEY); location.href = 'new.html'; }); return; }
   if (view === 'skip') { for (const [l, d, t] of SK) add(l, () => skip(d, t)); add('Back', () => { location.href = 'play.html'; }); return; }
   if (view === 'travel') { for (const [id, m] of Object.entries(L.exits)) add(`${D.world[id].name} (${m} min)`, () => go(id)); add('Back', () => { location.href = 'play.html'; }); return; }
-  if (view === 'shop') { SH.shopOpts(add); return; }
-  if (view === 'sell') { SH.sellOpts(add); add('Back to the shop', () => { view = 'shop'; render(); }); return; }
-  if (view === 'inv') { SH.invOpts(add); add('Back', () => { if (document.body.dataset.page === 'inventory') location.href = 'play.html'; else { view = 'main'; render(); } }); return; }
-  if (view === 'give' || view === 'ask') { const p = byId(S.pv); if (p) (view === 'give' ? SH.giveOpts : SH.askOpts)(add, p); add(`Back to ${p ? p.name : 'people'}`, () => { view = 'person'; render(); }); return; }
+  if (view === 'shop') { for (const [id, it] of Object.entries(D.items)) if (it.price) add(`${it.name} — @${it.price}`, () => { S.money -= Math.round(it.price * kcx() * 10) / 10; S.inv[id] = (S.inv[id] || 0) + 1; log(`You buy a ${it.name.toLowerCase()}.`); render(); save(); }, S.money < Math.round(it.price * kcx() * 10) / 10 ? `Need @${it.price}` : ''); add('Back', () => { location.href = 'play.html'; }); return; }
+  if (view === 'inv') {
+    const ids = Object.keys(S.inv).filter(i => S.inv[i] > 0 && !D.items[i].rm);
+    for (const id of ids) add(`Use ${D.items[id].name} (x${S.inv[id]})`, () => { if (!D.items[id].keep) S.inv[id]--; log(D.items[id].text); fx(D.items[id].x); view = 'main'; save(); render(); });
+    if (!ids.length) log('Your pockets are empty.', 'sys');
+    add('Back', () => { location.href = 'play.html'; }); return;
+  }
   if (view === 'char') {
     add('Back', () => { location.href = 'play.html'; });
     add('Erase save and restart', () => { localStorage.removeItem(KEY); location.href = 'new.html'; }); return;
   }
-  const locked = L === D.world.room && S.fl.evicted, open = L.open ? why({ open: L.open }) : '';
+  const locked = L === D.world.room && S.fl.evicted, open = (L.open ? why({ open: L.open }) : '') || DZ.closed(S.loc);
   for (const a of L.actions) {
     if (locked && a.type !== 'rent') continue;
     if (a.type === 'rent') { if (S.owed > 0) add(`Pay the landlord — ${fmt(S.owed)}`, () => { S.money -= S.owed; S.owed = 0; S.fl.evicted = 0; log('You pay what you owe. The landlord gives your key back.', 'good'); done(); }, S.money < S.owed ? `Need ${fmt(S.owed)}` : ''); continue; }
     if (a.type === 'prof') { profOpt(add); continue; }
-    if (a.type === 'cook') { SH.cookOpt(add); continue; }
-    if (a.type === 'wash') { SH.washOpts(add); continue; }
-    if (a.type === 'lapwork') { SH.lapOpt(add, a, open); continue; }
     if (a.type === 'meet') { add(a.label, () => meet(a), open || (S.energy < 8 ? 'Too tired' : '')); continue; }
     const w = open || why(a.req);
-    add(a.label, a.type === 'sleep' ? sleep : a.type === 'shop' ? () => { S.shp = a.store || 'mart'; view = 'shop'; render(); } : () => act(a), w);
+    add(a.label, a.type === 'sleep' ? sleep : a.type === 'shop' ? () => { view = 'shop'; render(); } : () => act(a), w);
   }
-  if (S.loc === 'room' && !locked) { for (const p of [...S.fam.filter(p => p.alive)].sort((x, y) => y.lives - x.lives).slice(0, 4)) add(p.lives ? `Spend time with ${p.name}, your ${p.role} (1h)` : `Phone ${p.name}, your ${p.role} (20m)`, () => famAct(p), p.lives ? '' : SH.phoneW()); SH.homeActs(add); add('Think back on your life', thinkBack); add('Message a friend', msgFriend, SH.phoneW()); }
+  if (S.loc === 'room' && !locked) { for (const p of [...S.fam.filter(p => p.alive)].sort((x, y) => y.lives - x.lives).slice(0, 4)) add(p.lives ? `Spend time with ${p.name}, your ${p.role} (1h)` : `Phone ${p.name}, your ${p.role} (20m)`, () => famAct(p), !p.lives && DZ.noSignal() ? 'No signal' : ''); add('Think back on your life', thinkBack); add('Message a friend', msgFriend, DZ.noSignal() ? 'No signal' : ''); }
   if (!locked) for (const o of jobOpts(L)) add(o.l, o.f, open ? open : o.w || '');
-  RM.lifeOpts(add, S.loc);
+  RM.lifeOpts(add, S.loc); DZ.opts(add, S.loc);
   add('Let time pass…', () => { view = 'skip'; render(); });
   add(S.loc === 'room' ? 'Lie around and let the hour slip by' : 'Linger a while and let time pass', drift);
   add('Go somewhere', () => { view = 'travel'; render(); });
   add('Pockets', () => { view = 'inv'; render(); });
+  add(DZ.banner() ? 'Alerts and preparedness  ⚠' : 'Alerts and preparedness', () => { location.href = 'hazards.html'; });
   add('Character', () => { view = 'char'; charInfo(); render(); });
 }
 
@@ -627,7 +630,7 @@ function profOpt(add) {
     if (s.msg) log(s.msg, s.good ? 'good' : 'bad'); log(`Shift done. +#${s.pay}`, 'good'); repay(s.pay * S.kw);
     S.sh = (S.sh || 0) + 1; if (S.sh % 25 === 0) promo(rsp, 2);
     after(p.h);
-  }, h < 6 || h >= 20 ? 'Off hours (6:00–20:00)' : S.energy < p.e ? 'Too tired' : '');
+  }, DZ.closed('work') || (h < 6 || h >= 20 ? 'Off hours (6:00–20:00)' : S.energy < p.e ? 'Too tired' : ''));
   else if (p.k === 's') {
     const u = p.u, hh = u === 'uni' ? [8, 18] : u === 'trade' ? [7, 17] : [7, 15];
     add(u === 'uni' ? 'Go to lectures' : u === 'trade' ? 'Train at the workshop' : 'Go to class', () => {
@@ -635,7 +638,7 @@ function profOpt(add) {
       S.att = 1;
       fx({ time: 6, energy: -10, hunger: -8, mood: -2, stress: 3, lonely: -8, ed: u === 'trade' ? 1.2 : 1.5, sk: u === 'trade' ? { fitness: 0.12, intellect: 0.12 } : { intellect: 0.3 } });
       after(6);
-    }, h < hh[0] || h >= hh[1] ? (u ? 'Not in session' : 'School is closed') : '');
+    }, DZ.schoolClosed() || (h < hh[0] || h >= hh[1] ? (u ? 'Not in session' : 'School is closed') : ''));
     if (S.age >= 14 || u) add(u ? 'Drop out and look for work' : 'Leave school and look for work', () => { S.pend = 'drop'; ev = mkEv(); done(); });
   }
   else add(`Spend a while at ${p.wp}`, () => { log('You spend a gentle afternoon among familiar faces.'); fx({ time: 2, mood: 4, lonely: -8, stress: -4, sk: { charisma: 0.1 } }); after(2); });
@@ -646,15 +649,15 @@ function bar(n, v, col) { return `${n}<span class="bar"><i style="width:${v}%;ba
 function mScroll(pv) { if (!matchMedia('(max-width:1000px)').matches) return; requestAnimationFrame(() => { if (pv) return scrollTo(0, 0); const o = $('opts'); scrollTo(0, Math.max(0, o.getBoundingClientRect().top + scrollY - innerHeight * 0.5)); }); }
 const ensureCal = () => initCal(S);
 const wxStr = () => { ensureCal(); const w = wxAt(S, day(), hr()); return `${w.cond} ${fmtT(w.temp, S.tk.country)}`; };
-function outsideWx() { ensureCal(); const w = wxAt(S, day(), hr()), x = SH.shield(exposure(w), w); let t = wxLine(w); if (x) { S.health = cl(S.health + x.h); S.mood = cl(S.mood + x.m); S.energy = cl(S.energy + x.e); t += ' ' + x.t; } return t; }
+function outsideWx() { ensureCal(); const w = wxAt(S, day(), hr()), x = exposure(w); let t = wxLine(w); if (x) { S.health = cl(S.health + x.h); S.mood = cl(S.mood + x.m); S.energy = cl(S.energy + x.e); t += ' ' + x.t; } const ox = DZ.outside(); if (ox) t += ' ' + ox; return t; }
 const dstr = () => { ensureCal(); const d = dateOf(day(), S.cal0, S.yr0); return `${d.d} ${MON[d.m].slice(0, 3)} ${d.y}`; };
 const ssnNow = () => { ensureCal(); return seasonOf(dateOf(day(), S.cal0, S.yr0).m, climate(S.tk.country)); };
 function hud() { const h = $('hud'); if (!h) return; h.innerHTML = [['Health', S.health, 1], ['Energy', S.energy, 1], ['Fed', S.hunger, 1], ['Mood', S.mood, 1], ['Stress', S.stress, 0], ['Lonely', S.lonely, 0]].map(([n, v, g]) => { v = Math.round(cl(v)); const c = g ? v : 100 - v; return `<div class="m"><span>${n}<b>${v}</b></span><i><u style="width:${v}%;background:var(--${c < 30 ? 'bad' : c < 55 ? 'hi' : 'good'})"></u></i></div>`; }).join(''); }
 function render() {
   if (view === 'new' && S && S.name) { location.href = 'play.html'; return; }
-  $('status').innerHTML = `<div class="clk"><b>${WD[(day() - 1) % 7]}</b> ${dstr()} · ${clock()}<span>${ssnNow()} · ${wxStr()} · ${S.tk.city}, age ${S.age}</span></div><div class="mny">${fmt(S.money)}${S.owed ? `<em>owe ${fmt(S.owed)}</em>` : ''}</div><div class="fl">You feel ${feel()}.</div>`; hud();
+  $('status').innerHTML = `<div class="clk"><b>${WD[(day() - 1) % 7]}</b> ${dstr()} · ${clock()}<span>${ssnNow()} · ${wxStr()} · ${S.tk.city}, age ${S.age}</span></div><div class="mny">${fmt(S.money)}${S.owed ? `<em>owe ${fmt(S.owed)}</em>` : ''}</div><div class="fl">You feel ${feel()}.</div>${DZ.banner()}`; hud();
   if (ev) { if (S.log[S.log.length - 1]?.[0] !== tpl(ev.text)) log(ev.text, 'place'); }
-  const lg = $('log'), pv = ['people', 'person', 'me', 'love', 'rom', 'shop', 'sell', 'inv', 'give', 'ask'].includes(view);
+  const lg = $('log'), pv = ['people', 'person', 'me', 'love', 'rom', 'dz'].includes(view);
   lg.innerHTML = pv ? profile() : S.log.slice(innerWidth <= 1000 ? -30 : -120).map(l => `<p class="${l[1]}">${l[0]}</p>`).join(''); lg.scrollTop = pv ? 0 : lg.scrollHeight; mScroll(pv);
 
   build();

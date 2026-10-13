@@ -19,7 +19,9 @@ export const COND = { clear: ['☀️', 'sun'], 'clear night': ['🌙', 'sun'], 
 export const SEVERE = set('blizzard|tropical storm|hail|heatwave|cold snap|sandstorm|thunderstorm|heavy snow');
 export const DIRS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
 const cache = new Map();
-export function dayWx(S, day) {
+// Disasters can imprint on the sky: S.dz.wxo[day] holds {kind, mean, ws, pop, pt} overrides.
+export function dayWx(S, day) { const a = dayWx0(S, Math.max(1, day)), o = S.dz && S.dz.wxo && S.dz.wxo[Math.max(1, day)]; return o ? { ...a, ...o } : a; }
+function dayWx0(S, day) {
   day = Math.max(1, day); const key = [S.wseed, S.cal0, S.yr0, S.tk.country, day].join('|'); if (cache.has(key)) return cache.get(key);
   const dt = dateOf(day, S.cal0, S.yr0), pr = profile(S.tk.country), sd = S.wseed, yl = isLeap(dt.y) ? 366 : 365, ssn = seasonOf(dt.m, pr.cl), south = pr.cl === 'south' || pr.cl === 'trop-s';
   const base = pr.mean + (south ? 1 : -1) * pr.amp * Math.cos(2 * Math.PI * (dt.doy - 20) / yl), an = (nz(sd, day, 1) - .5) * 6.5 * pr.sd; let mean = base + an;
