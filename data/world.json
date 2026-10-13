@@ -26,12 +26,26 @@
     "text": "You drift off to the radiator's ticking and wake with a crease on your cheek."
    },
    {
-    "label": "Cook something at home (30m)",
-    "type": "cook"
+    "label": "Make something quick to eat (@3)",
+    "req": {
+     "money": 3
+    },
+    "x": {
+     "money": -3,
+     "hunger": 28,
+     "time": 0.5,
+     "mood": 1
+    },
+    "text": "Boil water, shake the flavor packet. Salty, hot, fine."
    },
    {
     "label": "Wash up and change",
-    "type": "wash"
+    "x": {
+     "time": 0.4,
+     "mood": 4,
+     "stress": -5
+    },
+    "text": "The water pressure is a rumor, but it's hot."
    },
    {
     "label": "Study from your own books",
@@ -117,9 +131,7 @@
       "mood": -4,
       "stress": 6
      }
-    },
-    "type": "lapwork",
-    "at": "home"
+    }
    },
    {
     "type": "rent"
@@ -138,8 +150,7 @@
    "clinic": 10,
    "alley": 5,
    "docks": 20,
-   "work": 10,
-   "plaza": 10
+   "work": 10
   },
   "desc": {
    "morning": "Delivery vans idle outside shuttered shops. A man hoses down the sidewalk in front of the barber.",
@@ -336,49 +347,6 @@
     "text": "Strong, bitter, bottomless if {cook} likes you."
    },
    {
-    "label": "Work on your laptop with a coffee (3h, @3)",
-    "type": "lapwork",
-    "at": "cafe",
-    "req": {
-     "energy": 15,
-     "age": [
-      16,
-      99
-     ]
-    },
-    "x": {
-     "time": 3,
-     "energy": -14,
-     "hunger": -6,
-     "stress": 6,
-     "lonely": 1
-    },
-    "text": "You open the client portal and start typing. The hours slide by.",
-    "chance": {
-     "base": 0.62,
-     "sk": "intellect",
-     "per": 0.06
-    },
-    "win": {
-     "text": "The client approves the work and pays on time. +#35",
-     "x": {
-      "money": 35,
-      "sk": {
-       "intellect": 0.15
-      },
-      "mood": 3
-     }
-    },
-    "lose": {
-     "text": "The client nitpicks every line and pays half. +#12",
-     "x": {
-      "money": 12,
-      "mood": -4,
-      "stress": 6
-     }
-    }
-   },
-   {
     "label": "Talk with {cook} for a bit",
     "x": {
      "time": 0.5,
@@ -426,8 +394,7 @@
   "actions": [
    {
     "label": "Look around the shelves",
-    "type": "shop",
-    "store": "mart"
+    "type": "shop"
    },
    {
     "label": "Slip something into your jacket when the clerk looks away",
@@ -538,49 +505,6 @@
      "ed": 1.2
     },
     "text": "You pick a corner and read until the words stop sliding off."
-   },
-   {
-    "label": "Work on your laptop at a library desk (3h)",
-    "type": "lapwork",
-    "at": "lib",
-    "req": {
-     "energy": 15,
-     "age": [
-      16,
-      99
-     ]
-    },
-    "x": {
-     "time": 3,
-     "energy": -14,
-     "hunger": -6,
-     "stress": 6,
-     "lonely": 1
-    },
-    "text": "You open the client portal and start typing. The hours slide by.",
-    "chance": {
-     "base": 0.62,
-     "sk": "intellect",
-     "per": 0.06
-    },
-    "win": {
-     "text": "The client approves the work and pays on time. +#35",
-     "x": {
-      "money": 35,
-      "sk": {
-       "intellect": 0.15
-      },
-      "mood": 3
-     }
-    },
-    "lose": {
-     "text": "The client nitpicks every line and pays half. +#12",
-     "x": {
-      "money": 12,
-      "mood": -4,
-      "stress": 6
-     }
-    }
    },
    {
     "label": "Work through old exam papers",
@@ -727,17 +651,6 @@
   },
   "actions": [
    {
-    "label": "See what Rook has behind the counter",
-    "type": "shop",
-    "store": "pawn",
-    "req": {
-     "age": [
-      16,
-      99
-     ]
-    }
-   },
-   {
     "label": "Run an errand for Rook",
     "x": {
      "time": 1
@@ -857,200 +770,5 @@
     "roles": []
    }
   ]
- },
- "plaza": {
-  "name": "{city} Shopping Row",
-  "exits": {
-   "street": 5,
-   "grocer": 2,
-   "pharm": 2,
-   "tech": 3,
-   "clothes": 2,
-   "hardware": 3,
-   "books": 2
-  },
-  "desc": {
-   "morning": "Shutters rattle up one by one. Delivery vans block half the pavement.",
-   "day": "A short row of shops and a smell of coffee, hot pavement and cardboard.",
-   "evening": "Windows glow. Everybody is either finishing a day or starting an evening.",
-   "night": "Most of the row is dark. A security light hums over the pharmacy door."
-  },
-  "actions": [
-   {
-    "label": "Window-shop for a while",
-    "x": {
-     "time": 0.5,
-     "mood": 1,
-     "stress": -1
-    },
-    "text": "You drift along the glass, spending nothing and wanting a little."
-   },
-   {
-    "label": "Strike up a conversation with someone",
-    "type": "meet",
-    "at": "on Shopping Row",
-    "roles": [
-     "a fellow shopper",
-     "someone waiting for a bus"
-    ]
-   }
-  ],
-  "outside": true
- },
- "grocer": {
-  "name": "Fresh Market",
-  "exits": {
-   "plaza": 2
-  },
-  "desc": {
-   "morning": "Crates of produce are still being stacked. The floor is damp.",
-   "day": "Scales, price cards and a radio low in the back.",
-   "evening": "Tired tomatoes marked down by half.",
-   "night": "Shuttered and dark, the sign buzzing."
-  },
-  "actions": [
-   {
-    "label": "Browse the aisles",
-    "type": "shop",
-    "store": "grocer"
-   }
-  ],
-  "open": [
-   7,
-   21
-  ],
-  "local": "grocer"
- },
- "pharm": {
-  "name": "{city} Pharmacy",
-  "exits": {
-   "plaza": 2
-  },
-  "desc": {
-   "morning": "The pharmacist is unlocking cabinets. Everything smells of mint and clean plastic.",
-   "day": "Quiet shelves of boxes with careful names.",
-   "evening": "The last customers murmur at the counter.",
-   "night": "Shuttered and dark, the sign buzzing."
-  },
-  "actions": [
-   {
-    "label": "Browse the shelves",
-    "type": "shop",
-    "store": "pharm",
-    "req": {
-     "age": [
-      12,
-      99
-     ]
-    }
-   }
-  ],
-  "open": [
-   8,
-   21
-  ],
-  "local": "pharm"
- },
- "tech": {
-  "name": "{city} Electronics",
-  "exits": {
-   "plaza": 3
-  },
-  "desc": {
-   "morning": "Demo screens loop their bright, silent clips.",
-   "day": "Glass cases of phones and a wall of cables.",
-   "evening": "Fluorescent light, dull music, the faint smell of new plastic.",
-   "night": "Shuttered and dark, the sign buzzing."
-  },
-  "actions": [
-   {
-    "label": "Browse the cases",
-    "type": "shop",
-    "store": "tech",
-    "req": {
-     "age": [
-      12,
-      99
-     ]
-    }
-   }
-  ],
-  "open": [
-   10,
-   20
-  ],
-  "local": "techie"
- },
- "clothes": {
-  "name": "{city} Clothing",
-  "exits": {
-   "plaza": 2
-  },
-  "desc": {
-   "morning": "Racks of new stock still smelling of the warehouse.",
-   "day": "Changing-room curtains swish. Hangers click.",
-   "evening": "A mannequin in a coat that costs more than your week.",
-   "night": "Shuttered and dark, the sign buzzing."
-  },
-  "actions": [
-   {
-    "label": "Look through the racks",
-    "type": "shop",
-    "store": "clothes"
-   }
-  ],
-  "open": [
-   10,
-   20
-  ],
-  "local": "tailor"
- },
- "hardware": {
-  "name": "Hardware and Home",
-  "exits": {
-   "plaza": 3
-  },
-  "desc": {
-   "morning": "Sawdust and rubber and the crackle of an old radio.",
-   "day": "Aisles of screws, pipes and homely ambition.",
-   "evening": "A lone customer debating paint with great seriousness.",
-   "night": "Shuttered and dark, the sign buzzing."
-  },
-  "actions": [
-   {
-    "label": "Wander the aisles",
-    "type": "shop",
-    "store": "hardware"
-   }
-  ],
-  "open": [
-   8,
-   19
-  ],
-  "local": "handy"
- },
- "books": {
-  "name": "{city} Books and Gifts",
-  "exits": {
-   "plaza": 2
-  },
-  "desc": {
-   "morning": "The bell over the door rings for you alone.",
-   "day": "Paperback spines in rows and a cat asleep on the poetry.",
-   "evening": "Soft lamps, soft music, a basket of cards by the till.",
-   "night": "Shuttered and dark, the sign buzzing."
-  },
-  "actions": [
-   {
-    "label": "Browse the shelves",
-    "type": "shop",
-    "store": "books"
-   }
-  ],
-  "open": [
-   9,
-   20
-  ],
-  "local": "booker"
  }
 }
